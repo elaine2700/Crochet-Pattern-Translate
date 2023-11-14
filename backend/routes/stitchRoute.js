@@ -17,9 +17,11 @@ router.get('/', async(request, response)=>{
     }
 });
 
-// Route for creating a new Stitch
+// Route for saving a new Stitch
 router.post('/', async(request, response)=>{
+    console.log('Request here');
     try{
+        
         if(!request.body.stitchName){
             return response.status(400).send(
                 {message: 'Send all required fields'}
@@ -28,24 +30,28 @@ router.post('/', async(request, response)=>{
 
         const newStitch = {
             stitchName: request.body.stitchName,
+            abbreviation: request.body.abbreviation,
             contributionBy: request.body.contributionBy,
             difficulty:  request.body.difficulty,
             picture:{
                 src: request.body.src,
                 picAuthor: request.body.src
             },
+            stitchesCombination: request.body.stitchesCombination,
             textTutorial: request.body.textTutorial,
             videoTutorial: request.body.videoTutorial,
             meta:{
                 votes: 0,
                 favs: 0
             }
-        }
+        };
 
         const stitch = await Stitch.create(newStitch);
+        
         return response.status(201).send(stitch);
     }
     catch(error){
+        console.log('Back Error');
         console.log(error);
         response.status(500).send({
             message: error.message

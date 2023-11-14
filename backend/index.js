@@ -9,11 +9,15 @@ console.log('Hello');
 
 app.use(cors());
 
+// Middleware for parsing request
+app.use(express.json());
+
 app.get('/', (request, response)=>{
     response.send('Crochet Spacecraft');
     console.log(mongoDbUri);
 })
 
+// Routing to different collections
 app.use('/stitches', stitchRoute);
 
 app.listen(PORT,()=>{
