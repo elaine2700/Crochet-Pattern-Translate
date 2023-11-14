@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const GalleryCard = ({ cardName = 'Stitch' }) => {
     const [hoverState, setHoverState] = useState(false);
@@ -24,7 +25,11 @@ const GalleryCard = ({ cardName = 'Stitch' }) => {
                     (<div className='swatch-details back'>
                         <div>
                             <h2>{cardName}</h2>
-                            <p>Description</p>
+                            <Link
+                                to="/stitch-details"
+                                className='btn-secondary'>
+                                More
+                            </Link>
                         </div>
                     </div>)
             }

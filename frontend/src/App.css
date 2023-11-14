@@ -102,6 +102,9 @@ h1, h2 {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 50px);
+    
+}
+.padding.section-container{
     padding: 3em;
 }
 
@@ -112,6 +115,7 @@ h1, h2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
+    width: 100%;
     max-width: 1500px;
     margin: auto;
 }
@@ -130,21 +134,52 @@ h1, h2 {
     transition-delay: 1s;
 }
 
+/*Stitch Detail Section*/
+.fit-picture{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-color: bisque;
+}
+
 /* Buttons */
-.btn-primary{
+.btn-primary, .btn-secondary{
     border-radius: 10px;
-    min-width: 100px;
-    display: block;
+    display: inline-block;
     padding: 1em;
     appearance: none;
     border: 0;
-    background-color: green;
     color: white;
     text-align: center;
     text-decoration: none;
+}
+
+.btn-primary{
+    background-color: green;
+    min-width: 100px;
 }
 
     .btn-primary:hover{
         background-color: aquamarine;
     }
 
+.btn-secondary{
+    background-color: blue;
+    min-width: 75px;
+}
+
+.btn-secondary:hover{
+    background-color: aquamarine;
+}
+
+/* Detail Page */
+.detail-section{
+    min-height: calc(100vh - 50px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.detail-content{
+    padding: 2em;
+    
+}

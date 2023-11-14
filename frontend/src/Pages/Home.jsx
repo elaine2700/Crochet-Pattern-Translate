@@ -15,7 +15,7 @@ const Home = () => {
     }
 
     return (
-        <section className='section-container'>
+        <section className='padding section-container'>
             <div className='fit'>
                 <h1 className='home-title'>A crochet database made by and for crochet lovers</h1>
                 <div className='two-column-grid'>
