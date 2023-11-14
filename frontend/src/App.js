@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import NavBar from './Components/NavBar';
@@ -10,6 +9,7 @@ import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
+import Create from './Pages/Create';
 
 function App() {
 
@@ -23,6 +23,7 @@ function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/stitch-details' element={<StitchDetail/>}/>
         <Route path='/pattern-details' element={<PatternDetail/>}/>
+        <Route path='/create' element={<Create/>}/>
         <Route path='*' element={<div>Not Found</div>}/>
       </Routes>     
     </BrowserRouter>
