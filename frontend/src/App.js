@@ -3,12 +3,11 @@ import axios from 'axios'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import NavBar from './Components/NavBar';
-import Catalog from './Pages/Catalog';
 import './App.css';
 import Home from './Pages/Home';
 import StitchesGallery from './Pages/StitchesGallery';
-import PatternsGallery from './PatternsGallery';
-import Contact from './Contact';
+import PatternsGallery from './Pages/PatternsGallery';
+import Contact from './Pages/Contact';
 
 function App() {
 
