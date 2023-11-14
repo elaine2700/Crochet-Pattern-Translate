@@ -15,10 +15,10 @@ const Home = () => {
     }
 
     return (
-        <section className='padding section-container'>
-            <div className='fit'>
+        <section className='home-section section-container'>
+            <div>
                 <h1 className='home-title'>A crochet database made by and for crochet lovers</h1>
-                <div className='two-column-grid'>
+                <div className='homesection-grid'>
                     <HomeCard settings={stitchesCardSettings} />
                     <HomeCard settings={patternCardSettings} />
                 </div>

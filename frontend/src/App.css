@@ -37,6 +37,13 @@ h1, h2 {
 #search-label{
     display: none;
 }
+/* General */
+.section-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 50px);
+}
 
 /* Nav Bar */
 .navbar-container{
@@ -97,21 +104,15 @@ h1, h2 {
 .home-title{
     margin-bottom: 1em;
 }
-.section-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 50px);
-    
-}
-.padding.section-container{
+
+.home-section{
     padding: 3em;
 }
 
-.fit{
+.home-section > :first-child{
     width: 100%;
 }
-.two-column-grid{
+.homesection-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
@@ -181,5 +182,19 @@ h1, h2 {
 
 .detail-content{
     padding: 2em;
-    
+}
+
+/* Contact Page */
+.contact-section{
+    min-height: calc(100vh - 50px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 3em;
+    gap: 1em;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+.contact-card{
+    border: 1px solid black;
+    min-height: 300px;
 }
