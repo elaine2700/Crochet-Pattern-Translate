@@ -9,6 +9,7 @@ import StitchesGallery from './Pages/StitchesGallery';
 import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
+import PatternDetail from './Pages/PatternDetail';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/patterns' element={<PatternsGallery/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/stitch-details' element={<StitchDetail/>}/>
+        <Route path='/pattern-details' element={<PatternDetail/>}/>
         <Route path='*' element={<div>Not Found</div>}/>
       </Routes>     
     </BrowserRouter>

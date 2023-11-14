@@ -8,6 +8,8 @@ const PatternsGallery = () => {
     
   const [patterns, setPatterns] = useState([]);
 
+  const cardPath = '/pattern-details'
+
   useEffect(()=>{
     setPatterns(allPatterns);
   }, [])
@@ -18,7 +20,7 @@ const PatternsGallery = () => {
           <div className='gallery-container'>
               {
                   patterns.map((pattern, index) => {
-                      return (<GalleryCard key={index} cardName={pattern} />)
+                      return (<GalleryCard key={index} cardName={pattern} linkTo={cardPath}/>)
                   })
               }
           </div>

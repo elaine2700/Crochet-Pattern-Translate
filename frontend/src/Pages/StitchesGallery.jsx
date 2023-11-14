@@ -9,6 +9,7 @@ const StitchesGallery = () => {
     
   const [stitches, setStitches] = useState([]);
 
+  const cardPath = '/stitch-details'
   useEffect(()=>{
     setStitches(allStitches);
   }, [])
@@ -19,7 +20,7 @@ const StitchesGallery = () => {
           <div className='gallery-container'>
               {
                   stitches.map((stitch, index) => {
-                      return (<GalleryCard key={index} cardName={stitch} />)
+                      return (<GalleryCard key={index} cardName={stitch} linkTo={cardPath}/>)
                   })
               }
           </div>
