@@ -19,7 +19,7 @@ const StitchesGallery = () => {
           <div className='gallery-container'>
               {
                   stitches.map((stitch, index) => {
-                      return (<GalleryCard key={index} stitchName={stitch} />)
+                      return (<GalleryCard key={index} cardName={stitch} />)
                   })
               }
           </div>

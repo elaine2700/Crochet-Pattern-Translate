@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const GalleryCard = ({ stitchName = 'Stitch' }) => {
+const GalleryCard = ({ cardName = 'Stitch' }) => {
     const [hoverState, setHoverState] = useState(false);
 
     const handleHoverState = (e, enter) => {
@@ -18,12 +18,12 @@ const GalleryCard = ({ stitchName = 'Stitch' }) => {
             {
                 !hoverState ?
                     (<div className='swatch-details'>
-                        <h2>{stitchName}</h2>
+                        <h2>{cardName}</h2>
                         <p>Basic</p>
                     </div>) :
                     (<div className='swatch-details back'>
                         <div>
-                            <h2>{stitchName}</h2>
+                            <h2>{cardName}</h2>
                             <p>Description</p>
                         </div>
                     </div>)
