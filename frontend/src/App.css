@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Quicksand:wght@400;600;700&display=swap');
+
+:root{
+    --blue: #83A2FF;
+    --lightBlue: #B4BDFF;
+    --lightYellow: #FFE3BB;
+    --yellow: #FFD28F;
+    --grey: #F4F0F1;
+    --red: #FA7070;
+    --darkRed: #CE5A67;
+    --quicksandFont: 'Quicksand', sans-serif;
+    --dmSerifDisplayFont: 'DM Serif Display', serif;
+}
+
+html{
+    font-family: var(--quicksandFont);
+    background-color: var(--grey);
+}
+
 *{
     box-sizing: border-box;
     padding: 0;
@@ -5,8 +24,17 @@
     border: 0;
 }
 
-h1, h2 {
-    text-align: center;
+h1, h2, h3, h4, h5, h6{
+    font-family: var(--dmSerifDisplayFont);
+}
+
+a{
+    color: black;
+    text-decoration: und;
+}
+
+a:hover{
+    text-decoration: none;
 }
 
 /* Search Bar */
@@ -47,92 +75,170 @@ h1, h2 {
 
 /* Nav Bar */
 .navbar-container{
-    border: 1px solid tomato;
+    border-bottom: 2px solid var(--blue);
     color: black;
-    height: 3rem;
+    height: 5rem;
+    padding: 0.5em;
+    padding-bottom: 0;
     display: flex;
     justify-content: space-between;
+    align-content: end;
+}
+/*.navbar-container > *{
+    border: red 1px solid;
+}*/
+.navbar-container img{
+    height: 100%;
 }
 .navbar-list{
     display: flex;
     list-style: none;
-    gap: 1rem;
-    align-items: center;
+    gap: 2rem;
+    align-items: end;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
+.navbar-list > a{
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-bottom: 0.75em;
+}
+
+.navbar-list > a:hover{
+    border-bottom: 3px solid var(--blue);
+}
+
 /* Gallery */
 .gallery-container{
-    padding: 0.5rem;
+    border: 2px solid var(--blue);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 0.5rem;
+    gap: 2px;
+    background-color: var(--blue);
 }
 .stitch-swatch {
     width: 100%;
     aspect-ratio: 1 / 1;
     background-size: cover;
-    border: 1px dashed tomato;
-    border-radius: 1rem;
+    background-position: center;
     overflow: hidden;
     display: flex;
     align-items: end;
     justify-content: center;
-    color: white;
 }
 
-    .swatch-details{
-        width: 100%;
-        min-height: 1rem;
-        text-align: center;
-        background-color: rgba(206, 105, 105, 0.4);
-        transition-duration: 1s;
+.swatch-details{
+    padding-left: 2em;
+    padding-bottom: 2em;
+    width: 100%;
+    min-height: 1rem;
+    text-align: center;
+    background-color: rgba(142, 148, 208, 0);
+    transition-duration: 1s;
+    position: relative;
+}
+    .swatch-details h2{
+        width: fit-content;
+        background-color: var(--blue);
+        margin-bottom: 0.25em;
+        padding: 0.15em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        color: var(--yellow);
+    }
+    .swatch-details p{
+        padding: 0.15em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        width: fit-content;
+        background-color: var(--lightBlue);
+    }
+    .swatch-details a{
+        width: fit-content;
+        margin-left: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
-    .swatch-details.back{
-        width: 100%;
-        min-height: 100%;
-        text-align: center;
-        transition-duration: 1s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+.stitch-swatch .back{
+    width: 100%;
+    min-height: 100%;
+    transition-duration: 1s;
+}
+
+    .swatch-details.back h2{
+        margin-top: 1em;
     }
+    
 
 /* Home Cards */
-.home-title{
-    margin-bottom: 1em;
-}
-
 .home-section{
-    padding: 3em;
+    padding-top: 3em;
+    max-width: 1500px;
+    margin: 0 auto;
 }
-
 .home-section > :first-child{
     width: 100%;
+}
+
+.home-section header{
+    padding-left: 5em;
+    padding-bottom: 3em;
+}
+.home-title{
+    width: fit-content;
+    margin-bottom: 1em;
+    background-color: var(--blue);
+    color: var(--lightYellow);
+    font-size: 3.5rem;
+    padding: 0.15em;
+}
+.home-subtitle{
+    font-family: var(--quicksandFont);
+    margin-top: -2em;
+    text-decoration: underline;
+    font-weight: 400;
 }
 .homesection-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1em;
     width: 100%;
-    max-width: 1500px;
+    
     margin: auto;
+    background-color: var(--blue);
+    gap: 2px;
+    border: var(--blue) 2px solid;
 }
 
 .home-card{
+    aspect-ratio: 16 / 9;
     min-width: 100px;
     min-height: 100px;
     background-size: cover;
     width: 100%;
-    aspect-ratio: 1 / 1;
     background-size: cover;
-    display: flex;
-    align-items: end;
-    justify-content: center;
-    padding-bottom: 3em;
+    background-position: center;
+    padding-left: 1.5em;
+    padding-top: 1.5em;
     transition-delay: 1s;
+}
+
+/* Footer */
+
+footer{
+    background-color: var(--blue);
+    position: fixed;
+    bottom: 0;
+    min-height: 30px;
+    padding: 0.25em;
+    display: flex;
+    gap: 1em;
+    color: white;
+    font-weight: 700;
+    width: 100%;
 }
 
 /*Stitch Detail Section*/
@@ -145,32 +251,44 @@ h1, h2 {
 
 /* Buttons */
 .btn-primary, .btn-secondary{
-    border-radius: 10px;
+    border-radius: calc(52px * 0.5);
     display: inline-block;
     padding: 1em;
-    appearance: none;
     border: 0;
     color: white;
     text-align: center;
     text-decoration: none;
+    font-weight: 700;
+    font-family: var(--quicksandFont);
 }
 
 .btn-primary{
-    background-color: green;
+    background-color: var(--yellow);
+    color: var(--blue);
     min-width: 100px;
-}
-
+    transition-duration: 0.5s;
+}   
     .btn-primary:hover{
-        background-color: aquamarine;
+        transition-duration: 0.5s;
+        min-width: 150px;
+    }
+
+    .btn-primary:hover::after{
+        content: ' --->';
     }
 
 .btn-secondary{
-    background-color: blue;
+    background-color: var(--blue);
     min-width: 75px;
 }
-
 .btn-secondary:hover{
-    background-color: aquamarine;
+    transition-duration: 0.5s;
+    min-width: 150px;
+}
+
+.btn-secondary:hover::after{
+    
+    content: ' -->';
 }
 
 /* Detail Page */

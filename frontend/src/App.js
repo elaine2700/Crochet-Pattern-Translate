@@ -25,7 +25,12 @@ function App() {
         <Route path='/pattern-details' element={<PatternDetail/>}/>
         <Route path='/create' element={<Create/>}/>
         <Route path='*' element={<div>Not Found</div>}/>
-      </Routes>     
+      </Routes>  
+      <footer>
+                <p>Crochet Spacecraft</p>
+                <p>Contact Us</p>
+                <p>Instagram</p>
+            </footer>   
     </BrowserRouter>
   );
 }

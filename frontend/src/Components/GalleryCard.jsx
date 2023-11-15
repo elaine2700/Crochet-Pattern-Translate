@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const GalleryCard = ({ cardName = 'Stitch', linkTo }) => {
-    const [hoverState, setHoverState] = useState(false);
+    const [hoverState, setHoverState] = useState(true);
 
     const handleHoverState = (e, enter) => {
-        setHoverState(enter);
+        //setHoverState(enter);
         console.log(hoverState);
         console.log(`Hover ${e.target}`)
     }
 
     return (
         <div
-            style={{ backgroundImage: `url('logo192.png')` }}
+            style={{ backgroundImage: `url('dog-bear.jpg')` }}
             className='stitch-swatch'
             onMouseEnter={(e) => handleHoverState(e, true)}
             onMouseLeave={(e) => handleHoverState(e, false)}>
@@ -23,14 +23,15 @@ const GalleryCard = ({ cardName = 'Stitch', linkTo }) => {
                         <p>Basic</p>
                     </div>) :
                     (<div className='swatch-details back'>
-                        <div>
-                            <h2>{cardName}</h2>
-                            <Link
-                                to={linkTo}
-                                className='btn-secondary'>
-                                More
-                            </Link>
-                        </div>
+                        
+                        <h2>{cardName}</h2>
+                        <p>Basic</p>
+                        <Link
+                            to={linkTo}
+                            className='btn-primary'>
+                            See Details
+                        </Link>
+                        
                     </div>)
             }
         </div>
