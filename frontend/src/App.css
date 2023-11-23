@@ -74,41 +74,6 @@ a:hover{
     min-height: calc(100vh - 50px);
 }
 
-/* Nav Bar */
-.navbar-container{
-    border-bottom: 2px solid var(--blue);
-    color: black;
-    height: 5rem;
-    padding: 0.5em;
-    padding-bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-content: end;
-}
-/*.navbar-container > *{
-    border: red 1px solid;
-}*/
-.navbar-container img{
-    height: 100%;
-}
-.navbar-list{
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    align-items: end;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.navbar-list > a{
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-    padding-bottom: 0.75em;
-}
-
-.navbar-list > a:hover{
-    border-bottom: 3px solid var(--blue);
-}
 
 /* Gallery */
 .gallery-container{
@@ -349,4 +314,10 @@ footer{
         justify-content: center;
         align-items: center;
     }
+
+/* Media queries */
+@media screen and (max-width: 900px) {
+    
+    
+}
     

@@ -1,0 +1,71 @@
+.container{
+    border-bottom: 2px solid var(--blue);
+    color: black;
+    height: 5rem;
+    padding: 0.5em;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-content: end;
+    position: relative;
+}
+
+.container img{
+    height: 100%;
+}
+
+.logo h1{
+    font-size: 18px;
+}
+
+.container > *{
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: end;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.list > *{
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-bottom: 0.75em;
+}
+
+/* All buttons except the first */
+.list button:not(:nth-child(1)){
+    margin-left: 0.5em ;
+}
+
+.list > a:hover{
+    border-bottom: 3px solid var(--blue);
+} 
+
+.menuIcon{
+    display: none;
+    color: var(--blue);
+    font-size: 30px;
+    align-self: end;
+    background-color: transparent;
+}
+
+.menuIcon:hover{
+    color: var(--lightBlue);
+}
+
+.collapsedMenu{
+    display: none;
+}
+
+@media screen and (max-width: 900px) {
+    .collapsedMenu{
+        display: block;
+        position: absolute;
+        top:0;
+        right: 0;
+    }
+    .menuIcon{
+        display: block;
+    }
+}

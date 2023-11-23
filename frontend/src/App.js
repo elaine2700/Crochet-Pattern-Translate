@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
-import NavBar from './Components/NavBar';
+import NavBar from './Components/NavBar/NavBar';
 import './App.css';
 import Home from './Pages/Home';
 import StitchesGallery from './Pages/StitchesGallery';
