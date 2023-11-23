@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { IoMenu } from 'react-icons/io5'
 import navbarStyles from './navbar.module.css'
-import MenuButtons from "./MenuButtons"
-import MenuLinks from "./MenuLinks"
 import { useEffect, useState } from "react"
+import MenuButtons from "./MenuButtons"
+import MenuLinks from './MenuLinks'
 
 const NavBar = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -12,7 +12,7 @@ const NavBar = () => {
   useEffect(() => {
 
     const handleResize = () => {
-      setCollapsed(window.innerWidth < 900)
+      setCollapsed(window.innerWidth <= 900)
     };
 
     window.addEventListener('resize', handleResize);
@@ -24,7 +24,7 @@ const NavBar = () => {
 
   const renderMenuComponents = (componentsList) => {
     return (
-      componentsList.map((component, index) => {
+      componentsList.map((component) => {
         return component()
       })
     )
@@ -39,6 +39,7 @@ const NavBar = () => {
       {collapsed ?
         (
           <div className={navbarStyles.collapsedMenu}>
+            <span className={navbarStyles.closeIcon}>X</span>
             {
               renderMenuComponents(list)
             }

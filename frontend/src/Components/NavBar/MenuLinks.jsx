@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const MenuLinks = () => {
   return (
-    <nav className={navbarStyles.list}>
+    <nav key={80} className={navbarStyles.list}>
         <Link to={'/'}>Home</Link>
         <Link to={'/stitches'}>Stitches</Link>
         <Link to={'/patterns'}>Patterns</Link>

@@ -1,3 +1,4 @@
+
 .container{
     border-bottom: 2px solid var(--blue);
     color: black;
@@ -21,7 +22,7 @@
 .container > *{
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: end;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -31,11 +32,6 @@
     padding-left: 0.75em;
     padding-right: 0.75em;
     padding-bottom: 0.75em;
-}
-
-/* All buttons except the first */
-.list button:not(:nth-child(1)){
-    margin-left: 0.5em ;
 }
 
 .list > a:hover{
@@ -58,14 +54,45 @@
     display: none;
 }
 
+.closeIcon{
+    position: absolute;
+    top:0;
+    right: 0;
+    padding: 1em;
+    border-left: 1px solid var(--blue);
+    border-bottom: 1px solid var(--blue);
+}
+
+.closeIcon:hover{
+    background-color: var(--blue);
+    color: white;
+}
+
 @media screen and (max-width: 900px) {
     .collapsedMenu{
         display: block;
         position: absolute;
         top:0;
         right: 0;
+        padding: 1em;
+        width: 50vw;
+        min-width: 200px;
+        background-color: var(--lightYellow);
+        border: 2px solid var(--blue);
     }
+    .collapsedMenu > list{
+        display: block;
+    }
+    .collapsedMenu > .list > *{
+        display: block;
+        padding: 0.25em;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
     .menuIcon{
         display: block;
     }
+
+    
 }

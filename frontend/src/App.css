@@ -215,6 +215,9 @@ footer{
     background-color: bisque;
 }
 
+.btn-secondary{
+    display: block;
+}
 /* Buttons */
 .btn-primary, .btn-secondary{
     border-radius: calc(52px * 0.5);
