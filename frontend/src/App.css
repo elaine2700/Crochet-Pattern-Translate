@@ -30,11 +30,12 @@ h1, h2, h3, h4, h5, h6{
 
 a{
     color: black;
-    text-decoration: und;
+    text-decoration: underline;
 }
 
 a:hover{
-    text-decoration: none;
+    
+    color: var(--blue)
 }
 
 /* Search Bar */
@@ -304,15 +305,48 @@ footer{
 
 /* Contact Page */
 .contact-section{
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 100px);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 3em;
-    gap: 1em;
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 .contact-card{
-    border: 1px solid black;
-    min-height: 300px;
+    border: 2px solid var(--blue);
+    min-height: 100px;
+    height: 70vh;
+    max-height: 450px;
+    display: flex;
+    flex-direction: column;
 }
+.contact-card.middle{
+    border-left: 0;
+    border-right: 0;
+}
+
+    /* Contact Cards */
+    .contact-card > header{
+        border-bottom: 2px solid var(--blue);
+        padding: 0.5em;
+        text-align: center;
+        width: 100%;
+        height: 3.5em;
+    }
+    .contact-card-content{
+        padding: 1em;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .contact-card-paragraph{
+        height: fit-content;
+        min-height: 50px;
+    }
+    .contact-card-cta{
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+    }
+    
