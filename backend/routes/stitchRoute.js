@@ -59,4 +59,17 @@ router.post('/', async(request, response)=>{
     }
 })
 
+// Route for getting a stich by id
+router.get('/:id', async(request, response)=>{
+    try{
+        const {id} = request.params;
+        const stitch = await Stitch.findById(id);
+        return response.status(200).json(stitch);
+    }
+    catch (error){
+        console.log(error.message)
+        response.status(500).send({message: error.message})
+    }
+})
+
 module.exports = router;

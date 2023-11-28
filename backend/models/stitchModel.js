@@ -6,9 +6,11 @@ const stitchSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        stitchType: String,
-        abbreviation:{
+        description:{
             type: String,
+        },
+        stitchType: {
+            type: String
         },
         contributionBy: {
             type: String
@@ -21,11 +23,10 @@ const stitchSchema = mongoose.Schema(
             picAuthor: String
         },
         stitchesCombination:[
-            {stitch: String}
+            {
+                stitch: String,
+            }
         ],
-        textTutorial:{
-            type: String
-        },
         videoTutorial:{
             type: String
         },
