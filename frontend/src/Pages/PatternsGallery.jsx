@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import SearchBar from '../Components/SearchBar'
-import GalleryCard from '../Components/GalleryCard'
+import SearchBar from '../Components/Search Bar/SearchBar'
+import GalleryCard from '../Components/Gallery Card/GalleryCard'
 
 const PatternsGallery = () => {
   // Todo replace with database objects.

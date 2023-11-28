@@ -1,0 +1,28 @@
+.container{
+    padding: 0.5rem;
+}
+.bar{
+    color: var(--blue);
+    border-radius: 1rem;
+    padding: 0.5em;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5em;
+}
+.container input{
+    color: var(--blue);
+    width: calc(100% - 2rem);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    font-family: var(--quicksandFont);
+}
+.container input::placeholder{
+    color: var(--lightblue);
+}
+
+label{
+    display: none;
+}

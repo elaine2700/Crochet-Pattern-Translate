@@ -38,34 +38,6 @@ a:hover{
     color: var(--blue)
 }
 
-/* Search Bar */
-.searchBar-container{
-    padding: 0.5rem;
-}
-.searchBar-bar{
-    color: white;
-    background-color: tomato;
-    border-radius: 1rem;
-    padding: 0.5em;
-    padding-left: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.5em;
-}
-.searchBar-container input{
-    color: white;
-    width: calc(100% - 2rem);
-    border-radius: 1rem;
-    font-size: 1.5rem;
-    background-color: transparent;
-}
-.searchBar-container > input::placeholder{
-    opacity: 0.7;
-}
-#search-label{
-    display: none;
-}
 /* General */
 .section-container{
     display: flex;
@@ -74,71 +46,16 @@ a:hover{
     min-height: calc(100vh - 50px);
 }
 
-
 /* Gallery */
 .gallery-container{
     border: 2px solid var(--blue);
+    border-left: 0;
+    border-right: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2px;
     background-color: var(--blue);
 }
-.stitch-swatch {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-    display: flex;
-    align-items: end;
-    justify-content: center;
-}
-
-.swatch-details{
-    padding-left: 2em;
-    padding-bottom: 2em;
-    width: 100%;
-    min-height: 1rem;
-    text-align: center;
-    background-color: rgba(142, 148, 208, 0);
-    transition-duration: 1s;
-    position: relative;
-}
-    .swatch-details h2{
-        width: fit-content;
-        background-color: var(--blue);
-        margin-bottom: 0.25em;
-        padding: 0.15em;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-        color: var(--yellow);
-    }
-    .swatch-details p{
-        padding: 0.15em;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-        width: fit-content;
-        background-color: var(--lightBlue);
-    }
-    .swatch-details a{
-        width: fit-content;
-        margin-left: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-.stitch-swatch .back{
-    width: 100%;
-    min-height: 100%;
-    transition-duration: 1s;
-}
-
-    .swatch-details.back h2{
-        margin-top: 1em;
-    }
-    
 
 /* Home Cards */
 .home-section{
@@ -213,6 +130,7 @@ footer{
     height: 100%;
     background-size: cover;
     background-color: bisque;
+    background-position: center;
 }
 
 .btn-secondary{
@@ -262,7 +180,7 @@ footer{
 
 /* Detail Page */
 .detail-section{
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 100px);
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -320,7 +238,30 @@ footer{
 
 /* Media queries */
 @media screen and (max-width: 900px) {
-    
+
+.detail-section{
+    grid-template-columns: 1fr;
+}
+.detail-section > :nth-child(1) {
+    min-height: 150px;
+}
+
+.contact-section{
+    grid-template-columns: 1fr;
+    max-width: 600px;
+}
+.contact-card{
+    height: 30vh;
+    min-height: 100px;
+}
+.contact-card.middle{
+    border-left: 2px solid var(--blue);
+    border-right: 2px solid var(--blue);
+    border-top: 0;
+    border-bottom: 0;
+}
+
+
     
 }
     

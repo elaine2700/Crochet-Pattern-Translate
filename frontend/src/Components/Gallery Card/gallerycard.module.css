@@ -1,0 +1,59 @@
+.swatch {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    max-width: 400px;
+}
+
+.details{
+    padding-left: 2em;
+    padding-bottom: 2em;
+    width: 100%;
+    min-height: 1rem;
+    text-align: center;
+    background-color: rgba(142, 148, 208, 0);
+    transition-duration: 1s;
+    position: relative;
+}
+    .details h2{
+        width: fit-content;
+        background-color: var(--blue);
+        margin-bottom: 0.25em;
+        padding: 0.15em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        color: var(--yellow);
+    }
+    .details p{
+        padding: 0.15em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        width: fit-content;
+        background-color: var(--lightBlue);
+    }
+    .details a{
+        width: fit-content;
+        margin-left: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+.swatch .back{
+    padding-top: 1.5em;
+    width: 100%;
+    min-height: 100%;
+    transition-duration: 1s;
+    background-color: rgba(0, 0 , 0, 0.1);
+}
+
+    .swatch-details.back h2{
+        margin-top: 1em;
+    }
+   

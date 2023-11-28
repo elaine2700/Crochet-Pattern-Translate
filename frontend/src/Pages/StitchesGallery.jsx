@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import GalleryCard from '../Components/GalleryCard'
-import SearchBar from '../Components/SearchBar'
+import GalleryCard from '../Components/Gallery Card/GalleryCard'
+import SearchBar from '../Components/Search Bar/SearchBar'
 import axios from 'axios'
 
 

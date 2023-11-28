@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {HiSearch} from 'react-icons/hi'
 import {AiOutlineClose} from 'react-icons/ai'
+import searchbarStyles from './searchbar.module.css'
 
 const SearchBar = ({setFilterStitches, stitchesList}) => {
 
@@ -19,8 +20,8 @@ const SearchBar = ({setFilterStitches, stitchesList}) => {
   }
 
   return (
-    <div className='searchBar-container'>
-      <div className='searchBar-bar'>
+    <div className={searchbarStyles.container}>
+      <div className={searchbarStyles.bar}>
         <HiSearch/>
         <label
         htmlFor='stitch-search'
@@ -35,7 +36,6 @@ const SearchBar = ({setFilterStitches, stitchesList}) => {
         <AiOutlineClose/>
         
       </div>
-      <p>{searchVal}</p>
     </div>
   )
 }
