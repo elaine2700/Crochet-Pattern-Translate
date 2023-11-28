@@ -1,14 +1,34 @@
 import navbarStyles from './navbar.module.css'
 import { Link } from 'react-router-dom'
 
-const MenuLinks = () => {
+
+const MenuLinks = ({onClick}) => {
+  /*let onClickAction = ()=>{console.log('default')};
+
+  Object.defineProperty(this, "onClickAction", {
+    get() {
+      console.log("get!");
+      return onClickAction;
+    },
+    set(value) {
+      onClickAction = value;
+    },
+  });
+  */
+  let clickAction = ()=>{
+    console.log('default')
+  }
+  if(onClick != null){
+    clickAction = onClick
+  }
+
   return (
     <nav key={80} className={navbarStyles.list}>
-        <Link to={'/'}>Home</Link>
-        <Link to={'/stitches'}>Stitches</Link>
-        <Link to={'/patterns'}>Patterns</Link>
-        <Link to={'/contact'}>Contribute</Link>
-      </nav>
+      <Link to={'/'} onClick={clickAction}>Home</Link>
+      <Link to={'/stitches'} onClick={clickAction}>Stitches</Link>
+      <Link to={'/patterns'} onClick={clickAction}>Patterns</Link>
+      <Link to={'/contact'} onClick={clickAction}>Contribute</Link>
+    </nav>
   )
 }
 

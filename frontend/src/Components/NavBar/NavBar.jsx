@@ -5,18 +5,25 @@ import { useEffect, useState } from "react"
 import MenuButtons from "./MenuButtons"
 import MenuLinks from './MenuLinks'
 
+
 const NavBar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [list, setList] = useState([MenuLinks, MenuButtons]);
+  const [hidden, setHidden] = useState(true);
+
+  // Open Close Menu when on collapsed State
+  const openCloseMenu = (display)=>{
+    setHidden(display);
+  }
 
   useEffect(() => {
-
     const handleResize = () => {
       setCollapsed(window.innerWidth <= 900)
     };
 
     window.addEventListener('resize', handleResize);
-
+    handleResize();
+    openCloseMenu(true);
     return ()=>{
       window.removeEventListener('resize', handleResize)
     }
@@ -38,11 +45,18 @@ const NavBar = () => {
 
       {collapsed ?
         (
-          <div className={navbarStyles.collapsedMenu}>
-            <span className={navbarStyles.closeIcon}>X</span>
-            {
-              renderMenuComponents(list)
-            }
+          <div className={
+            hidden ? 
+            `${navbarStyles.collapsedMenu} ${navbarStyles.hidden}` :
+            navbarStyles.collapsedMenu }> 
+            <button 
+              className={navbarStyles.closeIcon}
+              onClick={()=>openCloseMenu(true)}
+                >
+                  X
+            </button>
+            <MenuLinks onClick={()=>openCloseMenu(true)}/>
+            <MenuButtons />
           </div>
         ) :
         (
@@ -52,7 +66,7 @@ const NavBar = () => {
 
       <button
         className={navbarStyles.menuIcon}
-        onClick={() => { console.log('Hello here') }}>
+        onClick={() => openCloseMenu(false)}>
         <IoMenu />
       </button>
     </div>
