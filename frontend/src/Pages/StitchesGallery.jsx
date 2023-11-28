@@ -9,8 +9,11 @@ const StitchesGallery = () => {
     const allStitches = ['Single Crochet', 'Double Crochet', 'Slip Stitch', 'Chain', 'Popcorn']
 
     const [stitches, setStitches] = useState([]);
+    
+    const cardPath = (stitchId)=>{
+        return `/stitch-details/${stitchId}`
+    }
 
-    const cardPath = '/stitch-details'
     useEffect(() => {
         axios
             .get('http://localhost:3030/stitches')
@@ -30,7 +33,7 @@ const StitchesGallery = () => {
             <div className='gallery-container'>
                 {
                     stitches.map((stitch, index) => {
-                        return (<GalleryCard key={index} cardName={stitch.stitchName} linkTo={cardPath} />)
+                        return (<GalleryCard key={index} cardName={stitch.stitchName} linkTo={cardPath(stitch._id)} />)
                     })
                 }
             </div>

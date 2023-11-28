@@ -6,7 +6,7 @@
     padding-bottom: 0;
     display: flex;
     justify-content: space-between;
-    align-content: end;
+    align-content: flex-end;
     position: relative;
 }
 
@@ -41,7 +41,7 @@
     display: none;
     color: var(--blue);
     font-size: 30px;
-    align-self: end;
+    align-self: flex-end;
     background-color: transparent;
 }
 

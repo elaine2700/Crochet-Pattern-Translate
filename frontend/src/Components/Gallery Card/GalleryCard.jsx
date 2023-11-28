@@ -7,8 +7,6 @@ const GalleryCard = ({ cardName = 'Stitch', linkTo }) => {
 
     const handleHoverState = (e, enter) => {
         setHoverState(enter);
-        console.log(hoverState);
-        console.log(`Hover ${e.target}`)
     }
 
     return (

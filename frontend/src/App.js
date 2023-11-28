@@ -21,7 +21,7 @@ function App() {
         <Route path='/stitches' element={<StitchesGallery/>}/>
         <Route path='/patterns' element={<PatternsGallery/>}/>
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='/stitch-details' element={<StitchDetail/>}/>
+        <Route path='/stitch-details/:id' element={<StitchDetail/>}/>
         <Route path='/pattern-details' element={<PatternDetail/>}/>
         <Route path='/create' element={<Create/>}/>
         <Route path='*' element={<div>Not Found</div>}/>

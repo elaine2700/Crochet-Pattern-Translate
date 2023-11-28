@@ -2,7 +2,7 @@ import navbarStyles from './navbar.module.css'
 import { Link } from 'react-router-dom'
 
 
-const MenuLinks = ({onClick}) => {
+const MenuLinks = ({onClick} = ()=>console.log('default')) => {
   /*let onClickAction = ()=>{console.log('default')};
 
   Object.defineProperty(this, "onClickAction", {

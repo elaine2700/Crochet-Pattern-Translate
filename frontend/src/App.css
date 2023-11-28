@@ -188,6 +188,35 @@ footer{
 .detail-content{
     padding: 2em;
 }
+.detail-content .subtitle{
+    margin-top: 1em;
+}
+.tags{
+    display: flex;
+    gap: 0.5em;
+}
+.tags li{
+    list-style: none;
+}
+.stitch-tag{
+    border: 2px solid var(--blue);
+}
+.stitch-tag > div{
+    display: flex;
+    align-items: center;
+}
+.stitch-tag img{
+    width: 50px;
+    border-right: 2px solid var(--blue) ;
+}
+.stitch-tag p{
+    padding: 0.5em;
+}
+.diagram{
+    width: 100%;
+    max-width: 1000px;
+}
+
 
 /* Contact Page */
 .contact-section{
