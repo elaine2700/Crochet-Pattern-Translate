@@ -10,7 +10,18 @@ const StitchDetail = () => {
 
     const [videoTutorialPath, setVideoTutorialPath] = useState('https://www.youtube.com/@AmigurumiSpacecraft')
 
+    const dummyObj = {
+            stitchName: "Single Crochet",
+            description: "Simple Description",
+            stitchesCombination:["sc", "hdc"],
+            stitchDificulty: "Simple"
+    }
+
     useEffect(()=>{
+        setStitch(dummyObj);
+        setLoading(false);
+    },[]);
+    /*useEffect(()=>{
         setLoading(true);
         axios
             .get(`http://localhost:3030/stitches/${id}`)
@@ -27,6 +38,7 @@ const StitchDetail = () => {
                 navigate('/stitches')
             })
     },[])
+    */
 
     if (loading)
         return (<div>Loading...</div>)

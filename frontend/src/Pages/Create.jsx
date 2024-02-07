@@ -29,6 +29,7 @@ const Create = () => {
     }*/
 
 
+    /*
     axios
       .post('http://localhost:3030/stitches', data)
       .then(() => {
@@ -38,6 +39,7 @@ const Create = () => {
         console.log('Oops...')
         console.log(error);
       })
+    */
 
   }
   return (

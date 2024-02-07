@@ -14,7 +14,7 @@ const StitchesGallery = () => {
         return `/stitch-details/${stitchId}`
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         axios
             .get('http://localhost:3030/stitches')
             .then((response) => {
@@ -26,7 +26,10 @@ const StitchesGallery = () => {
             })
         //setStitches(allStitches);
     }, [])
-
+*/
+useEffect(()=>{
+    setStitches(allStitches);
+  }, [])
     return (
         <div>
             <SearchBar stitchesList={allStitches} setFilterStitches={setStitches} />
