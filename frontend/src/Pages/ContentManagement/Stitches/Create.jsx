@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Create = () => {
+  const navigate = useNavigate()
 
   const [stitchName, setStitchName] = useState('')
   const [description, setDescription] = useState('')
@@ -10,16 +12,12 @@ const Create = () => {
   const [difficulty, setDifficulty] = useState('');
   const [stitchPicture, setStitchPicture] = useState('');
   const [picAuthor, setPicAuthor] = useState('');
-
   const [combinationText, setCombinationText] = useState("");
-  let combination = []
-
   const [tutorialLink, setTutorialLink] = useState('');
 
   const separateCommas = (text) =>{
-    combination = text.split(',');
+    return text.split(',');
   }
-
 
   const handleSubmit = (event) => {
 
@@ -27,8 +25,7 @@ const Create = () => {
 
     console.log('Adding stitch or pattern..');
 
-    separateCommas(combinationText);
-
+    const combination = separateCommas(combinationText);
 
 
     const data = {
@@ -82,7 +79,7 @@ const Create = () => {
   return (
 
     <div className='container'>
-      <h1>Create Stitch</h1>
+      <h1 className='title'>Add Stitch</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='stitch-name'>Stitch Name</label>
         <input id='stitch-name' name='stitch-name' value={stitchName} onChange={e => setStitchName(e.target.value)} type='text' required></input>
@@ -127,7 +124,12 @@ const Create = () => {
         <label htmlFor='stitch-tutorial'>Video Tutorial Link</label>
         <input id='stitch-tutorial' value={tutorialLink} type='text' onChange={e => setTutorialLink(e.target.value)}/>
 
-        <input type='submit' value='Submit'/>
+
+        <div className='buttons-line'>
+          <input className='btn-secondary' type='submit' value='Submit'/>
+          <button className='btn-secondary-outline'>Back</button>
+        </div>
+        
       </form>
 
     </div>

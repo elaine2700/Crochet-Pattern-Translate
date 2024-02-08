@@ -4,7 +4,7 @@
     --blue: #83A2FF;
     --lightBlue: #B4BDFF;
     --lightYellow: #FFE3BB;
-    --yellow: #FFD28F;
+    --yellow: #ffdeac;
     --grey: #F4F0F1;
     --red: #FA7070;
     --darkRed: #CE5A67;
@@ -137,22 +137,25 @@ footer{
     display: block;
 }
 /* Buttons */
-.btn-primary, .btn-secondary{
+.btn-primary, .btn-secondary, .btn-secondary-outline{
     border-radius: calc(52px * 0.5);
     display: inline-block;
     padding: 1em;
     border: 0;
+}
+.btn-primary, .btn-secondary{
+    
     color: white;
     text-align: center;
     text-decoration: none;
     font-weight: 700;
     font-family: var(--quicksandFont);
+    min-width: 100px;
 }
 
 .btn-primary{
     background-color: var(--yellow);
     color: var(--blue);
-    min-width: 100px;
     transition-duration: 0.5s;
 }   
     .btn-primary:hover{
@@ -166,7 +169,9 @@ footer{
 
 .btn-secondary{
     background-color: var(--blue);
-    min-width: 75px;
+}
+.btn-secondary-outline{
+    border: 2px var(--blue) solid;
 }
 .btn-secondary:hover{
     transition-duration: 0.5s;
@@ -264,6 +269,57 @@ footer{
         justify-content: center;
         align-items: center;
     }
+
+
+.container{
+    width: 80vw;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 0.5em;
+    padding: 1em;
+}
+      
+    .container .title {
+        text-align: center;
+        padding: 0.5em;
+        background-color:var(--blue);
+        color: var(--lightYellow);
+        width: max-content;
+        margin: 0 auto;
+    }
+    
+    .container input, .container select, .container textarea{
+        width: 100%;
+        font-family: var(--quicksandFont) ;
+        font-size: 1em;
+        background-color: var(--lightYellow)
+    }
+
+    .container label{
+        font-size: 0.8em;
+        padding-top: 0.75em;
+        font-weight: 600;
+    }
+
+.buttons-line{
+    display: flex;
+    padding-top: 1em;
+    gap: 1em;
+}
+.buttons-line > *{
+    width: 100%;
+}
+.buttons-line .btn-secondary{
+    background-color: var(--blue);
+}
+      
+form{
+display: block;
+}
+
+label{
+display: block;
+}
 
 /* Media queries */
 @media screen and (max-width: 900px) {
