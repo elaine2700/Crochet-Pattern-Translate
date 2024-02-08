@@ -23,6 +23,6 @@
     color: var(--lightblue);
 }
 
-label{
+.label{
     display: none;
 }

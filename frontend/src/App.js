@@ -9,7 +9,7 @@ import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
-import Create from './Pages/Create';
+import Create from './Pages/ContentManagement/Stitches/Create';
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/stitch-details/:id' element={<StitchDetail/>}/>
         <Route path='/pattern-details' element={<PatternDetail/>}/>
-        <Route path='/create' element={<Create/>}/>
+        <Route path='/content-management/stitches/create' element={<Create/>}/>
         <Route path='*' element={<div>Not Found</div>}/>
       </Routes>  
       <footer>

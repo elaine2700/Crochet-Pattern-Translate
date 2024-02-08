@@ -23,7 +23,7 @@ const SearchBar = ({setFilterStitches, stitchesList}) => {
     <div className={searchbarStyles.container}>
       <div className={searchbarStyles.bar}>
         <HiSearch/>
-        <label
+        <label className={searchbarStyles.label}
         htmlFor='stitch-search'
         id='search-label'>Search</label>
         <input
