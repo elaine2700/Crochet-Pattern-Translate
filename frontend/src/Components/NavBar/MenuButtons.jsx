@@ -1,11 +1,13 @@
 import navbarStyles from './navbar.module.css'
+import { Link } from 'react-router-dom';
 
 const MenuButtons = () => {
+
     return (
         <div key={90} className={navbarStyles.list}>
             <div>
-                <button className="btn-secondary">Sign In</button>
-                <button className="btn-secondary">Register</button>
+                <Link to={'/login'} className="btn-secondary">Log In</Link>
+                <Link to={'/signup'} className="btn-secondary">Register</Link>
             </div>
         </div>
     )

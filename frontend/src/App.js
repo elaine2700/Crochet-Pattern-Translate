@@ -10,6 +10,8 @@ import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
 import Create from './Pages/ContentManagement/Stitches/Create';
+import SignUp from './Pages/SignUp';
+import Login from './Pages/Login';
 
 function App() {
 
@@ -24,6 +26,9 @@ function App() {
         <Route path='/stitch-details/:id' element={<StitchDetail/>}/>
         <Route path='/pattern-details' element={<PatternDetail/>}/>
         <Route path='/content-management/stitches/create' element={<Create/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/login' element={<Login/>}/>
+
         <Route path='*' element={<div>Not Found</div>}/>
       </Routes>  
       <footer>
