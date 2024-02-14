@@ -2,13 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { auth, googleProvider } from '../config/firebase';
 import {createUserWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
 
-
 const SignUp = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signIn = async () => {
+    const registerUser = async () => {
         try{
             await createUserWithEmailAndPassword(auth, email, password)
         }
@@ -16,6 +15,8 @@ const SignUp = () => {
             console.error(error);
         }
     }
+
+    
 
     const signInWithGoogle = async () => {
         try{
@@ -37,7 +38,7 @@ const SignUp = () => {
 
   return (
     <div className='container'>
-        <h1 className='title'>Login</h1>
+        <h1 className='title'>Register</h1>
 
         <label htmlFor='email'>Email</label>
         <input id='email'
@@ -50,7 +51,7 @@ const SignUp = () => {
             onChange={e => setPassword(e.target.value)}/>
 
         <button className='btn-secondary'
-            onClick={signIn}>Register</button>
+            onClick={registerUser}>Register</button>
 
         <button className='btn-secondary'
             onClick={logOut}>Log Out</button>

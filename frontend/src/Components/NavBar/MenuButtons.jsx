@@ -6,8 +6,7 @@ const MenuButtons = () => {
     return (
         <div key={90} className={navbarStyles.list}>
             <div>
-                <Link to={'/login'} className="btn-secondary">Log In</Link>
-                <Link to={'/signup'} className="btn-secondary">Register</Link>
+                <Link to={'/login'} className="btn-secondary">Log In / Register</Link>
             </div>
         </div>
     )
