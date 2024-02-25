@@ -1,22 +1,36 @@
 import React, {useState} from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../config/firebase';
-import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { auth, googleProvider } from '../config/firebase';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const signIn = async () => {
+    console.log('sign in')
     try{
-        await signInWithEmailAndPassword(auth, email, password)
+       
+      await signInWithEmailAndPassword(auth, email, password);
+      
+      navigate('/');
     }
     catch(error){
         console.error(error);
     }
+  }
 
-  
-}
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider)
+      navigate('/');
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
 
   return (
     <div className='container'>
@@ -39,7 +53,10 @@ const Login = () => {
 
       <p>or</p>
 
-      <button className='btn-secondary'>Log In With Google</button>
+      <button className='btn-secondary'
+      onClick={signInWithGoogle}>
+        Log In With Google
+      </button>
 
       <p>Forgot Password?</p>
       <Link to='/signup'>New User? </Link>

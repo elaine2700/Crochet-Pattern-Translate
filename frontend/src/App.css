@@ -12,6 +12,13 @@
     --dmSerifDisplayFont: 'DM Serif Display', serif;
 }
 
+button{
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
 html{
     font-family: var(--quicksandFont);
     background-color: var(--grey);
