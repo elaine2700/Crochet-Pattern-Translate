@@ -1,13 +1,42 @@
 .btn{
-    border-radius: 10px;
+    border-radius: 25px;
     padding: 0.75em;
     font-family: var(--quicksandFont);
+    font-weight: 700;
+    font-size: 1em;
 }
 
-.btnPrimary {
-    background-color: var(--blue);
+    .btnFilled.btnPrimary{
+        background-color: var(--yellow);
+        color: var(--blue);
+    }
+
+    .btnFilled.btnSecondary{
+        background-color: var(--blue);
+        color: white;
+    }
+
+    .btnFilled.btnDestructive{
+        background-color: var(--darkRed);
+        color: white;
+    }
+
+.btnOutline{
+    background-color: transparent;
+    border: 2px solid;
+    color: var(--blue);
 }
 
-.btnSecondary {
-    background-color: var(--yellow);
-}
+    .btnOutline.btnPrimary{
+        border-color: var(--yellow);
+    }
+
+    .btnOutline.btnSecondary{
+        border-color: var(--blue);
+    }
+
+    .btnOutline.btnDestructive{
+        border-color: var(--darkRed);
+    }
+
+/* Ghost */
