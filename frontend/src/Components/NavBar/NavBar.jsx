@@ -61,6 +61,7 @@ const NavBar = () => {
         ) :
         (
           renderMenuComponents(list)
+          
         )
       }
 

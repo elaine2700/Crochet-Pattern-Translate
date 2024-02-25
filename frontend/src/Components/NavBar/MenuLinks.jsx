@@ -19,6 +19,7 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
   let clickAction = ()=>{
     console.log('default')
   }
+  
   if(onClick != null){
     clickAction = onClick
   }

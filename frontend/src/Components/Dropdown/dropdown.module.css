@@ -1,0 +1,38 @@
+.dropdownContainer{
+    display: flex;
+    padding-bottom: 1em;
+}
+
+.dropdown{
+    font-family: var(--quicksandFont);
+    display: block;
+}
+
+.dropdownBtn{
+    display: inline-block;
+    font-family: var(--quicksandFont);
+    padding: 0.75em;
+    border-radius: 10px;
+}
+
+.dropdownMenuContainer{
+    position: relative;
+    
+}
+
+.dropdownMenu{
+    background-color: var(--blue);
+    position: absolute;
+    right: 0;
+    width: 90%;
+    padding: 1em;
+    margin-top: 0.5em;
+    border-radius: 10px;
+}
+
+.dropdownItem{
+    display: block;
+    list-style: none;
+    text-align: center;
+    padding: 0.25em; 
+}
