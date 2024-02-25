@@ -30,7 +30,6 @@ const Dropdown = ({title = 'Title', itemsList  = []}) => {
     return (
         <div className={dropdownStyles.dropdownContainer}>
 
-        
             <div className={dropdownStyles.dropdown}>
                 <button className={dropdownStyles.dropdownBtn}
                 onClick={toggleList}>

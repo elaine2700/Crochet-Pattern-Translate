@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Create = () => {
+
+  // TODO configure Back Button to go to content management stitches
   const navigate = useNavigate()
 
   const [stitchName, setStitchName] = useState('')
@@ -79,7 +81,7 @@ const Create = () => {
   return (
 
     <div className='container'>
-      <h1 className='title'>Add Stitch</h1>
+      <h1 className='title'>Create Stitch</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='stitch-name'>Stitch Name</label>
         <input id='stitch-name' name='stitch-name' value={stitchName} onChange={e => setStitchName(e.target.value)} type='text' required></input>

@@ -1,6 +1,8 @@
 import navbarStyles from './navbar.module.css'
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
+import Dropdown from '../Dropdown/Dropdown';
+import { FaDribbble } from 'react-icons/fa';
 
 
 const MenuLinks = ({onClick} = ()=>console.log('default')) => {
@@ -30,6 +32,12 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
       <Link to={'/stitches'} onClick={clickAction}>Stitches</Link>
       <Link to={'/patterns'} onClick={clickAction}>Patterns</Link>
       <Link to={'/contact'} onClick={clickAction}>Contribute</Link>
+      <Dropdown
+        title='Content'
+        itemsList={[
+          {name: 'Stitches', link: '/content-management/stitches'},
+          {name: 'Patterns', link: '/'}
+        ]}/>
     </nav>
   )
 }
