@@ -13,9 +13,6 @@ const MenuButtons = () => {
     useEffect(()=>{
         onAuthStateChanged(auth, (user)=>{
             if(user){
-                console.log('User ')
-                console.log(user.email);
-                console.log(user.displayName)
                 setUser(true)
                 setUsername(user.email)
             }

@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
+import {getStorage, ref} from 'firebase/storage'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,7 +16,8 @@ const firebaseConfig = {
   storageBucket: "crochetspacecraft.appspot.com",
   messagingSenderId: "1060564792132",
   appId: "1:1060564792132:web:6cec15f4eec1bdcca2dd11",
-  measurementId: "G-50ZPHZJG6L"
+  measurementId: "G-50ZPHZJG6L",
+  storageBucket: 'gs://crochetspacecraft.appspot.com'
 };
 
 // Initialize Firebase
@@ -25,6 +27,12 @@ const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);
+
+
+// Image Folder Ref
+const storage = getStorage();
+export const imagesFolderRef = ref(storage, 'images');
+export const imagesStitchesFolderRef = ref(imagesFolderRef, 'stitches');
 
 export default app;
 

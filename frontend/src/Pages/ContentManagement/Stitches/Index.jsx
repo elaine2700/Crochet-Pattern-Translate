@@ -29,8 +29,6 @@ const Index = () => {
                     ...doc.data(),
                     id: doc.id
                 }));
-            console.log(data.docs[0]._document.data.value.mapValue.fields);
-            console.log(filteredData);
             setStitches(filteredData);
         }
         catch (error){

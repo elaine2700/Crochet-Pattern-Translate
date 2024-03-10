@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
+import { imagesStitchesFolderRef } from '../../../config/firebase'
+import {v4} from 'uuid';
 
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../../config/firebase'
@@ -17,13 +20,71 @@ const Create = () => {
   const [stitchType, setStitchType] = useState('');
   const [stitchContributedBy, setContributedBy] = useState('');
   const [stitchDifficulty, setDifficulty] = useState('');
-  const [stitchPicture, setStitchPicture] = useState('');
+  const [stitchPicture, setStitchPicture] = useState(null);
   const [picAuthor, setPicAuthor] = useState('');
   const [combinationText, setCombinationText] = useState("");
   const [tutorialLink, setTutorialLink] = useState('');
 
+  //Image Name
+
   const separateCommas = (text) =>{
     return text.split(',');
+  }
+
+  const uploadImage = () => {
+    console.log('Uploading Image');
+    if(stitchPicture == null) return;
+
+    const metadata = {
+      contentType: 'image/jpeg'
+    };
+
+    const imageName = `${stitchPicture.name + v4()}`;
+    const imageRef = ref(imagesStitchesFolderRef, imageName);
+
+    const uploadTask = uploadBytesResumable(imageRef, stitchPicture)
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on('state_changed',
+    (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          console.log('Upload is running');
+          break;
+      }
+    }, 
+    (error) => {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+        // ...
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+    }, 
+    () => {
+      // Upload completed successfully, now we can get the download URL
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log('Download url')
+        console.log(downloadURL);
+        return downloadURL;
+      });
+    }
+    );
+
   }
 
   const handleSubmit = async (event) => {
@@ -31,6 +92,12 @@ const Create = () => {
     event.preventDefault();
 
     console.log('Adding stitch or pattern..');
+
+    const pictureUrl = uploadImage();
+    console.log(pictureUrl);
+    if(!pictureUrl){
+      //TODO validate picture Url
+    }
 
     const _combination = separateCommas(combinationText);
 
@@ -46,7 +113,7 @@ const Create = () => {
         name: stitchName,
         picture: {
           author: picAuthor,
-          url: ""
+          url: pictureUrl
         },
         tutorial: tutorialLink,
         type: stitchType
@@ -55,6 +122,7 @@ const Create = () => {
     console.log(data);
 
     // TODO Send data to firebase;
+    // TODO Validation of Data on Client and Server
 
     try{
       const docRef = await addDoc((stitchesCollection),{
@@ -82,24 +150,13 @@ const Create = () => {
       // TODO Navigate to Oops Page or Add Notification PopUp
     }
 
-    /*
-    axios
-      .post('http://localhost:3030/stitches', data)
-      .then(() => {
-        console.log('Book Created Succesfully')
-      })
-      .catch((error) => {
-        console.log('Oops...')
-        console.log(error);
-      })
-    */
   }
 
   return (
 
     <div className='container'>
       <h1 className='title'>Create Stitch</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label htmlFor='stitch-name'>Stitch Name</label>
         <input id='stitch-name' name='stitch-name' value={stitchName} onChange={e => setStitchName(e.target.value)} type='text' required></input>
 
@@ -123,12 +180,8 @@ const Create = () => {
           <option value="expert">Expert</option>
         </select>
 
-        {
-          /*
-          <label>Upload a picture</label>
-          <input type='file' onChange={}/>
-          */
-        }
+        <label htmlFor='stitch-picture'>Picture</label>
+        <input id='stitch-picture' type='file' onChange={(e)=>setStitchPicture(e.target.files[0])}/>
         
         <label htmlFor='stitch-picauthor'>Picture Author</label>
         <input id='stitch-picauthor' value={picAuthor} type='text' onChange={e => setPicAuthor(e.target.value)}/>
