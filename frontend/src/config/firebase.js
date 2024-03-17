@@ -30,7 +30,7 @@ export const db = getFirestore(app);
 
 
 // Image Folder Ref
-const storage = getStorage();
+export const storage = getStorage();
 export const imagesFolderRef = ref(storage, 'images');
 export const imagesStitchesFolderRef = ref(imagesFolderRef, 'stitches');
 // Storage References
