@@ -20,6 +20,12 @@ const firebaseConfig = {
   storageBucket: 'gs://crochetspacecraft.appspot.com'
 };
 
+// TODO Set a dev Collection
+// TODO Set a dev Storage Folder
+// TODO Set production references
+// TODO Hide Keys in .env
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import cardStyles from './gallerycard.module.css'
 
-const GalleryCard = ({ cardName = 'Stitch', linkTo }) => {
+const GalleryCard = ({ cardName = 'Stitch', linkTo, imagePath = 'dog-bear.jpg' }) => {
     const [hoverState, setHoverState] = useState(false);
 
     const handleHoverState = (e, enter) => {
@@ -11,7 +11,7 @@ const GalleryCard = ({ cardName = 'Stitch', linkTo }) => {
 
     return (
         <div
-            style={{ backgroundImage: `url('dog-bear.jpg')` }}
+            style={{ backgroundImage: `url(${imagePath})` }}
             className={cardStyles.swatch}
             onMouseEnter={(e) => handleHoverState(e, true)}
             onMouseLeave={(e) => handleHoverState(e, false)}>

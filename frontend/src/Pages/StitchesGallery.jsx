@@ -18,41 +18,25 @@ const StitchesGallery = () => {
         return `/stitch-details/${stitchId}`
     }
 
-    /*useEffect(() => {
-        axios
-            .get('http://localhost:3030/stitches')
-            .then((response) => {
-                console.log(response)
-                setStitches(response.data.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        //setStitches(allStitches);
-    }, [])
-*/
     useEffect(()=>{
         // Read the data.
-        const getMovieList = async () => {
+        const getStitchesList = async () => {
             try{
                 const data = await getDocs(stitchesCollection);
                 const filteredData = data.docs.map((doc) => ({
                         ...doc.data(),
                         id: doc.id
                     }));
-                console.log(data.docs[0]._document.data.value.mapValue.fields);
-                console.log(filteredData);
                 setStitches(filteredData);
             }
             catch (error){
                 console.error(error)
+                // TODO Create Oops Page
                 // TODO redirect to Oops-Error Page
             }   
         }   
         // Set the Stitch List.
-        getMovieList();
-
-        //setStitches(allStitches);
+        getStitchesList();
     }, [])
 
     return (
@@ -61,7 +45,10 @@ const StitchesGallery = () => {
             <div className='gallery-container'>
                 {
                     stitches.map((stitch, index) => {
-                        return (<GalleryCard key={index} cardName={stitch.name} linkTo={cardPath(stitch.id)} />)
+                        return (<GalleryCard key={index} 
+                            cardName={stitch.name} 
+                            linkTo={cardPath(stitch.id)} 
+                            imagePath={stitch.picture.url} />)
                     })
                 }
             </div>

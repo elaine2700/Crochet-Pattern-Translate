@@ -242,7 +242,7 @@ const Upsert = () => {
 
   return (
 
-    <div className='container'>
+    <div className='form-container'>
       <h1 className='title'>{stitchId == '' ? 'Create' : 'Edit'} Stitch</h1>
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label htmlFor='stitch-name'>Stitch Name</label>

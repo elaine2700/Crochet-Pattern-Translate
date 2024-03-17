@@ -43,15 +43,15 @@ const Index = () => {
     getStitchesList();
 }, []) 
   return (
-    <div className='container'>
-      <header>
+    <div className='form-container'>
+      <header className='flex-container justify-space-between'>
         <h1>Stitches</h1>
         <Button
           content={<div><FaCirclePlus/> Create Stitch</div>}
           onClick={goToCreateStitch}/>
       </header>
         <main>
-          <table>
+          <table className='table'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -70,7 +70,7 @@ const Index = () => {
                       {stitch.contributedBy}
                     </td>
                     <td>
-                      <div>
+                      <div className='flex-container justify-end'>
                         <Button content={<FaEdit/>} onClick={()=>goToEditStitch(stitch.id)}/>
                         <Button content={<FaTrash/>}/>
                       </div>

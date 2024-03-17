@@ -277,16 +277,55 @@ footer{
         align-items: center;
     }
 
+/* General */
+.flex-container{
+    display: flex;
+}
+.justify-space-between{
+    justify-content: space-between;
+}
+.justify-end{
+    justify-content: end;
+}
 
-.container{
+/* Table */
+.table{
+    border-spacing: 0;
+    width: 100%;
+    text-align: left;
+}
+
+    .table thead{
+        background-color: var(--blue);
+    }
+
+    .table td{
+        border-bottom: solid 1px var(--blue);
+    }
+
+    .table th{
+        padding: 0.5em;
+    }
+
+    .table td{
+        padding: 0.5em;
+    }
+
+/* Form Container */
+.form-container{
     width: 80vw;
     max-width: 1200px;
     margin: 0 auto;
     margin-top: 0.5em;
     padding: 1em;
 }
+
+    .form-container header{
+        padding-left: 0.5em;
+        padding-bottom: 0.5em;
+    }
       
-    .container .title {
+    .form-container .title {
         text-align: center;
         padding: 0.5em;
         background-color:var(--blue);
@@ -295,14 +334,14 @@ footer{
         margin: 0 auto;
     }
     
-    .container input, .container select, .container textarea{
+    .form-container input, .form-container select, .form-container textarea{
         width: 100%;
         font-family: var(--quicksandFont) ;
         font-size: 1em;
         background-color: var(--lightYellow)
     }
 
-    .container label{
+    .form-container label{
         font-size: 0.8em;
         padding-top: 0.75em;
         font-weight: 600;
