@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { getDocs, collection } from 'firebase/firestore';
-import { db } from '../../../config/firebase';
+import { db, storageStitchesFolderName } from '../../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 
 import { FaEdit } from "react-icons/fa";
@@ -13,11 +13,14 @@ const Index = () => {
 
   const [stitches, setStitches] = useState([]);
 
-  const stitchesCollection = collection(db, "stitches");
+  const stitchesCollection = collection(db, storageStitchesFolderName);
 
   const navigate = useNavigate();
   const goToCreateStitch = () => {
     navigate('/content-management/stitches/create')
+  }
+  const goToEditStitch = (id) =>{
+    navigate(`/content-management/stitches/edit/${id}`)
   }
 
   useEffect(()=>{
@@ -58,8 +61,8 @@ const Index = () => {
             </thead>
             <tbody>
               {
-                stitches.map((stitch) => (
-                  <tr>
+                stitches.map((stitch, id) => (
+                  <tr key={id}>
                     <td>
                       {stitch.name}
                     </td>
@@ -68,12 +71,8 @@ const Index = () => {
                     </td>
                     <td>
                       <div>
-                        <button>
-                          <FaEdit/>
-                        </button>
-                        <button>
-                          <FaTrash/>
-                        </button>
+                        <Button content={<FaEdit/>} onClick={()=>goToEditStitch(stitch.id)}/>
+                        <Button content={<FaTrash/>}/>
                       </div>
                     </td>
                   </tr>

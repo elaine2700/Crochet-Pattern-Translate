@@ -9,8 +9,9 @@ import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
-import Create from './Pages/ContentManagement/Stitches/Create';
+import Upsert from './Pages/ContentManagement/Stitches/Upsert';
 import Index from './Pages/ContentManagement/Stitches/Index';
+import Edit from './Pages/ContentManagement/Stitches/Edit';
 import SignUp from './Pages/SignUp';
 import Login from './Pages/Login';
 import Logout from './Pages/Logout';
@@ -29,9 +30,9 @@ function App() {
         <Route path='/pattern-details' element={<PatternDetail/>}/>
 
         {/*Content Management */}
-        <Route path='/content-management/stitches/create' element={<Create/>}/>
         <Route path='/content-management/stitches' element={<Index/>}/>
-
+        <Route path='/content-management/stitches/create' element={<Upsert/>}/>
+        <Route path='/content-management/stitches/edit/:id' element={<Upsert/>}/>
 
         {/*Authenticate user */}
         <Route path='/signup' element={<SignUp/>}/>

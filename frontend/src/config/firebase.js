@@ -33,6 +33,8 @@ export const db = getFirestore(app);
 const storage = getStorage();
 export const imagesFolderRef = ref(storage, 'images');
 export const imagesStitchesFolderRef = ref(imagesFolderRef, 'stitches');
+// Storage References
+export const storageStitchesFolderName = 'stitches';
 
 export default app;
 
