@@ -55,13 +55,11 @@ a:hover{
 
 /* Gallery */
 .gallery-container{
-    border: 2px solid var(--blue);
     border-left: 0;
     border-right: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2px;
-    background-color: var(--blue);
 }
 
 /* Home Cards */

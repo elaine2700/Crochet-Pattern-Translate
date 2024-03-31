@@ -14,7 +14,9 @@ const Button = ({content='Default', type = 'filled', variant= 'primary', onClick
   const _onClick = (e) =>{
     e.stopPropagation();
     e.preventDefault();
-    onClick();
+    if(onClick){
+      onClick();
+    }
   }
 
   switch(type){

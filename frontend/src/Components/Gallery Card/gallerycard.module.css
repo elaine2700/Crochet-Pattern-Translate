@@ -8,6 +8,7 @@
     align-items: flex-end;
     justify-content: center;
     max-width: 400px;
+    background-color: var(--blue);
 }
 
 .details{

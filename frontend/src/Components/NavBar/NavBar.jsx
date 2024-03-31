@@ -8,7 +8,7 @@ import MenuLinks from './MenuLinks'
 
 const NavBar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [list, setList] = useState([MenuLinks, MenuButtons]);
+  //const [list, setList] = useState([MenuLinks, MenuButtons]);
   const [hidden, setHidden] = useState(true);
 
   // Open Close Menu when on collapsed State
@@ -37,41 +37,49 @@ const NavBar = () => {
     )
   }
 
-  return (
-    <div className={navbarStyles.container}>
-      <div className={navbarStyles.logo}>
-        <h1>Crochet Spacecraft</h1>
+  /*{collapsed ?
+    (
+      <div className={
+        hidden ? 
+        `${navbarStyles.collapsedMenu} ${navbarStyles.hidden}` :
+        navbarStyles.collapsedMenu }> 
+        <button 
+          className={navbarStyles.closeIcon}
+          onClick={()=>openCloseMenu(true)}
+            >
+              X
+        </button>
+        <MenuLinks onClick={()=>openCloseMenu(true)}/>
+        <MenuButtons />
       </div>
+    ) :
+    (
+      renderMenuComponents(list)
+      
+    )
 
-      {collapsed ?
-        (
-          <div className={
-            hidden ? 
-            `${navbarStyles.collapsedMenu} ${navbarStyles.hidden}` :
-            navbarStyles.collapsedMenu }> 
-            <button 
-              className={navbarStyles.closeIcon}
-              onClick={()=>openCloseMenu(true)}
-                >
-                  X
-            </button>
-            <MenuLinks onClick={()=>openCloseMenu(true)}/>
-            <MenuButtons />
-          </div>
-        ) :
-        (
-          renderMenuComponents(list)
-          
-        )
-      }
-
-      <button
+    <button
         className={navbarStyles.menuIcon}
         onClick={() => openCloseMenu(false)}>
         <IoMenu />
       </button>
-    </div>
-  )
+  }*/
+  if(!collapsed){
+    return (
+      <div className={navbarStyles.container}>
+        <div className={navbarStyles.logo}>
+          <h1>Crochet Spacecraft</h1>
+        </div>
+        {/* TODO set state for collapsed. Show in list if collapsed*/}
+        <MenuLinks/>
+        <MenuButtons/>
+      </div>
+    )
+  }
+  else{
+    <div className={navbarStyles.container}>Collapsed Menu in Progress</div>
+  }
+  
 
 
 }
