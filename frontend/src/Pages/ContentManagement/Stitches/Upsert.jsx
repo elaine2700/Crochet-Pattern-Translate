@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useLocation, useParams } from 'react-router-dom'
-import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
+import { useNavigate, useParams } from 'react-router-dom'
 import { imagesStitchesFolderRef } from '../../../config/firebase'
-import {v4} from 'uuid';
+import { uploadImage, deleteImage } from '../stitches_shared';
 
 import { collection, addDoc, getDoc, doc, updateDoc} from 'firebase/firestore'
-import { db, storageStitchesFolderName, storage } from '../../../config/firebase'
+import { db, storage } from '../../../config/firebase'
 
 import buttonStyles from '../../../Components/Buttons/buttons.module.css'
 import Button from '../../../Components/Buttons/Button'
@@ -26,6 +25,7 @@ const Upsert = () => {
   const [picAuthor, setPicAuthor] = useState('');
   const [combinationText, setCombinationText] = useState("");
   const [tutorialLink, setTutorialLink] = useState('');
+  const [currentPicUrl, setCurrentPicUrl] = useState('');
   const [pictureUrl, setPictureUrl] = useState('');
   const [previewPicture, setPreviewPicture] =useState(null);
 
@@ -37,7 +37,7 @@ const Upsert = () => {
     return stitchesList.join(',');
   }
 
-  const uploadImage = () => {
+  /*const uploadImage = () => {
     console.log('Uploading Image');
     if (stitchPicture == null) return Promise.resolve(null);
 
@@ -93,9 +93,9 @@ const Upsert = () => {
         }
       );
     });
-  }
+  }*/
 
-  const deleteImage = () => {
+  /*const deleteImage = () => {
     if(!pictureUrl) return;
     console.log('deleting Image');
     const pictureRef = ref(storage, pictureUrl);
@@ -107,17 +107,19 @@ const Upsert = () => {
       // Uh-oh, an error occurred!
       console.error(error)
     });
-  }
+  }*/
 
   const editStitch = async() =>{
     console.log('Editing the stitch');
+    console.log(currentPicUrl);
+    console.log(pictureUrl);
     let updatedUrl = pictureUrl;
     if(stitchPicture != null){
       try {
-        const picUrl = await uploadImage();
+        const picUrl = await uploadImage(stitchPicture, stitchName, imagesStitchesFolderRef);
         updatedUrl = picUrl;
         // Delete old file
-        deleteImage();
+        await deleteImage(storage, currentPicUrl);
 
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -157,8 +159,7 @@ const Upsert = () => {
     console.log('Creating the stitch')
     let url = pictureUrl;
     try {
-      const picUrl = await uploadImage();
-      // TODO Delete the old picture.
+      const picUrl = await uploadImage(stitchPicture, stitchName, imagesStitchesFolderRef);
       url = picUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -208,8 +209,6 @@ const Upsert = () => {
       createStitch();
     }
 
-    
-
   }
 
   useEffect(()=>{
@@ -228,6 +227,7 @@ const Upsert = () => {
         const combination = joinCommas(stitchData.combination);
         setCombinationText(combination);
         setTutorialLink(stitchData.tutorial);
+        setCurrentPicUrl(stitchData.picture.url);
         setPictureUrl(stitchData.picture.url);
       }
       catch(err){
@@ -248,19 +248,25 @@ const Upsert = () => {
         <label htmlFor='stitch-name'>Stitch Name</label>
         <input id='stitch-name' name='stitch-name' value={stitchName} onChange={e => setStitchName(e.target.value)} type='text' required></input>
         
-        <img src={pictureUrl != '' ? pictureUrl : imageNotFoundPath} />
-        {previewPicture ? 
-        <div>
-          <h4>New Picture</h4>
-          <img src={previewPicture}/>
-        </div> : <div></div>}
+        <div className='flex-container flex-small-gap'>
+          <div>
+            <h4>Picture</h4>
+            <img className='fit-picture' src={pictureUrl != '' ? pictureUrl : imageNotFoundPath} />
+          </div>
+          {!previewPicture ? <div></div> :
+            <div>
+              <h4>New Picture</h4>
+              <img src={previewPicture} className='fit-picture'/>
+            </div> 
+          }
+        </div>
         <label htmlFor='stitch-picture'>{stitchId == '' ? 'Choose a ' : 'Change '}Picture file</label>
         <input id='stitch-picture' type='file' onChange={(e)=>{
             setStitchPicture(e.target.files[0])
             console.log(URL.createObjectURL(e.target.files[0]))
             setPreviewPicture(URL.createObjectURL(e.target.files[0]))
           }}/>
-        
+
         <label htmlFor='stitch-description'>Description</label>
         <textarea id='stitch-description' name='stitch-description' value={stitchDescription} rows='3' cols='50'
         placeholder='This stitch is ...'

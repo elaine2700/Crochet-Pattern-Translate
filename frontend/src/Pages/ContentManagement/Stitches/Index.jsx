@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react'
-import { getDocs, collection } from 'firebase/firestore';
-import { db, storageStitchesFolderName } from '../../../config/firebase';
-import { useNavigate } from 'react-router-dom';
-
+import { doc, getDocs, collection, deleteDoc } from 'firebase/firestore';
+import { db, storage, storageStitchesFolderName } from '../../../config/firebase';
+import { redirect, useNavigate } from 'react-router-dom';
+import { deleteImage } from '../stitches_shared';
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -23,25 +23,59 @@ const Index = () => {
     navigate(`/content-management/stitches/edit/${id}`)
   }
 
-  useEffect(()=>{
-    // Read the data.
-    const getStitchesList = async () => {
-        try{
-            const data = await getDocs(stitchesCollection);
-            const filteredData = data.docs.map((doc) => ({
-                    ...doc.data(),
-                    id: doc.id
-                }));
-            setStitches(filteredData);
-        }
-        catch (error){
-            console.error(error)
-            // TODO redirect to Oops-Error Page
-        }   
+  const deleteStitch = async(stitchId, stitchPictureUrl)=>{
+    console.log('Deleting Stitch');
+    try{
+      const docRef = doc(db,'stitches', stitchId);
+      await deleteDoc(docRef);
+      const stitchesList = await getStitchesList();
+      await deleteImage(storage, stitchPictureUrl);
+      alert("Stitch Deleted successfully");
+      setStitches(stitchesList);
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
+
+  // TODO Hide stitch
+
+  const getStitchesList = async () => {
+    try{
+        const data = await getDocs(stitchesCollection);
+        const filteredData = data.docs.map((doc) => ({
+                ...doc.data(),
+                id: doc.id
+            }));
+        return filteredData;
+        //setStitches(filteredData);
+    }
+    catch (error){
+        console.error(error)
+        // TODO redirect to Oops-Error Page
+        return []
     }   
-    // Set the Stitch List.
-    getStitchesList();
-}, []) 
+}  
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            // Call the asynchronous function and wait for the result
+            const stitchesList = await getStitchesList();
+            // Once the result is obtained, set the state
+            setStitches(stitchesList);
+        } catch (error) {
+            console.error(error);
+            // TODO redirect to Oops-Error Page
+            setStitches([]); // You might want to set an empty array here if an error occurs
+        }
+    };
+
+    // Call the async function
+    fetchData();
+  }, []);
+
+
   return (
     <div className='form-container'>
       <header className='flex-container justify-space-between'>
@@ -72,7 +106,7 @@ const Index = () => {
                     <td>
                       <div className='flex-container justify-end'>
                         <Button content={<FaEdit/>} onClick={()=>goToEditStitch(stitch.id)}/>
-                        <Button content={<FaTrash/>}/>
+                        <Button content={<FaTrash/>} onClick={()=>deleteStitch(stitch.id, stitch.picture.url)}/>
                       </div>
                     </td>
                   </tr>
