@@ -9,7 +9,6 @@
 }
 
 .dropdownBtn{
-    
     font-family: var(--quicksandFont);
     padding: 0.75em;
     border-radius: 10px;
@@ -22,11 +21,21 @@
 .dropdownMenu{
     background-color: var(--blue);
     position: absolute;
-    right: 0;
-    width: 90%;
     padding: 1em;
     margin-top: 0.5em;
     border-radius: 10px;
+}
+
+.alignLeft{
+    left: 0.25em;
+}
+
+.alignRight{
+    right: 0.25em;
+}
+/* TODO Calculate Align Center */
+.alignCenter{
+    
 }
 
 .dropdownItem{

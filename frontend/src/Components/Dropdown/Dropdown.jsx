@@ -43,7 +43,7 @@ const Dropdown = ({children, title = 'Title', itemsList  = []}) => {
                 {
                     isDown && (
                         <div className={dropdownStyles.dropdownMenuContainer}>
-                            <div className={dropdownStyles.dropdownMenu}>
+                            <div className={`${dropdownStyles.dropdownMenu} ${dropdownStyles.alignRight}`}>
                                 <ul>{children}</ul>
                             </div>
                           
