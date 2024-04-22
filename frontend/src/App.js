@@ -9,11 +9,12 @@ import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
-import Upsert from './Pages/ContentManagement/Stitches/Upsert';
-import Index from './Pages/ContentManagement/Stitches/Index';
+import Upsert from './Pages/Admin/ContentManagement/Stitches/Upsert';
+import Index from './Pages/Admin/ContentManagement/Stitches/Index';
 import SignUp from './Pages/SignUp';
-import Login from './Pages/Login';
+import AdminLogin from './Pages/Admin/AdminLogin';
 import Logout from './Pages/Logout';
+import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
 
 function App() {
 
@@ -21,20 +22,20 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/stitches' element={<StitchesGallery/>}/>
-        <Route path='/patterns' element={<PatternsGallery/>}/>
-        <Route path='/contact' element={<Contact/>}/>
+        <Route path={HOME} element={<Home/>}/>
+        <Route path={STITCHES_INDEX} element={<StitchesGallery/>}/>
+        <Route path={PATTERNS_INDEX} element={<PatternsGallery/>}/>
+        <Route path={CONTACT} element={<Contact/>}/>
         <Route path='/stitch-details/:id' element={<StitchDetail/>}/>
         <Route path='/pattern-details' element={<PatternDetail/>}/>
 
         {/*Content Management */}
-        <Route path='/admin/content-management/stitches' element={<Index/>}/>
+        <Route path={CONTENTMANAGEMENT_STITCHES} element={<Index/>}/>
         <Route path='/admin/content-management/stitches/create' element={<Upsert/>}/>
         <Route path='/admin/content-management/stitches/edit/:id' element={<Upsert/>}/>
 
         {/*Authenticate user */}
-        <Route path='/admin' element={<Login/>}/>
+        <Route path={ADMIN_AREA} element={<AdminLogin/>}/>
 
         <Route path='*' element={<div>Not Found</div>}/>
       </Routes>  

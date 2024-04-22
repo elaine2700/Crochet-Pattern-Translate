@@ -1,14 +1,30 @@
 import navbarStyles from './navbar.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
 import Dropdown from '../Dropdown/Dropdown';
+import { ADMIN_AREA } from '../../config/links_path';
+import DropdownLink from '../Dropdown/DropdownLink';
+import DropdownItem from '../Dropdown/DropdownItem';
 
 const MenuButtons = () => {
     const [username, setUsername] = useState('Not');
     const [_user, setUser] = useState(false);
+
+    const navigate = useNavigate();
+    const signOutUser = async()=>{
+        try{
+            await signOut(auth);
+            console.log('sign out')
+            navigate(0);
+            navigate(ADMIN_AREA);
+        }
+        catch (err){
+            console.error(err);
+        }
+    }
 
     useEffect(()=>{
         onAuthStateChanged(auth, (user)=>{
@@ -27,21 +43,16 @@ const MenuButtons = () => {
     if (_user) {
         return (
             <Dropdown 
-            title={username}
-            itemsList={[
-                {name: 'Profile', link: '/'},
-                {name: 'Sign Out', link: '/signout'}
-            ]}/>
+            title={username}>
+                <DropdownLink link='/'>Profile</DropdownLink>
+                <DropdownItem onClick={signOutUser}>Log Out</DropdownItem>
+            </Dropdown>
         )
     }
     else
     {
         return (
-            <div key={90} className={navbarStyles.list}>
-                <div>
-                    <Link to={'/login'} className="btn-secondary">Log In / Register</Link>
-                </div>
-            </div>
+            <div></div>
         )
     }
 }

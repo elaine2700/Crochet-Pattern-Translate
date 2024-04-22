@@ -1,13 +1,12 @@
 import {useState, useEffect} from 'react'
 import { doc, getDocs, collection, deleteDoc } from 'firebase/firestore';
-import { db, storage, storageStitchesFolderName } from '../../../config/firebase';
-import { redirect, useNavigate } from 'react-router-dom';
+import { db, storage, storageStitchesFolderName } from '../../../../config/firebase';
+import { useNavigate } from 'react-router-dom';
 import { deleteImage } from '../stitches_shared';
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
-import Button from '../../../Components/Buttons/Button';
-
+import Button from '../../../../Components/Buttons/Button';
 
 const Index = () => {
 

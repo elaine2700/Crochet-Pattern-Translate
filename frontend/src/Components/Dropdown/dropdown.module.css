@@ -9,7 +9,7 @@
 }
 
 .dropdownBtn{
-    display: inline-block;
+    
     font-family: var(--quicksandFont);
     padding: 0.75em;
     border-radius: 10px;
@@ -17,7 +17,6 @@
 
 .dropdownMenuContainer{
     position: relative;
-    
 }
 
 .dropdownMenu{

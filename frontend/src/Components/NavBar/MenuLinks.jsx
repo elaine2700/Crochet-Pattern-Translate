@@ -3,21 +3,11 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { FaDribbble } from 'react-icons/fa';
-
+import {STITCHES_INDEX, HOME, PATTERNS_INDEX, CONTACT, CONTENTMANAGEMENT_STITCHES} from '../../config/links_path';
+import DropdownLink from '../Dropdown/DropdownLink'
 
 const MenuLinks = ({onClick} = ()=>console.log('default')) => {
-  /*let onClickAction = ()=>{console.log('default')};
 
-  Object.defineProperty(this, "onClickAction", {
-    get() {
-      console.log("get!");
-      return onClickAction;
-    },
-    set(value) {
-      onClickAction = value;
-    },
-  });
-  */
   let clickAction = ()=>{
     console.log('default')
   }
@@ -28,16 +18,14 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
 
   return (
     <nav key={80} className={navbarStyles.list}>
-      <Link to={'/'} onClick={clickAction}>Home</Link>
-      <Link to={'/stitches'} onClick={clickAction}>Stitches</Link>
-      <Link to={'/patterns'} onClick={clickAction}>Patterns</Link>
-      <Link to={'/contact'} onClick={clickAction}>Contribute</Link>
-      <Dropdown
-        title='Content'
-        itemsList={[
-          {name: 'Stitches', link: '/content-management/stitches'},
-          {name: 'Patterns', link: '/'}
-        ]}/>
+      <Link to={HOME} onClick={clickAction}>Home</Link>
+      <Link to={STITCHES_INDEX} onClick={clickAction}>Stitches</Link>
+      <Link to={PATTERNS_INDEX} onClick={clickAction}>Patterns</Link>
+      <Link to={CONTACT} onClick={clickAction}>Contribute</Link>
+      <Dropdown title='Content'>
+          <DropdownLink link={CONTENTMANAGEMENT_STITCHES}>Stitches</DropdownLink>
+          <DropdownLink link={'/'}>Patterns</DropdownLink>
+        </Dropdown>
     </nav>
   )
 }

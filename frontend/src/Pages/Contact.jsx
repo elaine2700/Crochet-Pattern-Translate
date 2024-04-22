@@ -8,6 +8,8 @@ const Contact = () => {
           <h2>Contact</h2>
         </header>
         <div className='contact-card-content'>
+          {/*TODO Add image here */}
+          <div>Image here</div>
           <p className='contact-card-paragraph'>Contact us here</p>
           <div className='contact-card-cta'>
             <a>contact@crochetspacecraft.com</a>
@@ -20,6 +22,8 @@ const Contact = () => {
           <h2>Contribute</h2>
         </header>
         <div className='contact-card-content'>
+          {/*TODO Add image here */}
+          <div>Image here</div>
           <p className='contact-card-paragraph'>Contribute. Send us a message here</p>
           <div className='contact-card-cta'>
             <a>contribute@crochetspacecraft.com</a>
@@ -32,6 +36,8 @@ const Contact = () => {
           <h2>Donate</h2>
         </header>
         <div className='contact-card-content'>
+          {/*TODO Add image here */}
+          <div>Image here</div>
           <p className='contact-card-paragraph'>Donate to keep this database alive</p>
           <div className='contact-card-cta'>
             <button className='btn-primary'>Donate</button>

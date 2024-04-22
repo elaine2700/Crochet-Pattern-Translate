@@ -50,7 +50,7 @@ a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 100px);
 }
 
 /* Gallery */
@@ -275,7 +275,7 @@ footer{
     background-position: center;
 }
 .flex-small-gap{
-    gap: 1em;
+    gap: 0.25em;
 }
 .fit{
     width: 100%;
@@ -283,11 +283,26 @@ footer{
 .flex-container{
     display: flex;
 }
+.flex-column{
+    flex-direction: column;
+}
+.justify-center{
+    justify-content: center;
+}
 .justify-space-between{
     justify-content: space-between;
 }
 .justify-end{
     justify-content: end;
+}
+.align-items-center{
+    align-items: center;
+}
+.margin-top-small{
+    margin-top: 0.25em;
+}
+.margin-top-medium{
+    margin-top: 0.75em;
 }
 
 /* Table */
