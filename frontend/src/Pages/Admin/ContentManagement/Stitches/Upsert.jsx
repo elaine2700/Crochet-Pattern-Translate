@@ -8,6 +8,7 @@ import { db, storage } from '../../../../config/firebase'
 
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
+import { CONTENTMANAGEMENT_STITCHES } from '../../../../config/links_path';
 
 const Upsert = () => {
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
@@ -74,7 +75,7 @@ const Upsert = () => {
         type: stitchType
       });
       console.log("Document updated with ID: ", docRef.id);
-      navigate('/content-management/stitches')
+      navigate(CONTENTMANAGEMENT_STITCHES)
       // TODO Create notification. Document updated successfully
     }
     catch(error){
@@ -117,7 +118,7 @@ const Upsert = () => {
         type: stitchType
       });
       console.log("Document written with ID: ", docRef.id);
-      navigate('/content-management/stitches')
+      navigate(CONTENTMANAGEMENT_STITCHES)
     }
     catch(error){
       console.error(error);

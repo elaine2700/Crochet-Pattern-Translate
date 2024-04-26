@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth'
+import { signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import { HOME } from '../../config/links_path';
@@ -11,31 +11,34 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const signIn = async () => {
-    console.log('sign in')
     try{
-       
-      await signInWithEmailAndPassword(auth, email, password);
-      
-      navigate('/');
+      var result = await signInWithEmailAndPassword(auth, email, password)
+      if(result){
+        navigate('/')
+      }
     }
-    catch(error){
-        console.error(error);
+    catch(err){
+      console.error(err);
     }
+    
   }
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithRedirect(auth, googleProvider)
-      navigate('/');
+      var result = await signInWithPopup(auth, googleProvider)
+      if(result){
+          navigate('/');
+      }
     }
     catch(err){
       console.error(err);
     }
   }
 
+
   return (
     <div className='section-container'>
-      <form className='form-container'>
+      <div className='form-container'>
         <h1 className='title'>Admin Login</h1>
 
         <label htmlFor='email'>Email</label>
@@ -63,7 +66,7 @@ const Login = () => {
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

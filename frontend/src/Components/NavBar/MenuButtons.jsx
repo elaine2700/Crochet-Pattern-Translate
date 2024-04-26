@@ -18,8 +18,7 @@ const MenuButtons = () => {
         try{
             await signOut(auth);
             console.log('sign out')
-            navigate(0);
-            navigate(ADMIN_AREA);
+            window.location.reload();
         }
         catch (err){
             console.error(err);

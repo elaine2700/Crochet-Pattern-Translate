@@ -16,10 +16,10 @@ const Index = () => {
 
   const navigate = useNavigate();
   const goToCreateStitch = () => {
-    navigate('/content-management/stitches/create')
+    navigate('/admin/content-management/stitches/create')
   }
   const goToEditStitch = (id) =>{
-    navigate(`/content-management/stitches/edit/${id}`)
+    navigate(`/admin/content-management/stitches/edit/${id}`)
   }
 
   const deleteStitch = async(stitchId, stitchPictureUrl)=>{
