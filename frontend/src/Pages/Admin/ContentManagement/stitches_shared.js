@@ -77,3 +77,7 @@ export const deleteImage = (dbStorage, pictureUrl) =>{
     
     
 }
+
+export const getList = ()=>{
+  
+}

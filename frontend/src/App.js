@@ -9,12 +9,13 @@ import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
-import Upsert from './Pages/Admin/ContentManagement/Stitches/Upsert';
-import Index from './Pages/Admin/ContentManagement/Stitches/Index';
+import {default as StitchesUpsert} from './Pages/Admin/ContentManagement/Stitches/Upsert';
+import {default as StitchesIndex} from './Pages/Admin/ContentManagement/Stitches/Index';
 import SignUp from './Pages/SignUp';
 import AdminLogin from './Pages/Admin/AdminLogin';
-import Logout from './Pages/Logout';
-import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
+import {default as PatternsIndex} from './Pages/Admin/ContentManagement/Patterns/Index';
+import {default as PatternsUpsert} from './Pages/Admin/ContentManagement/Patterns/Upsert';
+import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_PATTERNS, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
 
 function App() {
 
@@ -30,9 +31,13 @@ function App() {
         <Route path='/pattern-details' element={<PatternDetail/>}/>
 
         {/*Content Management */}
-        <Route path={CONTENTMANAGEMENT_STITCHES} element={<Index/>}/>
-        <Route path='/admin/content-management/stitches/create' element={<Upsert/>}/>
-        <Route path='/admin/content-management/stitches/edit/:id' element={<Upsert/>}/>
+        {/*TODO Authorize only for admin*/}
+        <Route path={CONTENTMANAGEMENT_STITCHES} element={<StitchesIndex/>}/>
+        <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={<StitchesUpsert/>}/>
+        <Route path='/admin/content-management/stitches/edit/:id' element={<StitchesUpsert/>}/>
+        <Route path={CONTENTMANAGEMENT_PATTERNS} element={<PatternsIndex/>}/>
+        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={<PatternsUpsert/>}/>
+        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={<PatternsUpsert/>}/>
 
         {/*Authenticate user */}
         <Route path={ADMIN_AREA} element={<AdminLogin/>}/>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { FaDribbble } from 'react-icons/fa';
-import {STITCHES_INDEX, HOME, PATTERNS_INDEX, CONTACT, CONTENTMANAGEMENT_STITCHES} from '../../config/links_path';
+import {STITCHES_INDEX, HOME, PATTERNS_INDEX, CONTACT, CONTENTMANAGEMENT_STITCHES, CONTENTMANAGEMENT_PATTERNS} from '../../config/links_path';
 import DropdownLink from '../Dropdown/DropdownLink'
 
 const MenuLinks = ({onClick} = ()=>console.log('default')) => {
@@ -24,7 +24,7 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
       <Link to={CONTACT} onClick={clickAction}>Contribute</Link>
       <Dropdown title='Content'>
           <DropdownLink link={CONTENTMANAGEMENT_STITCHES}>Stitches</DropdownLink>
-          <DropdownLink link={'/'}>Patterns</DropdownLink>
+          <DropdownLink link={CONTENTMANAGEMENT_PATTERNS}>Patterns</DropdownLink>
         </Dropdown>
     </nav>
   )

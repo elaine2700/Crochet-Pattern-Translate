@@ -47,7 +47,6 @@ const Index = () => {
                 id: doc.id
             }));
         return filteredData;
-        //setStitches(filteredData);
     }
     catch (error){
         console.error(error)
@@ -80,7 +79,7 @@ const Index = () => {
       <header className='flex-container justify-space-between'>
         <h1>Stitches</h1>
         <Button
-          content={<div><FaCirclePlus/> Create Stitch</div>}
+          content={<div><FaCirclePlus/>New Stitch</div>}
           onClick={goToCreateStitch}/>
       </header>
         <main>
