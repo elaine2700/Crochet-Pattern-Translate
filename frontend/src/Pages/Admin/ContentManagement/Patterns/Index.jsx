@@ -11,6 +11,14 @@ const Index = () => {
         navigate(`${CONTENTMANAGEMENT_PATTERNS}/create`)
     }
 
+    const goToEditPattern =(patternId) => {
+        navigate(`${CONTENTMANAGEMENT_PATTERNS}/edit/${patternId}`)
+    }
+
+    const getPatternList = () => {
+        
+    }
+
     return (
     <div className='form-container'>
         <header className='flex-container justify-space-between'>
