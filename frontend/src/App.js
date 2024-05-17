@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 
 import NavBar from './Components/NavBar/NavBar';
 import './App.css';
@@ -16,8 +16,25 @@ import AdminLogin from './Pages/Admin/AdminLogin';
 import {default as PatternsIndex} from './Pages/Admin/ContentManagement/Patterns/Index';
 import {default as PatternsUpsert} from './Pages/Admin/ContentManagement/Patterns/Upsert';
 import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_PATTERNS, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
+import { userIsInRole } from './Pages/Admin/userRolesService';
 
 function App() {
+
+  const [hasAccess, setHasAccess] = useState(false);
+
+  useEffect(()=>{
+    const checkUserHasAccess = async () => {
+      const allowedRoles = ['admin'];
+      try{
+        const userHasAccess = await userIsInRole(allowedRoles);
+        setHasAccess(userHasAccess);
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    checkUserHasAccess();
+  },[])
 
   return (
     <BrowserRouter>
@@ -31,13 +48,13 @@ function App() {
         <Route path='/pattern-details' element={<PatternDetail/>}/>
 
         {/*Content Management */}
-        {/*TODO Authorize only for admin*/}
-        <Route path={CONTENTMANAGEMENT_STITCHES} element={<StitchesIndex/>}/>
-        <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={<StitchesUpsert/>}/>
-        <Route path='/admin/content-management/stitches/edit/:id' element={<StitchesUpsert/>}/>
-        <Route path={CONTENTMANAGEMENT_PATTERNS} element={<PatternsIndex/>}/>
-        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={<PatternsUpsert/>}/>
-        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={<PatternsUpsert/>}/>
+        {/* Authorized only for admin*/} 
+        <Route path={CONTENTMANAGEMENT_STITCHES} element={hasAccess? (<StitchesIndex/>) : (<Navigate to='/'/>)}/>
+        <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={hasAccess?(<StitchesUpsert/>) : (<Navigate to='/'/>)}/>
+        <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to='/'/>)}/>
+        <Route path={CONTENTMANAGEMENT_PATTERNS} element={hasAccess ? (<PatternsIndex/>) : (<Navigate to='/' />)}/>
+        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to='/' />)}/>
+        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to='/'/>)}/>
 
         {/*Authenticate user */}
         <Route path={ADMIN_AREA} element={<AdminLogin/>}/>
