@@ -16,7 +16,7 @@ import AdminLogin from './Pages/Admin/AdminLogin';
 import {default as PatternsIndex} from './Pages/Admin/ContentManagement/Patterns/Index';
 import {default as PatternsUpsert} from './Pages/Admin/ContentManagement/Patterns/Upsert';
 import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_PATTERNS, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
-import { userIsInRole } from './Pages/Admin/userRolesService';
+import { userIsInRole, getCurrentUser } from './Pages/Admin/userRolesService';
 
 function App() {
 
@@ -49,12 +49,12 @@ function App() {
 
         {/*Content Management */}
         {/* Authorized only for admin*/} 
-        <Route path={CONTENTMANAGEMENT_STITCHES} element={hasAccess? (<StitchesIndex/>) : (<Navigate to='/'/>)}/>
-        <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={hasAccess?(<StitchesUpsert/>) : (<Navigate to='/'/>)}/>
-        <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to='/'/>)}/>
-        <Route path={CONTENTMANAGEMENT_PATTERNS} element={hasAccess ? (<PatternsIndex/>) : (<Navigate to='/' />)}/>
-        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to='/' />)}/>
-        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to='/'/>)}/>
+        <Route path={CONTENTMANAGEMENT_STITCHES} element={hasAccess? (<StitchesIndex/>) : (<Navigate to={HOME}/>)}/>
+        <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={hasAccess?(<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
+        <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
+        <Route path={CONTENTMANAGEMENT_PATTERNS} element={hasAccess ? (<PatternsIndex/>) : (<Navigate to={HOME} />)}/>
+        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME} />)}/>
+        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME}/>)}/>
 
         {/*Authenticate user */}
         <Route path={ADMIN_AREA} element={<AdminLogin/>}/>

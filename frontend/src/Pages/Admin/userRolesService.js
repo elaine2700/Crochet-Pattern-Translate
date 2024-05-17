@@ -1,5 +1,5 @@
 import {auth, db} from '../../config/firebase.js'
-import { collection, doc, getDoc } from 'firebase/firestore';
+import {doc, getDoc } from 'firebase/firestore';
 
 export const RoleAdmin = 'admin';
 
@@ -10,6 +10,24 @@ const getCurrentUserId = () =>{
     console.log(`User Id: ${currentUser}`);
     // General user
     return null; 
+}
+
+export const getCurrentUser = async () => {
+    const currentUser = auth.currentUser;
+    if(currentUser){
+        try{
+            const roles = await getUserRoles(currentUser.uid);
+            const user = {
+                username: currentUser.displayName,
+                roles: roles
+            }
+            return user;
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+    return null;
 }
 
 const getUserRoles = async (userId) => {
@@ -31,8 +49,12 @@ export const userIsInRole = async (rolesAllowed) => {
     try{
         const userRoles = await getUserRoles(userId); //expecting a map from firestore
 
+        if(!userRoles)
+            return false;
+
         for(const role of rolesAllowed){
             if(userRoles[role] && userRoles[role] == true){
+                // User has one of the allowed roles
                 return true;
             }   
         }

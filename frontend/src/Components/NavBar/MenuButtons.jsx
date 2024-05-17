@@ -13,7 +13,6 @@ const MenuButtons = () => {
     const [username, setUsername] = useState('Not');
     const [_user, setUser] = useState(false);
 
-    const navigate = useNavigate();
     const signOutUser = async()=>{
         try{
             await signOut(auth);
@@ -36,8 +35,6 @@ const MenuButtons = () => {
             }
         })
     },[])
-    
-    // todo Dropdown for loggedIn user
 
     if (_user) {
         return (

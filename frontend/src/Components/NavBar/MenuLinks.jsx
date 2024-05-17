@@ -2,10 +2,11 @@ import navbarStyles from './navbar.module.css'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
-import { FaDribbble } from 'react-icons/fa';
 import {STITCHES_INDEX, HOME, PATTERNS_INDEX, CONTACT, CONTENTMANAGEMENT_STITCHES, CONTENTMANAGEMENT_PATTERNS} from '../../config/links_path';
 import DropdownLink from '../Dropdown/DropdownLink'
 import { userIsInRole } from '../../Pages/Admin/userRolesService';
+import { auth } from '../../config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const MenuLinks = ({onClick} = ()=>console.log('default')) => {
 
@@ -30,6 +31,19 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
       }
     }
 
+    onAuthStateChanged(auth, (user)=>{
+      if(user){
+        try{
+          userHasAccess();
+        }
+        catch(err){
+          console.error(err);
+        }
+      }
+      else{
+        console.log('Not signedIn user')
+      }
+    })
   },[])
 
   return (
