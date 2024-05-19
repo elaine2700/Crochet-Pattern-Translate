@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Quicksand:wght@400;600;700&display=swap');
 
+
 :root{
     --blue: #83A2FF;
     --lightBlue: #B4BDFF;
@@ -180,46 +181,6 @@ footer{
     content: ' -->';
 }
 
-/* Detail Page */
-.detail-section{
-    min-height: calc(100vh - 100px);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.detail-content{
-    padding: 2em;
-}
-.detail-content .subtitle{
-    margin-top: 1em;
-}
-.tags{
-    display: flex;
-    gap: 0.5em;
-}
-.tags li{
-    list-style: none;
-}
-.stitch-tag{
-    border: 2px solid var(--blue);
-}
-.stitch-tag > div{
-    display: flex;
-    align-items: center;
-}
-.stitch-tag img{
-    width: 50px;
-    border-right: 2px solid var(--blue) ;
-}
-.stitch-tag p{
-    padding: 0.5em;
-}
-.diagram{
-    width: 100%;
-    max-width: 1000px;
-}
-
-
 /* Contact Page */
 .contact-section{
     min-height: calc(100vh - 100px);
@@ -383,6 +344,8 @@ display: block;
 label{
 display: block;
 }
+
+@import url(css/detail.css);
 
 /* Media queries */
 @media screen and (max-width: 900px) {

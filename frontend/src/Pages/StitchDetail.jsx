@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
@@ -52,38 +53,43 @@ const StitchDetail = () => {
                 style={{ backgroundImage: `url('logo512.png')` }}>
             </div>
             <section className='detail-content'>
-                <header>
+                <header className='header'>
                     <h1>{stitch.stitchName}</h1>
                 </header>
-                <article>
-                    <p>{stitch.description}</p>
-                    <p>
-                        Difficulty: {stitch.difficulty}
-                    </p>
-                    
-                    <h3 className='subtitle'>
-                        Required stitches:
-                    </h3>
+
+                <h2 className='subtitle'>Description</h2>
+                <p className='area'>{stitch.description}</p>
+
+                <h2 className='subtitle'>Difficulty</h2>
+                <p className='area'>{stitch.stitchDificulty}</p>
+                
+                <p className='subtitle'>Symbols</p>
+                <div className='area'>
                     <ul className='tags'>
                         {stitch.stitchesCombination.map((symbol, index)=>(
                             <li className='stitch-tag' key={index}>
-                                <div>
+                                <div className='stitch-icon'>
                                     <img src='/single.png'/>
-                                    <p>{symbol.stitch}</p>
                                 </div>
+                                <p>{symbol}</p>
                             </li>
                         ))}
                     </ul> 
-                    
-                    <h3 className='subtitle'>Diagram</h3>
+                </div>
+                
+
+                <h2 className='subtitle'>Diagram</h2>
+                <div className='area'>
                     <img className='diagram' src='/moss.png'/>
-                    
-                    <a 
-                        href={videoTutorialPath}
-                        target='_blank'
-                        rel="noopener noreferrer"
-                        >Video Tutorial</a>
-                </article>
+                </div>
+
+                <h2 className='subtitle'>Tutorial</h2>
+                <a className='area' href={videoTutorialPath}
+                    target='_blank'
+                    rel="noopener noreferrer">
+                        Link <FaExternalLinkAlt/>
+                </a>
+                
             </section>
         </div>
 
