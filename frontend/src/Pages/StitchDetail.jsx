@@ -15,6 +15,7 @@ const StitchDetail = () => {
     const [description, setDescription] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [stitchCombination, setStitchCombination] = useState([]);
+    const [contributedBy, setContributedBy] = useState("");
 
     const setStitchFields = (stitch) => {
         setStitchName(stitch.name);
@@ -22,6 +23,7 @@ const StitchDetail = () => {
         setDifficulty(stitch.difficulty);
         setStitchCombination(stitch.combination);
         setVideoTutorialPath(stitch.tutorial);
+        setContributedBy(stitch.contributedBy);
     }
 
     useEffect(()=>{
@@ -55,14 +57,14 @@ const StitchDetail = () => {
             </div>
             <section className='detail-content'>
                 <header className='header'>
-                    <h1>{stitch.stitchName}</h1>
+                    <h1>{stitchName}</h1>
                 </header>
 
                 <h2 className='subtitle'>Description</h2>
-                <p className='area'>{stitch.description}</p>
+                <p className='area'>{description}</p>
 
                 <h2 className='subtitle'>Difficulty</h2>
-                <p className='area'>{stitch.stitchDificulty}</p>
+                <p className='area'>{difficulty}</p>
                 
                 <p className='subtitle'>Symbols</p>
                 <div className='area'>
@@ -90,6 +92,9 @@ const StitchDetail = () => {
                     rel="noopener noreferrer">
                         Link <FaExternalLinkAlt/>
                 </a>
+
+                <h2 className='subtitle'>Added by</h2>
+                <p className='area'>{contributedBy}</p>
                 
             </section>
         </div>
