@@ -1,45 +1,46 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { getStitch } from './Admin/ContentManagement/stitches_service';
+import { STITCHES_INDEX } from '../config/links_path';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
-    const [stitch, setStitch] = useState({});
+    //const [stitch, setStitch] = useState({});
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
 
     const [videoTutorialPath, setVideoTutorialPath] = useState('https://www.youtube.com/@AmigurumiSpacecraft')
+    const [stitchName, setStitchName] = useState("");
+    const [description, setDescription] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [stitchCombination, setStitchCombination] = useState([]);
 
-    const dummyObj = {
-            stitchName: "Single Crochet",
-            description: "Simple Description",
-            stitchesCombination:["sc", "hdc"],
-            stitchDificulty: "Simple"
+    const setStitchFields = (stitch) => {
+        setStitchName(stitch.name);
+        setDescription(stitch.description);
+        setDifficulty(stitch.difficulty);
+        setStitchCombination(stitch.combination);
+        setVideoTutorialPath(stitch.tutorial);
     }
 
     useEffect(()=>{
-        setStitch(dummyObj);
-        setLoading(false);
-    },[]);
-    /*useEffect(()=>{
-        setLoading(true);
-        axios
-            .get(`http://localhost:3030/stitches/${id}`)
-            .then((response)=>{
-                setStitch(response.data);
+        
+
+        const fetchStitch = async(stitchId) => {
+            try{
+                const stitch = await getStitch(stitchId);
+                setStitchFields(stitch);
                 setLoading(false);
-                if(stitch.videoTutorial){
-                    setVideoTutorialPath(stitch.videoTutorial);
-                }
-                
-            })
-            .catch((error)=>{
-                console.log(error)
-                navigate('/stitches')
-            })
-    },[])
-    */
+            }
+            catch(err){
+                console.log(err);
+                navigate(STITCHES_INDEX);
+            }
+        }
+        fetchStitch(id);
+    },[]);
+    
 
     if (loading)
         return (<div>Loading...</div>)
@@ -66,7 +67,7 @@ const StitchDetail = () => {
                 <p className='subtitle'>Symbols</p>
                 <div className='area'>
                     <ul className='tags'>
-                        {stitch.stitchesCombination.map((symbol, index)=>(
+                        {stitchCombination.map((symbol, index)=>(
                             <li className='stitch-tag' key={index}>
                                 <div className='stitch-icon'>
                                     <img src='/single.png'/>
@@ -92,8 +93,6 @@ const StitchDetail = () => {
                 
             </section>
         </div>
-
-
     )
 }
 
