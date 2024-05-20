@@ -1,44 +1,45 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { getStitch } from './Admin/ContentManagement/stitches_service';
+import { STITCHES_INDEX } from '../config/links_path';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
-    const [stitch, setStitch] = useState({});
+    //const [stitch, setStitch] = useState({});
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
 
     const [videoTutorialPath, setVideoTutorialPath] = useState('https://www.youtube.com/@AmigurumiSpacecraft')
+    const [stitchName, setStitchName] = useState("");
+    const [description, setDescription] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [stitchCombination, setStitchCombination] = useState([]);
 
-    const dummyObj = {
-            stitchName: "Single Crochet",
-            description: "Simple Description",
-            stitchesCombination:["sc", "hdc"],
-            stitchDificulty: "Simple"
+    const setStitchFields = (stitch) => {
+        setStitchName(stitch.name);
+        setDescription(stitch.description);
+        setDifficulty(stitch.difficulty);
+        setStitchCombination(stitch.combination);
+        setVideoTutorialPath(stitch.tutorial);
     }
 
     useEffect(()=>{
-        setStitch(dummyObj);
-        setLoading(false);
-    },[]);
-    /*useEffect(()=>{
-        setLoading(true);
-        axios
-            .get(`http://localhost:3030/stitches/${id}`)
-            .then((response)=>{
-                setStitch(response.data);
+        
+
+        const fetchStitch = async(stitchId) => {
+            try{
+                const stitch = await getStitch(stitchId);
+                setStitchFields(stitch);
                 setLoading(false);
-                if(stitch.videoTutorial){
-                    setVideoTutorialPath(stitch.videoTutorial);
-                }
-                
-            })
-            .catch((error)=>{
-                console.log(error)
-                navigate('/stitches')
-            })
-    },[])
-    */
+            }
+            catch(err){
+                console.log(err);
+                navigate(STITCHES_INDEX);
+            }
+        }
+        fetchStitch(id);
+    },[]);
+    
 
     if (loading)
         return (<div>Loading...</div>)
@@ -53,29 +54,30 @@ const StitchDetail = () => {
             </div>
             <section className='detail-content'>
                 <header>
-                    <h1>{stitch.stitchName}</h1>
+                    <h1 className='title'>{stitchName}</h1>
                 </header>
                 <article>
-                    <p>{stitch.description}</p>
-                    <p>
-                        Difficulty: {stitch.difficulty}
+                    <p className='paragraph'>{description}</p>
+
+                    <p className='subtitle'>Difficulty</p>
+                    <p className='paragraph'>{difficulty}</p>
+                    
+                    <p className='subtitle'>
+                        Basic stitches to create this combination
                     </p>
                     
-                    <h3 className='subtitle'>
-                        Required stitches:
-                    </h3>
                     <ul className='tags'>
-                        {stitch.stitchesCombination.map((symbol, index)=>(
+                        {stitchCombination.map((symbol, index)=>(
                             <li className='stitch-tag' key={index}>
                                 <div>
                                     <img src='/single.png'/>
-                                    <p>{symbol.stitch}</p>
+                                    <p>{symbol}</p>
                                 </div>
                             </li>
                         ))}
                     </ul> 
                     
-                    <h3 className='subtitle'>Diagram</h3>
+                    <p className='subtitle'>Diagram</p>
                     <img className='diagram' src='/moss.png'/>
                     
                     <a 
@@ -86,8 +88,6 @@ const StitchDetail = () => {
                 </article>
             </section>
         </div>
-
-
     )
 }
 

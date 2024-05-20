@@ -1,5 +1,7 @@
+import { getDoc, doc } from 'firebase/firestore';
 import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
 import {v4} from 'uuid'
+import {db} from '../../../config/firebase'
 
 export const uploadImage = (stitchPictureFile, stitchName, imageFolderRef) => {
     console.log('Uploading Image');
@@ -80,4 +82,19 @@ export const deleteImage = (dbStorage, pictureUrl) =>{
 
 export const getList = ()=>{
   
+}
+
+export const getStitch = async(stitchId) =>{
+  if(!stitchId)
+    return null;
+  try{
+    const docRef = doc(db, 'stitches', stitchId);
+    const data = await getDoc(docRef);
+    const stitchData = data.data();
+    return stitchData;
+  }
+  catch(err){
+    console.error(err);
+    return null;
+  }
 }

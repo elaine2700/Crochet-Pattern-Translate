@@ -190,16 +190,24 @@ footer{
 .detail-content{
     padding: 2em;
 }
-.detail-content .subtitle{
-    margin-top: 1em;
-}
+    .detail-content .title{
+        margin-bottom: 1em;
+    }
+    .detail-content .subtitle{
+        font-size: 1.1em;
+        margin-top: 1em;
+        font-weight: bold;
+    }
+    .detail-content .paragraph{
+        margin-bottom: 0.5em;
+    }
 .tags{
     display: flex;
     gap: 0.5em;
 }
-.tags li{
-    list-style: none;
-}
+    .tags li{
+        list-style: none;
+    }
 .stitch-tag{
     border: 2px solid var(--blue);
 }
