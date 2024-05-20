@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { getStitch } from './Admin/ContentManagement/stitches_service';
 import { STITCHES_INDEX } from '../config/links_path';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const StitchDetail = () => {
     const [description, setDescription] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [stitchCombination, setStitchCombination] = useState([]);
+    const [contributedBy, setContributedBy] = useState("");
 
     const setStitchFields = (stitch) => {
         setStitchName(stitch.name);
@@ -21,6 +23,7 @@ const StitchDetail = () => {
         setDifficulty(stitch.difficulty);
         setStitchCombination(stitch.combination);
         setVideoTutorialPath(stitch.tutorial);
+        setContributedBy(stitch.contributedBy);
     }
 
     useEffect(()=>{
@@ -53,39 +56,46 @@ const StitchDetail = () => {
                 style={{ backgroundImage: `url('logo512.png')` }}>
             </div>
             <section className='detail-content'>
-                <header>
-                    <h1 className='title'>{stitchName}</h1>
+                <header className='header'>
+                    <h1>{stitchName}</h1>
                 </header>
-                <article>
-                    <p className='paragraph'>{description}</p>
 
-                    <p className='subtitle'>Difficulty</p>
-                    <p className='paragraph'>{difficulty}</p>
-                    
-                    <p className='subtitle'>
-                        Basic stitches to create this combination
-                    </p>
-                    
+                <h2 className='subtitle'>Description</h2>
+                <p className='area'>{description}</p>
+
+                <h2 className='subtitle'>Difficulty</h2>
+                <p className='area'>{difficulty}</p>
+                
+                <p className='subtitle'>Symbols</p>
+                <div className='area'>
                     <ul className='tags'>
                         {stitchCombination.map((symbol, index)=>(
                             <li className='stitch-tag' key={index}>
-                                <div>
+                                <div className='stitch-icon'>
                                     <img src='/single.png'/>
-                                    <p>{symbol}</p>
                                 </div>
+                                <p>{symbol}</p>
                             </li>
                         ))}
                     </ul> 
-                    
-                    <p className='subtitle'>Diagram</p>
+                </div>
+                
+
+                <h2 className='subtitle'>Diagram</h2>
+                <div className='area'>
                     <img className='diagram' src='/moss.png'/>
-                    
-                    <a 
-                        href={videoTutorialPath}
-                        target='_blank'
-                        rel="noopener noreferrer"
-                        >Video Tutorial</a>
-                </article>
+                </div>
+
+                <h2 className='subtitle'>Tutorial</h2>
+                <a className='area' href={videoTutorialPath}
+                    target='_blank'
+                    rel="noopener noreferrer">
+                        Link <FaExternalLinkAlt/>
+                </a>
+
+                <h2 className='subtitle'>Added by</h2>
+                <p className='area'>{contributedBy}</p>
+                
             </section>
         </div>
     )

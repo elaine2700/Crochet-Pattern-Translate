@@ -1,0 +1,72 @@
+/* Detail Page */
+.detail-section{
+    min-height: calc(100vh - 100px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.detail-content{
+    background-color: var(--blue);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    height: fit-content;
+    min-height: calc(100vh - 110px);
+    gap: 2px;
+}
+
+/*Todo Change to grid, and add class to left and right items */
+.detail-content .header {
+    padding-top: 1.5em;
+    grid-column: span 12;
+}
+
+.detail-content > *{
+    padding: 1.5em;
+    background-color: var(--grey);
+}
+
+.detail-content .subtitle{
+    font-family: var(--quickSandFont);
+    font-size: 1.15em;
+    font-weight: bold;
+    grid-column: span 3;
+}
+
+.detail-content .area{
+    grid-column: span 9;
+}
+
+.tags{
+    display: flex;
+    gap: 0.5em;
+}
+.tags li{
+    list-style: none;
+}
+.stitch-tag{
+    display: flex;
+    align-items: center;
+}
+.stitch-icon{
+    background-color: var(--blue);
+    width: 3em;
+    height: 3em;
+    border-radius: 1.5em;
+}
+.stitch-tag > div{
+    display: flex;
+    align-items: center;
+}
+.stitch-tag img{
+    width: 100%;
+    height: auto;
+    padding: 0.25em;
+}
+.stitch-tag p{
+    padding: 0.5em;
+}
+.diagram{
+    width: 100%;
+    height: auto;
+    max-width: 1000px;
+}
