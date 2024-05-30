@@ -14,14 +14,13 @@
     gap: 2px;
 }
 
-/*Todo Change to grid, and add class to left and right items */
 .detail-content .header {
     padding-top: 1.5em;
     grid-column: span 12;
 }
 
 .detail-content > *{
-    padding: 1.5em;
+    padding: 1em;
     background-color: var(--grey);
 }
 
@@ -36,18 +35,12 @@
     grid-column: span 9;
 }
 
-.tags{
-    display: flex;
-    gap: 0.5em;
-}
-.tags li{
-    list-style: none;
-}
+/* Stitch */
 .stitch-tag{
     display: flex;
     align-items: center;
 }
-.stitch-icon{
+.rounded-icon{
     background-color: var(--blue);
     width: 3em;
     height: 3em;
@@ -70,3 +63,34 @@
     height: auto;
     max-width: 1000px;
 }
+
+/* Pattern */
+.pattern-tag{
+    padding: 0 !important;
+    display: flex;
+}
+.pattern-tag :first-child{
+    border-right: 2px solid var(--blue);
+}
+.pattern-tag > *{
+    padding: 0.5em;
+}
+
+.pattern-materials-area{
+    padding: 0;
+    display: flex;
+}
+    .pattern-materials-area > .cell {
+        border-right: 2px solid var(--blue);
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .cell > *{
+        padding: 0.5em;
+    }
+
+    .pattern-materials-area :last-child{
+        border: 0;
+    }

@@ -16,6 +16,7 @@ const StitchDetail = () => {
     const [difficulty, setDifficulty] = useState("");
     const [stitchCombination, setStitchCombination] = useState([]);
     const [contributedBy, setContributedBy] = useState("");
+    const [picture, setPicture] = useState('');
 
     const setStitchFields = (stitch) => {
         setStitchName(stitch.name);
@@ -24,6 +25,7 @@ const StitchDetail = () => {
         setStitchCombination(stitch.combination);
         setVideoTutorialPath(stitch.tutorial);
         setContributedBy(stitch.contributedBy);
+        setPicture(stitch.picture.url);
     }
 
     useEffect(()=>{
@@ -53,7 +55,7 @@ const StitchDetail = () => {
         <div className='detail-section'>
             <div
                 className='fit-picture'
-                style={{ backgroundImage: `url('logo512.png')` }}>
+                style={{ backgroundImage: `url('${picture}')` }}>
             </div>
             <section className='detail-content'>
                 <header className='header'>
@@ -71,7 +73,7 @@ const StitchDetail = () => {
                     <ul className='tags'>
                         {stitchCombination.map((symbol, index)=>(
                             <li className='stitch-tag' key={index}>
-                                <div className='stitch-icon'>
+                                <div className='rounded-icon'>
                                     <img src='/single.png'/>
                                 </div>
                                 <p>{symbol}</p>
@@ -79,7 +81,6 @@ const StitchDetail = () => {
                         ))}
                     </ul> 
                 </div>
-                
 
                 <h2 className='subtitle'>Diagram</h2>
                 <div className='area'>
