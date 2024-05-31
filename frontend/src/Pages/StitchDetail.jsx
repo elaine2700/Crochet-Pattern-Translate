@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { getStitch } from './Admin/ContentManagement/stitches_service';
+import { getItemInCollection } from './Admin/ContentManagement/content_service';
 import { STITCHES_INDEX } from '../config/links_path';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
@@ -29,11 +29,9 @@ const StitchDetail = () => {
     }
 
     useEffect(()=>{
-        
-
         const fetchStitch = async(stitchId) => {
             try{
-                const stitch = await getStitch(stitchId);
+                const stitch = await getItemInCollection(stitchId, 'stitches');
                 setStitchFields(stitch);
                 setLoading(false);
             }

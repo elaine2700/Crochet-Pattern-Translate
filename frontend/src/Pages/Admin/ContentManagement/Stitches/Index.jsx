@@ -2,11 +2,12 @@ import {useState, useEffect} from 'react'
 import { doc, getDocs, collection, deleteDoc } from 'firebase/firestore';
 import { db, storage, storageStitchesFolderName } from '../../../../config/firebase';
 import { useNavigate } from 'react-router-dom';
-import { deleteImage } from '../stitches_service';
+import { deleteImage } from '../content_service';
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import Button from '../../../../Components/Buttons/Button';
+import { CONTENTMANAGEMENT_STITCHES } from '../../../../config/links_path';
 
 const Index = () => {
 
@@ -19,7 +20,8 @@ const Index = () => {
     navigate('/admin/content-management/stitches/create')
   }
   const goToEditStitch = (id) =>{
-    navigate(`/admin/content-management/stitches/edit/${id}`)
+    console.log(id);
+    navigate(`${CONTENTMANAGEMENT_STITCHES}/edit/${id}`)
   }
 
   const deleteStitch = async(stitchId, stitchPictureUrl)=>{

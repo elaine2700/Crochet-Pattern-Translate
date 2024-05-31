@@ -11,12 +11,11 @@ import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
 import {default as StitchesUpsert} from './Pages/Admin/ContentManagement/Stitches/Upsert';
 import {default as StitchesIndex} from './Pages/Admin/ContentManagement/Stitches/Index';
-import SignUp from './Pages/SignUp';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import {default as PatternsIndex} from './Pages/Admin/ContentManagement/Patterns/Index';
 import {default as PatternsUpsert} from './Pages/Admin/ContentManagement/Patterns/Upsert';
 import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_PATTERNS, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
-import { userIsInRole, getCurrentUser } from './Pages/Admin/userRolesService';
+import { userIsInRole } from './Pages/Admin/userRolesService';
 
 function App() {
 
@@ -27,6 +26,7 @@ function App() {
       const allowedRoles = ['admin'];
       try{
         const userHasAccess = await userIsInRole(allowedRoles);
+        console.log('hello');
         setHasAccess(userHasAccess);
       }
       catch(err){
@@ -34,6 +34,7 @@ function App() {
       }
     }
     checkUserHasAccess();
+    //console.log(hasAccess);
   },[])
 
   return (
@@ -51,7 +52,7 @@ function App() {
         {/* Authorized only for admin*/} 
         <Route path={CONTENTMANAGEMENT_STITCHES} element={hasAccess? (<StitchesIndex/>) : (<Navigate to={HOME}/>)}/>
         <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={hasAccess?(<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
-        <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
+        <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/:id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
         <Route path={CONTENTMANAGEMENT_PATTERNS} element={hasAccess ? (<PatternsIndex/>) : (<Navigate to={HOME} />)}/>
         <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME} />)}/>
         <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME}/>)}/>

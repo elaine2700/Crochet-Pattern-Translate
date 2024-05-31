@@ -3,15 +3,15 @@ import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/
 import {v4} from 'uuid'
 import {db} from '../../../config/firebase'
 
-export const uploadImage = (stitchPictureFile, stitchName, imageFolderRef) => {
+export const uploadImage = (pictureFile, itemName, imageFolderRef) => {
     console.log('Uploading Image');
-    if (stitchPictureFile == null)
+    if (pictureFile == null)
         return Promise.resolve(null);
 
-    const imageName = `${stitchName + '_' + v4()}`;
+    const imageName = `${itemName + '_' + v4()}`;
     const imageRef = ref(imageFolderRef, imageName);
 
-    const uploadTask = uploadBytesResumable(imageRef, stitchPictureFile)
+    const uploadTask = uploadBytesResumable(imageRef, pictureFile)
 
     return new Promise((resolve, reject) => {
       uploadTask.on(
@@ -84,11 +84,13 @@ export const getList = ()=>{
   
 }
 
-export const getStitch = async(stitchId) =>{
+export const getItemInCollection = async(stitchId, collectionName) =>{
   if(!stitchId)
     return null;
+  if(!collectionName)
+    return null;
   try{
-    const docRef = doc(db, 'stitches', stitchId);
+    const docRef = doc(db, collectionName, stitchId);
     const data = await getDoc(docRef);
     const stitchData = data.data();
     return stitchData;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { imagesStitchesFolderRef } from '../../../../config/firebase'
-import { uploadImage, deleteImage } from '../stitches_service';
+import { uploadImage, deleteImage } from '../content_service';
 
 import { collection, addDoc, getDoc, doc, updateDoc} from 'firebase/firestore'
 import { db, storage } from '../../../../config/firebase'
