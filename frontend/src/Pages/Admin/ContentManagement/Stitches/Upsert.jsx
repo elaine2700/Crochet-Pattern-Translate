@@ -236,7 +236,7 @@ const Upsert = () => {
           <Button
             content='Back'
             type='outline' variant='secondary'
-            onClick={() => navigate('/content-management/stitches')}/>
+            onClick={() => navigate(CONTENTMANAGEMENT_STITCHES)}/>
         </div>
         
       </form>

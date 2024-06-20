@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
 import { useNavigate } from 'react-router-dom'
+import { CONTENTMANAGEMENT_PATTERNS } from '../../../../config/links_path'
+import { createObjectInDatabase } from '../content_service'
 
 // Picture
 // Name
@@ -22,18 +24,48 @@ const Upsert = () => {
   const [previewPicture, setPreviewPicture] =useState(null);
   const [stitchPicture, setStitchPicture] = useState(null);
   const [pictureUrl, setPictureUrl] = useState('');
+  const [patternName, setPatternName] = useState('');
+  const [description, setDescription] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [hookSize, setHookSize] = useState(0);
+  const [colors, setColors] = useState([]);
+  const [others, setOthers]= useState([]);
+  const [pattern, setPattern]= useState('');
+  const [videoTutorial, setVideoTutorial] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    await createPattern();
     console.log('Adding pattern..');
+    console.log('Hello');
+  }
 
-    /*if(id){
-      editStitch();
+  const createPattern = async () =>{
+    console.log('Creating Pattern');
+
+    // TODO: Convert Colors to Array
+    // TODO: Convert Others to Array
+    // TODO: Get Stitch Picture
+
+    const patternObject = {
+      name: patternName,
+      description: description,
+      difficulty: difficulty,
+      hook: hookSize,
+      pattern: pattern,
+      video: videoTutorial
+    };
+
+    // Upload Doc
+    try{
+      // TODO: test
+      await createObjectInDatabase(patternObject, 'patterns');
     }
-    else{
-      createStitch();
-    }*/
+    catch(error){
+      console.log(error);
+    }
+
+    // Upload Picture File
 
   }
 
@@ -43,7 +75,7 @@ const Upsert = () => {
       <h1 className='title'>Add New Pattern</h1>
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label htmlFor='pattern-name'>Name</label>
-        <input id='pattern-name'/>
+        <input id='pattern-name' onChange={e=>setPatternName(e.target.value)}/>
 
         <div className='flex-container flex-small-gap'>
           <div>
@@ -65,18 +97,18 @@ const Upsert = () => {
           }}/>
 
         <label htmlFor='pattern-description'>Description</label>
-        <textarea id='pattern-description' placeholder='This pattern is ...' rows='3' cols='50'></textarea>
+        <textarea id='pattern-description' placeholder='This pattern is ...' rows='3' cols='50' onChange={e => setDescription(e.target.value)}></textarea>
 
         <label htmlFor="difficulty">Difficulty</label>
-        <select id='difficulty' name='difficulty'>
+        <select id='difficulty' name='difficulty' onChange={e => setDifficulty(e.target.value)}>
         <option value="" disabled>--Select Type--</option>
-          <option>Easy</option>
-          <option>Medium</option>
-          <option>Hard</option>
+          <option value='Easy'>Easy</option>
+          <option value='Medium'>Medium</option>
+          <option value='Hard'>Hard</option>
         </select>
 
         <label htmlFor='pattern-hook'>Hook size in mm</label>
-        <input type='number' id='pattern-hook'/>
+        <input type='number' id='pattern-hook' onChange={e => setHookSize(e.target.value)}/>
 
         <label htmlFor='pattern-colors'>Colors ---Use #colorcode---</label>
         <textarea id='pattern-colors' rows='2' cols='50'></textarea>
@@ -85,10 +117,10 @@ const Upsert = () => {
         <textarea id='pattern-other' rows='2' cols='50'></textarea>
 
         <label htmlFor='pattern-lines'>Pattern</label>
-        <textarea id='pattern-lines' rows='5' cols='50'></textarea>
+        <textarea id='pattern-lines' rows='5' cols='50' onChange={e => setPattern(e.target.value)}></textarea>
 
         <label htmlFor='pattern-video'>Link to video</label>
-        <input id='pattern-video'></input>
+        <input id='pattern-video' onChange={e => setVideoTutorial(e.target.value)}></input>
 
         <div className='buttons-line'>
           <input className={`${buttonStyles.btn} ${buttonStyles.btnFilled} ${buttonStyles.btnSecondary}`}
@@ -97,7 +129,7 @@ const Upsert = () => {
           <Button
             content='Back'
             type='outline' variant='secondary'
-            onClick={() => navigate('/content-management/stitches')}/>
+            onClick={() => navigate(CONTENTMANAGEMENT_PATTERNS)}/>
         </div>
 
       </form>

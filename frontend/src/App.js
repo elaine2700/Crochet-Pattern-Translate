@@ -16,26 +16,41 @@ import {default as PatternsIndex} from './Pages/Admin/ContentManagement/Patterns
 import {default as PatternsUpsert} from './Pages/Admin/ContentManagement/Patterns/Upsert';
 import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_PATTERNS, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
 import { userIsInRole } from './Pages/Admin/userRolesService';
+import { auth } from './config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
 
   const [hasAccess, setHasAccess] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(()=>{
-    const checkUserHasAccess = async () => {
-      const allowedRoles = ['admin'];
-      try{
-        const userHasAccess = await userIsInRole(allowedRoles);
-        console.log('hello');
-        setHasAccess(userHasAccess);
+  if(auth){
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
       }
-      catch(err){
-        console.log(err);
+    });
+  }
+
+  
+
+  useEffect(() => {
+    if (loggedIn != undefined) {
+      // Check if user has access
+      const userHasAccess = async ()=>{
+        try{
+          const access = await userIsInRole(['admin']);
+          setHasAccess(access);
+        }catch(err){
+          console.error(err);
+          setHasAccess(false);
+        }
       }
+      userHasAccess();
     }
-    checkUserHasAccess();
-    //console.log(hasAccess);
-  },[])
+  }, [loggedIn]);
 
   return (
     <BrowserRouter>

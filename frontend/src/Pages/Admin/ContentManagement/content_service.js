@@ -1,4 +1,4 @@
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, addDoc, collection, getDocs } from 'firebase/firestore';
 import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
 import {v4} from 'uuid'
 import {db} from '../../../config/firebase'
@@ -80,17 +80,30 @@ export const deleteImage = (dbStorage, pictureUrl) =>{
     
 }
 
-export const getList = ()=>{
-  
+export const getCollectionList = async(collectionName)=>{
+  console.log(`Fetching collection: ${collectionName}`)
+  const dataCollection = collection(db, collectionName);
+  try{
+    const data = await getDocs(dataCollection);
+    const filteredData = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id
+    }))
+    return filteredData;
+  }
+  catch(error){
+    console.error(error)
+    return []
+  }
 }
 
-export const getItemInCollection = async(stitchId, collectionName) =>{
-  if(!stitchId)
+export const getItemInCollection = async(itemId, collectionName) =>{
+  if(!itemId)
     return null;
   if(!collectionName)
     return null;
   try{
-    const docRef = doc(db, collectionName, stitchId);
+    const docRef = doc(db, collectionName, itemId);
     const data = await getDoc(docRef);
     const stitchData = data.data();
     return stitchData;
@@ -98,5 +111,22 @@ export const getItemInCollection = async(stitchId, collectionName) =>{
   catch(err){
     console.error(err);
     return null;
+  }
+}
+
+export const deleteItemInCollection = async(itemId, collectionName) =>{
+
+}
+
+export const createObjectInDatabase = async (object, collectionName)=>{
+  console.log('Creating new object');
+  const dataCollection = collection(db, collectionName);
+  try{
+    const docRef = await addDoc(dataCollection, object);
+    return true;
+  }
+  catch(error){
+    console.error(error);
+    return false;
   }
 }

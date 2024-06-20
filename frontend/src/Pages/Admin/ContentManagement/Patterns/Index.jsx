@@ -4,8 +4,10 @@ import { FaCirclePlus } from "react-icons/fa6";
 import Button from "../../../../Components/Buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { CONTENTMANAGEMENT_PATTERNS } from "../../../../config/links_path";
-
+import { getCollectionList } from "../content_service";
+import { useEffect, useState } from "react";
 const Index = () => {
+    const [patternList, setPatternList] = useState([]);
     const navigate = useNavigate();
     const goToCreatePattern = () =>{
         navigate(`${CONTENTMANAGEMENT_PATTERNS}/create`)
@@ -15,9 +17,22 @@ const Index = () => {
         navigate(`${CONTENTMANAGEMENT_PATTERNS}/edit/${patternId}`)
     }
 
-    const getPatternList = () => {
-        
+    const getPatternList = async() => {
+        try{
+            return await getCollectionList('patterns');
+        }
+        catch{
+            return []
+        }
     }
+
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            const list = await getPatternList();
+            setPatternList(list);
+        }
+        fetchData();
+    } , []);
 
     return (
     <div className='form-container'>
@@ -33,21 +48,26 @@ const Index = () => {
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Contribution</th>
+                    <th>Author</th>
                     <th></th>
                 </tr> 
             </thead>
             <tbody>
-                <tr>
-                    <td>Name of Pattern</td>
-                    <td>Crochet Spacecraft</td>
-                    <td>
-                        <div className='flex-container justify-end'>
-                            <Button content={<FaEdit/>} />
-                            <Button content={<FaTrash/>}/>
-                        </div>
-                    </td>
-                </tr>
+                {
+                    patternList.map((pattern, id) =>(
+                    <tr key={id}>
+                        <td>{pattern.name}</td>
+                        <td>{pattern.author}</td>
+                        <td>
+                            <div className='flex-container justify-end'>
+                                <Button content={<FaEdit/>} />
+                                <Button content={<FaTrash/>}/>
+                            </div>
+                        </td>
+                    </tr>
+                    ))
+                }
+                
             </tbody>
         </table>
       </main>

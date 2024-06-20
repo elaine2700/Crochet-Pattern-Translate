@@ -19,32 +19,31 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
   }
 
   const [hasAccess, setHasAccess] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(()=>{
-    const userHasAccess = async ()=>{
-      try{
-        const access = await userIsInRole(['admin']);
-        setHasAccess(access);
-      }catch(err){
-        console.error(err);
-        setHasAccess(false);
-      }
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
     }
+  });
 
-    onAuthStateChanged(auth, (user)=>{
-      if(user){
+  useEffect(() => {
+    if (loggedIn != undefined) {
+      // Check if user has access
+      const userHasAccess = async ()=>{
         try{
-          userHasAccess();
-        }
-        catch(err){
+          const access = await userIsInRole(['admin']);
+          setHasAccess(access);
+        }catch(err){
           console.error(err);
+          setHasAccess(false);
         }
       }
-      else{
-        console.log('Not signedIn user')
-      }
-    })
-  },[])
+      userHasAccess();
+    }
+  }, [loggedIn]);
 
   return (
     <nav key={80} className={navbarStyles.list}>

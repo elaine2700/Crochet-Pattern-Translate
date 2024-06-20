@@ -7,7 +7,6 @@ const getCurrentUserId = () =>{
     const currentUser = auth.currentUser;
     if(currentUser)
         return currentUser.uid;
-    console.log(`User Id: ${currentUser}`);
     // General user
     return null; 
 }
@@ -46,6 +45,7 @@ export const userIsInRole = async (rolesAllowed) => {
     const userId = getCurrentUserId();
     if(!userId)
         return false;
+    console.log(`User Id ${userId}`);
     try{
         const userRoles = await getUserRoles(userId); //expecting a map from firestore
 
