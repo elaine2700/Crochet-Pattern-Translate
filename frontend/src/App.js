@@ -17,7 +17,6 @@ import {default as PatternsUpsert} from './Pages/Admin/ContentManagement/Pattern
 import { ADMIN_AREA, CONTACT, CONTENTMANAGEMENT_PATTERNS, CONTENTMANAGEMENT_STITCHES, HOME, PATTERNS_INDEX, STITCHES_INDEX } from './config/links_path';
 import { userIsInRole } from './Pages/Admin/userRolesService';
 import { auth } from './config/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
 
@@ -61,7 +60,7 @@ function App() {
         <Route path={PATTERNS_INDEX} element={<PatternsGallery/>}/>
         <Route path={CONTACT} element={<Contact/>}/>
         <Route path='/stitch-details/:id' element={<StitchDetail/>}/>
-        <Route path='/pattern-details' element={<PatternDetail/>}/>
+        <Route path='/pattern-details/:id' element={<PatternDetail/>}/>
 
         {/*Content Management */}
         {/* Authorized only for admin*/} 

@@ -26,6 +26,8 @@ const Upsert = () => {
   const [pictureUrl, setPictureUrl] = useState('');
   const [patternName, setPatternName] = useState('');
   const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [patternAuthor, setPatternAuthor] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [hookSize, setHookSize] = useState(0);
   const [colors, setColors] = useState([]);
@@ -40,6 +42,21 @@ const Upsert = () => {
     console.log('Hello');
   }
 
+  const asignTextToArray = (text, arraySetter) => {
+    console.log("input text");
+    if(!text) return;
+    if(text.length <= 0){
+      arraySetter([]);
+    }
+    const newArray = [];
+    const words = text.split(',');
+    words.forEach(word => {
+      const trimmedWord = word.trim();
+      newArray.push(trimmedWord);
+    })
+    arraySetter(newArray);
+  }
+
   const createPattern = async () =>{
     console.log('Creating Pattern');
 
@@ -50,10 +67,20 @@ const Upsert = () => {
     const patternObject = {
       name: patternName,
       description: description,
+      patternAuthor: patternAuthor,
       difficulty: difficulty,
-      hook: hookSize,
+      category: category,
       pattern: pattern,
-      video: videoTutorial
+      video: videoTutorial,
+      picture : {
+        author: patternAuthor,
+        url: "someplace.com"
+      },
+      materials: {
+        hook: hookSize,
+        yarnColors : colors,
+        others : others
+      }
     };
 
     // Upload Doc
@@ -99,9 +126,19 @@ const Upsert = () => {
         <label htmlFor='pattern-description'>Description</label>
         <textarea id='pattern-description' placeholder='This pattern is ...' rows='3' cols='50' onChange={e => setDescription(e.target.value)}></textarea>
 
+        <label htmlFor='pattern-author'>Author</label>
+        <input id='pattern-author' placeholder='Write the author name ...' onChange={e => setPatternAuthor(e.target.value)}></input>
+
+        <label htmlFor="category">Category</label>
+        <select id='category' name='category' onChange={e => setCategory(e.target.value)}>
+        <option value='' selected disabled>--Select Category--</option>
+          <option value='Amigurumi'>Amigurumi</option>
+          <option value='Clothes'>Clothes</option>
+        </select>
+
         <label htmlFor="difficulty">Difficulty</label>
         <select id='difficulty' name='difficulty' onChange={e => setDifficulty(e.target.value)}>
-        <option value="" disabled>--Select Type--</option>
+        <option value="" selected disabled>--Select Type--</option>
           <option value='Easy'>Easy</option>
           <option value='Medium'>Medium</option>
           <option value='Hard'>Hard</option>
@@ -111,10 +148,10 @@ const Upsert = () => {
         <input type='number' id='pattern-hook' onChange={e => setHookSize(e.target.value)}/>
 
         <label htmlFor='pattern-colors'>Colors ---Use #colorcode---</label>
-        <textarea id='pattern-colors' rows='2' cols='50'></textarea>
+        <textarea id='pattern-colors' rows='2' cols='50' onChange={e => asignTextToArray(e.target.value, setColors)} ></textarea>
 
         <label htmlFor='pattern-other'>Other Materials</label>
-        <textarea id='pattern-other' rows='2' cols='50'></textarea>
+        <textarea id='pattern-other' rows='2' cols='50' onChange={e => asignTextToArray(e.target.value, setOthers)} ></textarea>
 
         <label htmlFor='pattern-lines'>Pattern</label>
         <textarea id='pattern-lines' rows='5' cols='50' onChange={e => setPattern(e.target.value)}></textarea>

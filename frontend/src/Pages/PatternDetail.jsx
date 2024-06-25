@@ -1,8 +1,13 @@
 import React from 'react'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { FaSquare } from 'react-icons/fa'
+import { useParams } from 'react-router-dom'
 
 const PatternDetail = () => {
+
+    const {id} = useParams();
+    // TODO Fetch Pattern
+
   return (
     <div className='detail-section'>
         <div
