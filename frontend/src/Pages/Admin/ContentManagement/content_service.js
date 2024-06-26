@@ -1,4 +1,4 @@
-import { getDoc, doc, addDoc, collection, getDocs } from 'firebase/firestore';
+import { getDoc, doc, addDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
 import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
 import {v4} from 'uuid'
 import {db} from '../../../config/firebase'
@@ -128,5 +128,16 @@ export const createObjectInDatabase = async (object, collectionName)=>{
   catch(error){
     console.error(error);
     return false;
+  }
+}
+
+export const updateObjectInDatabase = async (objectId, object, collectionName) =>{
+  console.log(`Editing ${objectId} in ${collectionName} collection`);
+  try{
+    const docRef = doc(db, collectionName, objectId);
+    await updateDoc(docRef, object);
+  }
+  catch(err){
+    console.err(err);
   }
 }

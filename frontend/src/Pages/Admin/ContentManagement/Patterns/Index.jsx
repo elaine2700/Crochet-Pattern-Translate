@@ -60,7 +60,7 @@ const Index = () => {
                         <td>{pattern.author}</td>
                         <td>
                             <div className='flex-container justify-end'>
-                                <Button content={<FaEdit/>} />
+                                <Button content={<FaEdit/>} onClick={()=>goToEditPattern(pattern.id)}/>
                                 <Button content={<FaTrash/>}/>
                             </div>
                         </td>
