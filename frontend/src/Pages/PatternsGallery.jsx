@@ -49,7 +49,7 @@ const PatternsGallery = () => {
                       return (<GalleryCard key={index}
                         cardName={pattern.name}
                         linkTo={cardPath(pattern.id)}
-                        imagePath={pattern.picture}/>)
+                        imagePath={pattern.picture.url}/>)
                   })
               }
           </div>

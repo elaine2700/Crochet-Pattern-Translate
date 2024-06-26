@@ -4,7 +4,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import Button from "../../../../Components/Buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { CONTENTMANAGEMENT_PATTERNS } from "../../../../config/links_path";
-import { getCollectionList } from "../content_service";
+import { deleteItemInCollection, getCollectionList } from "../content_service";
 import { useEffect, useState } from "react";
 const Index = () => {
     const [patternList, setPatternList] = useState([]);
@@ -23,6 +23,21 @@ const Index = () => {
         }
         catch{
             return []
+        }
+    }
+
+    const deletePattern = async(patternId)=>{
+        console.log("Deleting pattern");
+        try{
+            await deleteItemInCollection(patternId, 'patterns');
+            console.log("Pattern deleted");
+            alert("pattern deleted succesfully");
+            // get Stitches to reload data
+            const patterns = await getPatternList();
+            setPatternList(patterns);
+        }
+        catch(err){
+            console.error(`Pattern was not deleted because: ${err}`);
         }
     }
 
@@ -61,7 +76,7 @@ const Index = () => {
                         <td>
                             <div className='flex-container justify-end'>
                                 <Button content={<FaEdit/>} onClick={()=>goToEditPattern(pattern.id)}/>
-                                <Button content={<FaTrash/>}/>
+                                <Button content={<FaTrash/>} onClick={()=>deletePattern(pattern.id)}/>
                             </div>
                         </td>
                     </tr>

@@ -6,17 +6,6 @@ import { CONTENTMANAGEMENT_PATTERNS } from '../../../../config/links_path'
 import { createObjectInDatabase, getItemInCollection, uploadImage, deleteImage, updateObjectInDatabase } from '../content_service'
 import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
 
-// Picture
-// Name
-// Description
-// Difficulty
-// Materials
-//  - Hook
-//  - Yarn colors 
-//  - Others
-// Written Pattern In the future. Instructions
-// Link to Video tutorial
-
 const Upsert = () => {
   const navigate = useNavigate();
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
@@ -37,6 +26,9 @@ const Upsert = () => {
   const [previewNewPicture, setPreviewNewPicture] =useState(null);
   const [currentPictureUrl, setCurrentPictureUrl] = useState('');
   const [patterPictureFile, setPatternPictureFile] = useState(null);
+
+  // TODO Add abbreviations.
+  // TODO Save each colorItem as map -> color: {hexCode, colorName}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -89,7 +81,6 @@ const Upsert = () => {
     const fetchDoc = async ()=>{
       try{
         const patternItem = await getItemInCollection(id, 'patterns');
-        console.log(patternItem);
         if(patternItem){
           setPatternId(id);
           setPatternName(patternItem.name);

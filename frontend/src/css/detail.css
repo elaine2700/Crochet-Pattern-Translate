@@ -79,6 +79,7 @@
 .pattern-materials-area{
     padding: 0;
     display: flex;
+    justify-content: space-evenly;
 }
     .pattern-materials-area > .cell {
         border-right: 2px solid var(--blue);

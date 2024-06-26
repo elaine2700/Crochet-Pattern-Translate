@@ -1,34 +1,77 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { FaSquare } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
+import { getItemInCollection } from './Admin/ContentManagement/content_service'
 
 const PatternDetail = () => {
 
     const {id} = useParams();
-    // TODO Fetch Pattern
+    const [patternName, setPatternName] = useState('');
+    const [patternId, setPatternId] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [patternAuthor, setPatternAuthor] = useState('');
+    const [difficulty, setDifficulty] = useState('');
+    const [hookSize, setHookSize] = useState(0);
+    const [colors, setColors] = useState([]);
+    const [others, setOthers]= useState([]);
+    const [pattern, setPattern]= useState('');
+    const [videoTutorial, setVideoTutorial] = useState('');
+    const [patternImg, setPatternImg] = useState('');
+
+    // Fetch Pattern
+    useEffect(()=>{
+        const fetchPattern = async ()=>{
+            try{
+                const patternItem = await getItemInCollection(id, 'patterns');
+                console.log(patternItem);
+                if(patternItem){
+                    setPatternId(id);
+                    setPatternName(patternItem.name);
+                    setDescription(patternItem.description);
+                    setDifficulty(patternItem.difficulty);
+                    setCategory(patternItem.category);
+                    setPattern(patternItem.pattern);
+                    setHookSize(patternItem.materials.hook);
+                    setColors(patternItem.materials.yarnColors);
+                    setOthers(patternItem.materials.others);
+                    setPatternAuthor(patternItem.patternAuthor);
+                    setVideoTutorial(patternItem.video);
+                    setPatternImg(patternItem.picture.url);
+                }
+            }
+            catch(err){
+                console.error(err);
+            }
+        }
+        fetchPattern();
+    },[])
 
   return (
     <div className='detail-section'>
         <div
             className='fit-picture'
-            style={{ backgroundImage: `url('logo512.png')` }}>
+            style={{ backgroundImage: `url('${patternImg}')` }}>
         </div>
         <section className='detail-content'>
             <header className='header'>
-                <h1>Pattern Name</h1>
+                <h1>{patternName}</h1>
             </header>
             
             <h2 className='subtitle'>Author</h2>
             <div className='area'>
-                <a>Andre <FaExternalLinkAlt/></a>
+                <a>{patternAuthor} <FaExternalLinkAlt/></a>
             </div>
 
+            <h2 className='subtitle'>Category</h2>
+            <div className='area'>{category}</div>
+
             <h2 className='subtitle'>Description</h2>
-            <p className='area'>Brief description of pattern</p>
+            <p className='area'>{description}</p>
 
             <h2 className='subtitle'>Difficulty</h2>
-            <p className='area'>Medium</p>
+            <p className='area'>{difficulty}</p>
 
             <h2 className='subtitle'>Materials</h2>
             <div className='area pattern-materials-area'>
@@ -39,7 +82,7 @@ const PatternDetail = () => {
                         </div>
                         <div>
                             <p>Hook</p>
-                            <p className='font-bold'>0.5mm</p>
+                            <p className='font-bold'>{hookSize} mm</p>
                         </div>
                     </div>
                 </div>
@@ -47,8 +90,11 @@ const PatternDetail = () => {
                     <div>
                         <h3 className='font-bold'>Yarn Colors</h3>
                         <ul className='list-nodecoration'>
-                            <li><span style={{color: '#fff'}}><FaSquare/></span> Color 1</li>
-                            <li><FaSquare/> Color 2</li>
+                            {
+                                colors.map((colorItem)=>(
+                                    <li><span style={{color: colorItem}}><FaSquare/></span></li>
+                                ))
+                            }
                         </ul>
                     </div>
                 </div>
@@ -56,8 +102,11 @@ const PatternDetail = () => {
                     <div>
                         <h3 className='font-bold'>Other</h3>
                         <ul>
-                            <li>Other 1</li>
-                            <li>Other 2</li>
+                            {
+                                others.map((otherItem)=>(
+                                    <li>{otherItem}</li>
+                                ))
+                            }
                         </ul>
                     </div>
                 </div>     
@@ -79,39 +128,11 @@ const PatternDetail = () => {
             </div>
 
             <h2 className='subtitle'>Pattern</h2>
-            <p className='area'>Pattern Content Lorem ipsum aglajglafjasfasjdlfaslsafjas fa aglajglafjasfasjdlfaslsafjaslafjlasj 
-            a;lfjalsdkfj af dfj asfj asf akdjfjfiefkj ejfa ieaiefjiefa jfiejfa;ef iejfiea 
-            afjeifjaief jfiaewfiawejfiewji jofiejafiejf awf  jaeoijfeiwof eifjaoewifjwoafi efiaeiofjaef jeoiafjiefj  eifajoewifawoie 
-            ajeifjaiejfeiwf eifjaeifjeif
-            eaifjeiafeoife
-            jeo;iafjeifjfjaief iefjiejfiaef;aoewifaewif iejfaoiewjfaoiwefjeiwjfoawfe. eioajfoeijfiaewjfaw
-            jieajoefjewaoifjaowifjweijfe iajeoiajfei fjaiefjoa. aoeifjaoifej.
-            Pattern Content Lorem ipsum aglajglafjasfasjdlfaslsafjas fa aglajglafjasfasjdlfaslsafjaslafjlasj 
-            a;lfjalsdkfj af dfj asfj asf akdjfjfiefkj ejfa ieaiefjiefa jfiejfa;ef iejfiea 
-            afjeifjaief jfiaewfiawejfiewji jofiejafiejf awf  jaeoijfeiwof eifjaoewifjwoafi efiaeiofjaef jeoiafjiefj  eifajoewifawoie 
-            ajeifjaiejfeiwf eifjaeifjeif
-            eaifjeiafeoife
-            jeo;iafjeifjfjaief iefjiejfiaef;aoewifaewif iejfaoiewjfaoiwefjeiwjfoawfe. eioajfoeijfiaewjfaw
-            jieajoefjewaoifjaowif.
-            Pattern Content Lorem ipsum aglajglafjasfasjdlfaslsafjas fa aglajglafjasfasjdlfaslsafjaslafjlasj 
-            a;lfjalsdkfj af dfj asfj asf akdjfjfiefkj ejfa ieaiefjiefa jfiejfa;ef iejfiea 
-            afjeifjaief jfiaewfiawejfiewji jofiejafiejf awf  jaeoijfeiwof eifjaoewifjwoafi efiaeiofjaef jeoiafjiefj  eifajoewifawoie 
-            ajeifjaiejfeiwf eifjaeifjeif
-            eaifjeiafeoife
-            jeo;iafjeifjfjaief iefjiejfiaef;aoewifaewif iejfaoiewjfaoiwefjeiwjfoawfe. eioajfoeijfiaewjfaw
-            jieajoefjewaoifjaowif.
-            Pattern Content Lorem ipsum aglajglafjasfasjdlfaslsafjas fa aglajglafjasfasjdlfaslsafjaslafjlasj 
-            a;lfjalsdkfj af dfj asfj asf akdjfjfiefkj ejfa ieaiefjiefa jfiejfa;ef iejfiea 
-            afjeifjaief jfiaewfiawejfiewji jofiejafiejf awf  jaeoijfeiwof eifjaoewifjwoafi efiaeiofjaef jeoiafjiefj  eifajoewifawoie 
-            ajeifjaiejfeiwf eifjaeifjeif
-            eaifjeiafeoife
-            jeo;iafjeifjfjaief iefjiejfiaef;aoewifaewif iejfaoiewjfaoiwefjeiwjfoawfe. eioajfoeijfiaewjfaw
-            jieajoefjewaoifjaowif
-            </p>
+            <p className='area'>{pattern}</p>
 
             <h2 className='subtitle'>Tutorial</h2>
             <div className='area'>
-                <a href='#'
+                <a href={`https://${videoTutorial}`}
                     target='_blank'
                     rel="noopener noreferrer">
                         Link <FaExternalLinkAlt/>

@@ -6,7 +6,6 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
-    //const [stitch, setStitch] = useState({});
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
 
@@ -86,7 +85,7 @@ const StitchDetail = () => {
                 </div>
 
                 <h2 className='subtitle'>Tutorial</h2>
-                <a className='area' href={videoTutorialPath}
+                <a className='area' href={`https://${videoTutorialPath}`}
                     target='_blank'
                     rel="noopener noreferrer">
                         Link <FaExternalLinkAlt/>

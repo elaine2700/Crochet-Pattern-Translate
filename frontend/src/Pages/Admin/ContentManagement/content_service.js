@@ -1,4 +1,4 @@
-import { getDoc, doc, addDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
+import { getDoc, doc, addDoc, collection, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
 import {v4} from 'uuid'
 import {db} from '../../../config/firebase'
@@ -115,7 +115,14 @@ export const getItemInCollection = async(itemId, collectionName) =>{
 }
 
 export const deleteItemInCollection = async(itemId, collectionName) =>{
-
+  console.log('Deleting item in collection');
+  try{
+    const docRef = doc(db, collectionName, itemId);
+    await deleteDoc(docRef);
+  }
+  catch(err){
+    console.error(err);
+  }
 }
 
 export const createObjectInDatabase = async (object, collectionName)=>{
