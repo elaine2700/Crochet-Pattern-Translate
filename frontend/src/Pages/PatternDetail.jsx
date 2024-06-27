@@ -19,6 +19,8 @@ const PatternDetail = () => {
     const [pattern, setPattern]= useState('');
     const [videoTutorial, setVideoTutorial] = useState('');
     const [patternImg, setPatternImg] = useState('');
+    const [stitches, setStitches] = useState ([]);
+    const [abbreviations, setAbbreviations] = useState([]);
 
     // Fetch Pattern
     useEffect(()=>{
@@ -39,6 +41,8 @@ const PatternDetail = () => {
                     setPatternAuthor(patternItem.patternAuthor);
                     setVideoTutorial(patternItem.video);
                     setPatternImg(patternItem.picture.url);
+                    setAbbreviations(patternItem.abbreviations);
+                    setStitches(patternItem.stitches);
                 }
             }
             catch(err){
@@ -92,7 +96,7 @@ const PatternDetail = () => {
                         <ul className='list-nodecoration'>
                             {
                                 colors.map((colorItem)=>(
-                                    <li><span style={{color: colorItem}}><FaSquare/></span></li>
+                                    <li><span style={{color: colorItem.code}}><FaSquare/></span> {colorItem.name}</li>
                                 ))
                             }
                         </ul>
@@ -116,14 +120,23 @@ const PatternDetail = () => {
             <h2 className='subtitle'>Abbreviations</h2>
             <div className='area'>
                 <ul className='tags'>
-                    <li className='tag pattern-tag'>
-                        <p className='font-bold'>ch</p>
-                        <p>chain</p>
-                    </li>
-                    <li className='tag pattern-tag'>
-                        <p className='font-bold'>sc</p>
-                        <p>single crochet</p>
-                    </li>
+                    {
+                        abbreviations.map((item) =>(
+                            <li className='tag'>
+                                <p>{item}</p>
+                            </li>
+                        ))
+                    }
+                    {
+                        // TODO Update stitch name
+                        stitches.map((item) => (
+                            <li className='tag pattern-tag'>
+                                <p className='font-bold'>{item}</p>
+                                <p>{item.name}</p>
+                            </li>
+                        ))
+                    }
+                    
                 </ul>
             </div>
 

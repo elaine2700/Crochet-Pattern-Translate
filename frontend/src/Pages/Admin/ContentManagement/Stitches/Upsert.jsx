@@ -30,6 +30,8 @@ const Upsert = () => {
   const [pictureUrl, setPictureUrl] = useState('');
   const [previewPicture, setPreviewPicture] =useState(null);
 
+  // TODO Update Stiches : name, abbreviation, icon
+
   const separateCommas = (text) =>{
     return text.split(',');
   }

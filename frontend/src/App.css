@@ -74,6 +74,7 @@ li {
 .tags{
     display: flex;
     gap: 0.5em;
+    flex-wrap: wrap;
 }
 .tags li{
     list-style: none;
@@ -350,7 +351,7 @@ footer{
         background-color: var(--lightYellow)
     }
 
-    .form-container label{
+    .form-container label, .form-container .label{
         font-size: 0.8em;
         padding-top: 0.75em;
         font-weight: 600;

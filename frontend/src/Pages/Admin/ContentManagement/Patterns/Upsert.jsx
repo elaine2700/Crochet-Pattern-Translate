@@ -18,17 +18,30 @@ const Upsert = () => {
   const [patternAuthor, setPatternAuthor] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [hookSize, setHookSize] = useState(0);
-  const [colors, setColors] = useState([]);
   const [others, setOthers]= useState([]);
   const [pattern, setPattern]= useState('');
   const [videoTutorial, setVideoTutorial] = useState('');
+  const [stitchesInPattern, setStitchesInPattern] = useState([]);
+  const [abbreviations, setAbbreviations] = useState([]);
   // Picture Variables
   const [previewNewPicture, setPreviewNewPicture] =useState(null);
   const [currentPictureUrl, setCurrentPictureUrl] = useState('');
   const [patterPictureFile, setPatternPictureFile] = useState(null);
-
-  // TODO Add abbreviations.
-  // TODO Save each colorItem as map -> color: {hexCode, colorName}
+  
+  // Colors
+  const [yarnColors, setYarnColors] = useState({
+    nameInput: "",
+    codeInput: "",
+    colors: []
+  })
+  const handleYarnColorInputChange = (e) => {
+    const {name , value} = e.target;
+    setYarnColors({
+      ...yarnColors,
+      [name] : value
+    });
+  };
+  // TODO Update stitches: name, abbreviation
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,6 +51,29 @@ const Upsert = () => {
       await createPattern();
     }
     navigate(CONTENTMANAGEMENT_PATTERNS);
+  }
+
+  // TODO Save each colorItem as map -> color: {hexCode, colorName}
+  const addYarnColor = () => {
+    if(yarnColors.nameInput && yarnColors.codeInput) {
+      const newColor = {
+        name: yarnColors.nameInput,
+        code: yarnColors.codeInput
+      };
+      setYarnColors({
+        ...yarnColors,
+        colors: [...yarnColors.colors, newColor],
+        nameInput: '',
+        codeInput: ''
+      });
+    }
+  }
+  const removeYarnColor = (index) =>{
+    const updatedColors = yarnColors.colors.filter((colorItem, i) => i !== index);
+    setYarnColors({
+      ...yarnColors,
+      colors: updatedColors
+    });
   }
   
   const patternObject = (pictureUrl) => {
@@ -55,12 +91,15 @@ const Upsert = () => {
       },
       materials: {
         hook: hookSize,
-        yarnColors : colors,
+        yarnColors : yarnColors.colors,
         others : others
-      }
+      },
+      abbreviations: abbreviations,
+      stitches: stitchesInPattern
     }
   };
 
+  // TODO only trim after a comma is typed
   const asignTextToArray = (text, arraySetter) => {
     console.log("input text");
     if(!text) return;
@@ -70,8 +109,8 @@ const Upsert = () => {
     const newArray = [];
     const words = text.split(',');
     words.forEach(word => {
-      const trimmedWord = word.trim();
-      newArray.push(trimmedWord);
+      //const trimmedWord = word.trim();
+      newArray.push(word);
     })
     arraySetter(newArray);
   }
@@ -90,10 +129,17 @@ const Upsert = () => {
           setPattern(patternItem.pattern);
           setCurrentPictureUrl(patternItem.picture.url);
           setHookSize(patternItem.materials.hook);
-          setColors(patternItem.materials.yarnColors);
+          setYarnColors({
+            ...yarnColors,
+            colors: [...patternItem.materials.yarnColors],
+            nameInput: '',
+            codeInput: ''
+          });
           setOthers(patternItem.materials.others);
           setPatternAuthor(patternItem.patternAuthor);
           setVideoTutorial(patternItem.video);
+          setAbbreviations(patternItem.abbreviations);
+          setStitchesInPattern(patternItem.stitches);
         }
       }
       catch(err){
@@ -103,6 +149,7 @@ const Upsert = () => {
     if(id){
       fetchDoc();
     }
+    addYarnColor("", "");
   },[])
 
   const createPattern = async () =>{
@@ -208,11 +255,39 @@ const Upsert = () => {
         <label htmlFor='pattern-hook'>Hook size in mm</label>
         <input type='number' id='pattern-hook' value={hookSize} onChange={e => setHookSize(e.target.value)}/>
 
-        <label htmlFor='pattern-colors'>Colors ---Use #colorcode---</label>
-        <textarea id='pattern-colors' rows='2' cols='50' value={colors} onChange={e => asignTextToArray(e.target.value, setColors)} ></textarea>
+        <p className='label'>Colors</p>
+        <div className='flex-container flex-small-gap'>
+          <input name='codeInput' placeholder='Enter a color code' value={yarnColors.codeInput} onChange={handleYarnColorInputChange}/>
+          <input name='nameInput' placeholder='Enter name of color' value={yarnColors.nameInput} onChange={handleYarnColorInputChange}/>
+          <Button
+              content='+'
+              type='outline' variant='secondary'
+              onClick={addYarnColor}/>
+        </div>
+        
+        <div className='tags'>
+        {
+          yarnColors.colors.map((colorItem, index) => (
+            <div className='tag flex-container flex-small-gap' key={index}>
+              <p>{colorItem.name}</p>
+              <p>{colorItem.code}</p>
+              <Button
+                content='x'
+                type='outline' variant='secondary'
+                onClick={() => removeYarnColor(index)}/>
+            </div>
+          ))
+        }
+        </div>
 
         <label htmlFor='pattern-other'>Other Materials</label>
         <textarea id='pattern-other' rows='2' cols='50' value={others} onChange={e => asignTextToArray(e.target.value, setOthers)} ></textarea>
+
+        <label htmlFor='pattern-abbreviations'>Abbreviations</label>
+        <textarea id="pattern-abbreviations" rows='2' cols='50' value={abbreviations} onChange={e => asignTextToArray(e.target.value, setAbbreviations)}></textarea>
+
+        <label htmlFor='pattern-stitches'>Stitches in Pattern</label>
+        <textarea id="pattern-stitches" rows='2' cols='50' value={stitchesInPattern} onChange={e => asignTextToArray(e.target.value, setStitchesInPattern)}></textarea>
 
         <label htmlFor='pattern-lines'>Pattern</label>
         <textarea id='pattern-lines' rows='5' cols='50' value={pattern} onChange={e => setPattern(e.target.value)}></textarea>
