@@ -10,15 +10,24 @@
         background-color: var(--yellow);
         color: var(--blue);
     }
+    .btnFilled.btnPrimary:hover{
+        background-color: var(--darkYellow);
+    }
 
     .btnFilled.btnSecondary{
         background-color: var(--blue);
         color: white;
     }
+    .btnFilled.btnSecondary:hover{
+        background-color: var(--darkBlue);
+    }
 
     .btnFilled.btnDestructive{
         background-color: var(--darkRed);
         color: white;
+    }
+    .btnFilled.btnDestructive:hover{
+        background-color: var(--red);
     }
 
 .btnOutline{
@@ -30,13 +39,24 @@
     .btnOutline.btnPrimary{
         border-color: var(--yellow);
     }
+    .btnOutline.btnPrimary:hover{
+        background-color: var(--lightYellow);
+    }
 
     .btnOutline.btnSecondary{
         border-color: var(--blue);
+    }
+    .btnOutline.btnSecondary:hover{
+        background-color: var(--lightBlue);
+        color: white;
     }
 
     .btnOutline.btnDestructive{
         border-color: var(--darkRed);
     }
+    .btnOutline.btnDestructive{
+        background-color: var(--lightRed);
+    }
 
 /* Ghost */
+/*TODO Define Button Ghost styling*/

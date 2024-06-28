@@ -3,9 +3,12 @@
 :root{
     --blue: #83A2FF;
     --lightBlue: #B4BDFF;
+    --darkBlue: #547efe;
     --lightYellow: #FFE3BB;
     --yellow: #ffdeac;
+    --darkYellow: #ffba52;
     --grey: #F4F0F1;
+    --lightRed: #ff9e9e;
     --red: #FA7070;
     --darkRed: #CE5A67;
     --quicksandFont: 'Quicksand', sans-serif;
