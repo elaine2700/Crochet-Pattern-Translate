@@ -39,8 +39,6 @@ const Index = () => {
     }
   }
 
-  // TODO Hide stitch
-
   const getStitchesList = async () => {
     try{
         const data = await getDocs(stitchesCollection);

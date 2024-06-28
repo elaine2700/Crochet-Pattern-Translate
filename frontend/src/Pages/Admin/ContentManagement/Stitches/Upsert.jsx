@@ -24,22 +24,50 @@ const Upsert = () => {
   const [stitchDifficulty, setDifficulty] = useState('');
   const [stitchPicture, setStitchPicture] = useState(null);
   const [picAuthor, setPicAuthor] = useState('');
-  const [combinationText, setCombinationText] = useState("");
   const [tutorialLink, setTutorialLink] = useState('');
   const [currentPicUrl, setCurrentPicUrl] = useState('');
   const [pictureUrl, setPictureUrl] = useState('');
   const [previewPicture, setPreviewPicture] =useState(null);
 
-  // TODO Update Stiches : name, abbreviation, icon
+  // Stitches Combination
+  const [combination, setCombination] = useState({
+    name: "",
+    abbreviation: "",
+    icon: "",
+    list: []
+  });
 
-  const separateCommas = (text) =>{
-    return text.split(',');
+  const handleCombinationChange = (event) =>{
+    const {name, value} = event.target;
+    setCombination({
+      ...combination,
+      [name] : value
+    })
   }
-
-  const joinCommas = (stitchesList) =>{
-    return stitchesList.join(',');
+  const addStitchToCombination = () =>{
+    if(combination.name && combination.abbreviation && combination.icon) {
+      const newStitch = {
+        name : combination.name,
+        abbreviation: combination.abbreviation,
+        icon: combination.icon
+      }
+      setCombination({
+        ...combination,
+        list: [...combination.list, newStitch],
+        name: '',
+        abbreviation: '',
+        icon: ''
+      });
+    }
   }
-
+  const removeStitchFromCombination = (index) =>{
+    const updatedCombinationList = combination.list.filter((item, i) => i !== index);
+    setCombination({
+      ...combination,
+      list: updatedCombinationList
+    });
+  }
+  
   const editStitch = async() =>{
     console.log('Editing the stitch');
     console.log(currentPicUrl);
@@ -59,12 +87,11 @@ const Upsert = () => {
       }
     }
 
-    const _combination = separateCommas(combinationText);
     console.log(updatedUrl);
     try{
       const docRef = doc(db,'stitches', id);
       await updateDoc(docRef,{
-        combination: _combination,
+        combination: combination.list,
         contributedBy: stitchContributedBy,
         description: stitchDescription,
         difficulty: stitchDifficulty,
@@ -97,13 +124,10 @@ const Upsert = () => {
       // Handle error
       return;
     }
-    //console.log(pictureUrl);
-
-    const _combination = separateCommas(combinationText);
 
     try{
       const docRef = await addDoc((stitchesCollection),{
-        combination: _combination,
+        combination: combination.list,
         contributedBy: stitchContributedBy,
         description: stitchDescription,
         difficulty: stitchDifficulty,
@@ -148,6 +172,7 @@ const Upsert = () => {
         const docRef = doc(db,'stitches', id);
         const data = await getDoc(docRef);
         const stitchData = data.data();
+        
         setStitchId(id);
         setStitchName(stitchData.name);
         setDescription(stitchData.description);
@@ -155,8 +180,13 @@ const Upsert = () => {
         setContributedBy(stitchData.contributedBy);
         setDifficulty(stitchData.difficulty);
         setPicAuthor(stitchData.picture.author);
-        const combination = joinCommas(stitchData.combination);
-        setCombinationText(combination);
+        setCombination({
+          ...combination,
+          abbreviation: '',
+          name: '',
+          icon: '',
+          list: [...stitchData.combination]
+        })
         setTutorialLink(stitchData.tutorial);
         setCurrentPicUrl(stitchData.picture.url);
         setPictureUrl(stitchData.picture.url);
@@ -224,10 +254,36 @@ const Upsert = () => {
         <label htmlFor='stitch-contribution'>Contribution by</label>
         <input id='stitch-contribution' value={stitchContributedBy} type='text' onChange={e => setContributedBy(e.target.value)} required/>
 
-        {/*Separate values with comma*/}
+        {/*Separate values with comma
         <label htmlFor='stitch-combination'>Stitches Combination. Separate values with comma</label>
         <input id='stitch-combination' value={combinationText} type='text' onChange={e=> setCombinationText(e.target.value)} required />
-
+        */}
+        <p className='label'>Stitches</p>
+        <div className='flex-container flex-small-gap'>
+          <input name='name' value={combination.name} placeholder='Stitch name' onChange={handleCombinationChange}/>
+          <input name='abbreviation' value={combination.abbreviation} placeholder='Stitch abbreviation' onChange={handleCombinationChange} />
+          <input name='icon' value={combination.icon} placeholder='Stitch icon-url' onChange={handleCombinationChange}/>
+          <Button
+            content='+'
+            type='outline' variant='secondary'
+            onClick={addStitchToCombination}/>
+        </div>
+        <div className='tags'>
+          {
+            combination.list.map((item, index) => (
+              <div className='tag flex-container flex-small-gap'>
+                <p>{item.name}</p>
+                <p>{item.abbreviation}</p>
+                <p>{item.icon}</p>
+                <Button
+                  content='x'
+                  type='outline' variant='secondary'
+                  onClick={() => removeStitchFromCombination(index)} />
+              </div>
+            ))
+          }
+        </div>
+        
         <label htmlFor='stitch-tutorial'>Video Tutorial Link</label>
         <input id='stitch-tutorial' value={tutorialLink} type='text' onChange={e => setTutorialLink(e.target.value)}/>
 
