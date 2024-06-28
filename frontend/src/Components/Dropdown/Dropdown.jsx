@@ -1,35 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import dropdownStyles from './dropdown.module.css'
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
-const Dropdown = ({children, title = 'Title', itemsList  = []}) => {
-
-    /*const exampleList = [
-        {name: 'Link1',
-        link: '',
-        onClick: ''},
-        {name: 'Link2',
-        link: '',
-        onClick: ''},
-    ]; */
+const Dropdown = ({children, title = 'Title'}) => {
 
     const [isDown, setIsDown] = useState(false);
+    const dropdownRef = useRef(null);
 
     const toggleList = () => {
       setIsDown(!isDown);  
     };
 
-    const selectItem = () =>{
+    const handleItemClick = () =>{
         setIsDown(false);
     }
 
-    useEffect(()=>{
-        setIsDown(false);
-    },[])
+    const handleClickOutside = (event) =>{
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDown(false);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
 
     return (
-        <div className={dropdownStyles.dropdownContainer}>
+        <div className={dropdownStyles.dropdownContainer} ref={dropdownRef}>
             <div className={dropdownStyles.dropdown}>
                 <button className={dropdownStyles.dropdownBtn}
                 onClick={toggleList}>
@@ -44,7 +45,10 @@ const Dropdown = ({children, title = 'Title', itemsList  = []}) => {
                     isDown && (
                         <div className={dropdownStyles.dropdownMenuContainer}>
                             <div className={`${dropdownStyles.dropdownMenu} ${dropdownStyles.alignRight}`}>
-                                <ul>{children}</ul>
+                                <ul 
+                                onClick={handleItemClick}>
+                                    {children}
+                                </ul>
                             </div>
                           
                         </div>
