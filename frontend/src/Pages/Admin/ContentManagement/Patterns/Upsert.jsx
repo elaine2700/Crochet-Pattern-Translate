@@ -7,6 +7,7 @@ import { createObjectInDatabase, getItemInCollection, uploadImage, deleteImage, 
 import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
 
 const Upsert = () => {
+  // TODO Test component
   const navigate = useNavigate();
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
   const {id} = useParams();
@@ -21,7 +22,6 @@ const Upsert = () => {
   const [others, setOthers]= useState([]);
   const [pattern, setPattern]= useState('');
   const [videoTutorial, setVideoTutorial] = useState('');
-  const [stitchesInPattern, setStitchesInPattern] = useState([]);
   const [abbreviations, setAbbreviations] = useState([]);
   // Picture Variables
   const [previewNewPicture, setPreviewNewPicture] =useState(null);
@@ -41,7 +41,19 @@ const Upsert = () => {
       [name] : value
     });
   };
-  // TODO Update stitches: name, abbreviation
+  // Stitches
+  const [stitches, setStitches] = useState({
+    name: '',
+    abbreviation: '',
+    list: []
+  })
+  const handleStitchInputChange = (event) => {
+    const {name, value} = event.target;
+    setStitches({
+      ...stitches,
+      [name] : value
+    })
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +65,6 @@ const Upsert = () => {
     navigate(CONTENTMANAGEMENT_PATTERNS);
   }
 
-  // TODO Save each colorItem as map -> color: {hexCode, colorName}
   const addYarnColor = () => {
     if(yarnColors.nameInput && yarnColors.codeInput) {
       const newColor = {
@@ -73,6 +84,27 @@ const Upsert = () => {
     setYarnColors({
       ...yarnColors,
       colors: updatedColors
+    });
+  }
+  const addStitch = () => {
+    if(stitches.name && stitches.abbreviation){
+      const newStitch = {
+        name: stitches.name,
+        abbreviation : stitches.abbreviation
+      }
+      setStitches({
+        ...stitches,
+        list: [...stitches.list, newStitch],
+        name: '',
+        abbreviation: ''
+      });
+    }
+  }
+  const removeStitch = (index) => {
+    const updatedStitches = stitches.list.filter((item, i) => i !== index);
+    setStitches({
+      ...stitches,
+      list: updatedStitches
     });
   }
   
@@ -95,7 +127,7 @@ const Upsert = () => {
         others : others
       },
       abbreviations: abbreviations,
-      stitches: stitchesInPattern
+      stitches: stitches.list
     }
   };
 
@@ -139,7 +171,12 @@ const Upsert = () => {
           setPatternAuthor(patternItem.patternAuthor);
           setVideoTutorial(patternItem.video);
           setAbbreviations(patternItem.abbreviations);
-          setStitchesInPattern(patternItem.stitches);
+          setStitches({
+            ...stitches,
+            list: [...patternItem.stitches],
+            name: '',
+            abbreviation: ''
+          })
         }
       }
       catch(err){
@@ -286,8 +323,31 @@ const Upsert = () => {
         <label htmlFor='pattern-abbreviations'>Abbreviations</label>
         <textarea id="pattern-abbreviations" rows='2' cols='50' value={abbreviations} onChange={e => asignTextToArray(e.target.value, setAbbreviations)}></textarea>
 
-        <label htmlFor='pattern-stitches'>Stitches in Pattern</label>
+        {/*
+          <label htmlFor='pattern-stitches'>Stitches in Pattern</label>
         <textarea id="pattern-stitches" rows='2' cols='50' value={stitchesInPattern} onChange={e => asignTextToArray(e.target.value, setStitchesInPattern)}></textarea>
+      */}
+        <p className='label'>Stitches</p>
+        <div className='flex-container flex-small-gap'>
+          <input placeholder='Enter stitch name' name='name' value={stitches.name} onChange={handleStitchInputChange}/>
+          <input placeholder='Enter stitch abbreviation' name='abbreviation' value={stitches.abbreviation} onChange={handleStitchInputChange}/>
+          <Button content='+'
+          type='outline' variant='secondary'
+          onClick={addStitch} />
+        </div>
+        <div className='tags'>
+          {
+            stitches.list.map((item, index) =>(
+              <div className='tag flex-container flex-small-gap' key={index}>
+                <p>{item.name}</p>
+                <p>{item.abbreviation}</p>
+                <Button content='x'
+                  type='outline' variant='destructive'
+                  onClick={()=> removeStitch(index)}/>
+              </div>
+            ))
+          }
+        </div>
 
         <label htmlFor='pattern-lines'>Pattern</label>
         <textarea id='pattern-lines' rows='5' cols='50' value={pattern} onChange={e => setPattern(e.target.value)}></textarea>

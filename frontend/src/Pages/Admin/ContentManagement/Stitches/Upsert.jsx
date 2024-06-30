@@ -254,10 +254,6 @@ const Upsert = () => {
         <label htmlFor='stitch-contribution'>Contribution by</label>
         <input id='stitch-contribution' value={stitchContributedBy} type='text' onChange={e => setContributedBy(e.target.value)} required/>
 
-        {/*Separate values with comma
-        <label htmlFor='stitch-combination'>Stitches Combination. Separate values with comma</label>
-        <input id='stitch-combination' value={combinationText} type='text' onChange={e=> setCombinationText(e.target.value)} required />
-        */}
         <p className='label'>Stitches</p>
         <div className='flex-container flex-small-gap'>
           <input name='name' value={combination.name} placeholder='Stitch name' onChange={handleCombinationChange}/>
@@ -271,13 +267,13 @@ const Upsert = () => {
         <div className='tags'>
           {
             combination.list.map((item, index) => (
-              <div className='tag flex-container flex-small-gap'>
+              <div className='tag flex-container flex-small-gap' key={index}>
                 <p>{item.name}</p>
                 <p>{item.abbreviation}</p>
                 <p>{item.icon}</p>
                 <Button
                   content='x'
-                  type='outline' variant='secondary'
+                  type='outline' variant='destructive'
                   onClick={() => removeStitchFromCombination(index)} />
               </div>
             ))
