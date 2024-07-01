@@ -43,6 +43,8 @@ const PatternDetail = () => {
                     setPatternImg(patternItem.picture.url);
                     setAbbreviations(patternItem.abbreviations);
                     setStitches(patternItem.stitches);
+                    console.log("Stitches");
+                    console.log(stitches);
                 }
             }
             catch(err){
@@ -107,9 +109,13 @@ const PatternDetail = () => {
                         <h3 className='font-bold'>Other</h3>
                         <ul>
                             {
-                                others.map((otherItem)=>(
-                                    <li>{otherItem}</li>
-                                ))
+                                others.map((otherItem)=>{
+                                    if(otherItem){
+                                        return (
+                                            <li>{otherItem}</li>
+                                        )
+                                    }
+                                })
                             }
                         </ul>
                     </div>
@@ -121,17 +127,21 @@ const PatternDetail = () => {
             <div className='area'>
                 <ul className='tags'>
                     {
-                        abbreviations.map((item) =>(
-                            <li className='tag'>
-                                <p>{item}</p>
-                            </li>
-                        ))
+                        abbreviations.map((item) =>{
+                            if(item){
+                                return (
+                                    <li className='tag'>
+                                        <p>{item}</p>
+                                    </li>
+                                    )
+                            }
+                        })
                     }
                     {
                         // TODO Update stitch name
                         stitches.map((item) => (
                             <li className='tag pattern-tag'>
-                                <p className='font-bold'>{item}</p>
+                                <p className='font-bold'>{item.abbreviation}</p>
                                 <p>{item.name}</p>
                             </li>
                         ))
