@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CONTENTMANAGEMENT_PATTERNS } from '../../../../config/links_path'
 import { createObjectInDatabase, getItemInCollection, uploadImage, deleteImage, updateObjectInDatabase } from '../content_service'
 import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
+import {IoMdClose} from 'react-icons/io';
+import {IoAdd} from 'react-icons/io5';
 
 const Upsert = () => {
   // TODO Test component
@@ -297,8 +299,8 @@ const Upsert = () => {
           <input name='codeInput' placeholder='Enter a color code' value={yarnColors.codeInput} onChange={handleYarnColorInputChange}/>
           <input name='nameInput' placeholder='Enter name of color' value={yarnColors.nameInput} onChange={handleYarnColorInputChange}/>
           <Button
-              content='+'
-              type='outline' variant='secondary'
+              content={<IoAdd/>}
+              styleType='outline' variant='secondary' use='icon'
               onClick={addYarnColor}/>
         </div>
         
@@ -309,8 +311,8 @@ const Upsert = () => {
               <p>{colorItem.name}</p>
               <p>{colorItem.code}</p>
               <Button
-                content='x'
-                type='outline' variant='secondary'
+                content={<IoMdClose/>}
+                styleType='outline' variant='destructive' size='small' use='icon'
                 onClick={() => removeYarnColor(index)}/>
             </div>
           ))
@@ -331,8 +333,8 @@ const Upsert = () => {
         <div className='flex-container flex-small-gap'>
           <input placeholder='Enter stitch name' name='name' value={stitches.name} onChange={handleStitchInputChange}/>
           <input placeholder='Enter stitch abbreviation' name='abbreviation' value={stitches.abbreviation} onChange={handleStitchInputChange}/>
-          <Button content='+'
-          type='outline' variant='secondary'
+          <Button content={<IoAdd/>}
+          styleType='outline' variant='secondary' use='icon'
           onClick={addStitch} />
         </div>
         <div className='tags'>
@@ -341,8 +343,8 @@ const Upsert = () => {
               <div className='tag flex-container flex-small-gap' key={index}>
                 <p>{item.name}</p>
                 <p>{item.abbreviation}</p>
-                <Button content='x'
-                  type='outline' variant='destructive'
+                <Button type="button" content={<IoMdClose/>}
+                  styleType='outline' variant='destructive' size='small' use='icon'
                   onClick={()=> removeStitch(index)}/>
               </div>
             ))
@@ -356,12 +358,14 @@ const Upsert = () => {
         <input id='pattern-video' value={videoTutorial} onChange={e => setVideoTutorial(e.target.value)}></input>
 
         <div className='buttons-line'>
-          <input className={`${buttonStyles.btn} ${buttonStyles.btnFilled} ${buttonStyles.btnSecondary}`}
-            type='submit'
-            value='Save Changes'/>
-          <Button
+          <input 
+          type='submit' 
+          className={`${buttonStyles.btn} ${buttonStyles.medium} ${buttonStyles.secondary} ${buttonStyles.filled}`}
+          value='Save Changes'/>
+
+          <Button type="button"
             content='Back'
-            type='outline' variant='secondary'
+            styleType='outline' variant='secondary'
             onClick={() => navigate(CONTENTMANAGEMENT_PATTERNS)}/>
         </div>
 

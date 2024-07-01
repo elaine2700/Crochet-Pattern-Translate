@@ -76,7 +76,7 @@ const Index = () => {
                         <td>
                             <div className='flex-container justify-end'>
                                 <Button content={<FaEdit/>} onClick={()=>goToEditPattern(pattern.id)}/>
-                                <Button content={<FaTrash/>} onClick={()=>deletePattern(pattern.id)}/>
+                                <Button variant="destructive" content={<FaTrash/>} onClick={()=>deletePattern(pattern.id)}/>
                             </div>
                         </td>
                     </tr>

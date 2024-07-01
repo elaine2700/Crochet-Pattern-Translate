@@ -1,37 +1,70 @@
 import buttonStyles from './buttons.module.css';
 
-const Button = ({content='Default', type = 'filled', variant= 'primary', onClick = null}) => {
+const Button = ({
+  content='Default', 
+  styleType = 'filled', 
+  variant= 'primary',
+  size='medium',
+  use='normal', 
+  onClick = null}) => {
 
-  // Type: filled, outline, or ghost.
+  // TODO Accept submit to button Type - Button type : button, submit, reset
+  // StyleType: filled, outline, or ghost.
   // Variant: primary, secondary, or destructive
+  // Size: small, medium, large
+  // Use: normal, icon.
 
   const getVariantClass = (variant) =>{
     switch (variant) {
       case 'primary':
-        return buttonStyles.btnPrimary;
+        return buttonStyles.primary;
       case 'secondary':
-        return buttonStyles.btnSecondary;
+        return buttonStyles.secondary;
       case 'destructive':
-        return buttonStyles.btnDestructive;
+        return buttonStyles.destructive;
       default:
-        return buttonStyles.btnPrimary;
+        return buttonStyles.primary;
     }
   }
   const getTypeClass = (type) =>{
     switch (type){
       case 'filled':
-        return buttonStyles.btnFilled;
+        return buttonStyles.filled;
       case 'outline':
-        return buttonStyles.btnOutline;
+        return buttonStyles.outline;
       case 'ghost':
-        return buttonStyles.btnGhost;
+        return buttonStyles.ghost;
       default:
-        return buttonStyles.btnFilled;
+        return buttonStyles.filled;
+    }
+  }
+  const getSizeClass = (size) =>{
+    switch(size){
+      case 'small':
+        return buttonStyles.small;
+      case 'medium':
+        return buttonStyles.medium;
+      case 'large':
+        return buttonStyles.large;
+      default:
+        return buttonStyles.medium
+    }
+  }
+  const getUseClass = (use) =>{
+    switch (use){
+      case 'normal':
+        return null;
+      case 'icon':
+        return buttonStyles.icon;
+      default:
+        return null;
     }
   }
 
   const variantClass = getVariantClass(variant);
-  const typeClass = getTypeClass(type);
+  const typeClass = getTypeClass(styleType);
+  const sizeClass = getSizeClass(size);
+  const useClass = getUseClass(use);
   
   const _onClick = (e) =>{
     e.stopPropagation();
@@ -42,9 +75,9 @@ const Button = ({content='Default', type = 'filled', variant= 'primary', onClick
   }
 
   return (
-    <button
+    <button type='button'
       onClick={(e) => _onClick(e)}
-      className={`${buttonStyles.btn} ${typeClass} ${variantClass}`}>
+      className={`${buttonStyles.btn} ${typeClass} ${variantClass} ${sizeClass} ${useClass}`}>
       {content}
     </button>
   )

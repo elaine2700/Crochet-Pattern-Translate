@@ -47,7 +47,7 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
   }, [loggedIn]);
 
   return (
-    <nav key={80} className={navbarStyles.list}>
+    <nav className={navbarStyles.list}>
       <Link className={navbarStyles.linkItem} to={HOME} onClick={clickAction}>Home</Link>
       <Link className={navbarStyles.linkItem} to={STITCHES_INDEX} onClick={clickAction}>Stitches</Link>
       <Link className={navbarStyles.linkItem} to={PATTERNS_INDEX} onClick={clickAction}>Patterns</Link>

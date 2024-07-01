@@ -10,6 +10,9 @@ import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
 import { CONTENTMANAGEMENT_STITCHES } from '../../../../config/links_path';
 
+import { IoAdd } from 'react-icons/io5';
+import {IoMdClose} from 'react-icons/io';
+
 const Upsert = () => {
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
   const {id} = useParams();
@@ -260,8 +263,8 @@ const Upsert = () => {
           <input name='abbreviation' value={combination.abbreviation} placeholder='Stitch abbreviation' onChange={handleCombinationChange} />
           <input name='icon' value={combination.icon} placeholder='Stitch icon-url' onChange={handleCombinationChange}/>
           <Button
-            content='+'
-            type='outline' variant='secondary'
+            content={<IoAdd/>}
+            styleType='outline' variant='secondary' use='icon'
             onClick={addStitchToCombination}/>
         </div>
         <div className='tags'>
@@ -272,8 +275,8 @@ const Upsert = () => {
                 <p>{item.abbreviation}</p>
                 <p>{item.icon}</p>
                 <Button
-                  content='x'
-                  type='outline' variant='destructive'
+                  content={<IoMdClose/>}
+                  styleType='outline' variant='destructive' use='icon' size='small'
                   onClick={() => removeStitchFromCombination(index)} />
               </div>
             ))
@@ -284,12 +287,12 @@ const Upsert = () => {
         <input id='stitch-tutorial' value={tutorialLink} type='text' onChange={e => setTutorialLink(e.target.value)}/>
 
         <div className='buttons-line'>
-          <input className={`${buttonStyles.btn} ${buttonStyles.btnFilled} ${buttonStyles.btnSecondary}`}
+          <input className={`${buttonStyles.btn} ${buttonStyles.filled} ${buttonStyles.secondary} ${buttonStyles.medium}`}
             type='submit'
             value={stitchId == '' ? 'Create' : 'Save Changes'}/>
           <Button
             content='Back'
-            type='outline' variant='secondary'
+            styleType='outline' variant='secondary'
             onClick={() => navigate(CONTENTMANAGEMENT_STITCHES)}/>
         </div>
         
