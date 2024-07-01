@@ -1,0 +1,18 @@
+:root{
+    --font-size-base: 16px;
+}
+html{
+    font-size: var(--font-size-base);
+}
+.font-small{
+    font-size: 0.75rem;
+}
+.font-medium{
+    font-size: 1rem;
+}
+.font-large{
+    font-size: 1.25rem;
+}
+.font-bold{
+    font-weight: bold;
+}

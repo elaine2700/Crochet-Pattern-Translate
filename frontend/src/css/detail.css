@@ -78,14 +78,17 @@
 
 .pattern-materials-area{
     padding: 0;
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    background-color: var(--blue);
+    gap: 2px;
 }
     .pattern-materials-area > .cell {
-        border-right: 2px solid var(--blue);
+        background-color: var(--grey);
         height: 100%;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     .cell > *{

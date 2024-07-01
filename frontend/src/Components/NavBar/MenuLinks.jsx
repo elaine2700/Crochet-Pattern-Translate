@@ -9,6 +9,7 @@ import { auth } from '../../config/firebase';
 
 const MenuLinks = ({onClick} = ()=>console.log('default')) => {
 
+  // TODO: Set a tab page as active.
   const [active, setActive] = useState('');
 
   let clickAction = ()=>{

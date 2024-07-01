@@ -69,12 +69,16 @@ const StitchDetail = () => {
                 <div className='area'>
                     <ul className='tags'>
                         {
-                            /* TODO Style symbols with icons*/
                             stitchCombination.map((symbol, index) => (
-                                <div className='tag' key={index}>
-                                    <div className='icon'>{symbol.icon}</div>
-                                    <div>{symbol.abbreviation}</div>
-                                    <div>{symbol.name}</div>
+                                <div className='flex-container flex-small-gap' key={index}>
+                                    <div className='rounded-icon'>
+                                        <img src={symbol.icon} alt='stitch icon' />
+                                    </div>
+                                    <div>
+                                        <p className='font-bold'>{symbol.abbreviation}</p>
+                                        <p className='font-small'>{symbol.name}</p>
+                                    </div>
+                                    
                                 </div>
                             ))
                         }

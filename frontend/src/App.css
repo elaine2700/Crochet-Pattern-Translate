@@ -40,11 +40,6 @@ a:hover{
     color: var(--blue)
 }
 
-/* Typography */
-.font-bold{
-    font-weight: bold;
-}
-
 /* Lists */
 li {
     margin-left: 1em;
@@ -157,10 +152,6 @@ footer{
     width: 100%;
 }
 
-/*Stitch Detail Section*/
-.btn-secondary{
-    display: block;
-}
 /* Buttons */
 .btn-primary, .btn-secondary, .btn-secondary-outline{
     border-radius: calc(52px * 0.5);
@@ -366,13 +357,14 @@ footer{
 }
       
 form{
-display: block;
+    display: block;
 }
 
 label{
-display: block;
+    display: block;
 }
 
+@import url(css/text.css);
 @import url(css/detail.css);
 
 /* Media queries */
