@@ -1,11 +1,8 @@
-import navbarStyles from './navbar.module.css'
-import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
 import Dropdown from '../Dropdown/Dropdown';
-import { ADMIN_AREA } from '../../config/links_path';
 import DropdownLink from '../Dropdown/DropdownLink';
 import DropdownItem from '../Dropdown/DropdownItem';
 

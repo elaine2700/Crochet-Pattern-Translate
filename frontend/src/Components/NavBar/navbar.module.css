@@ -33,8 +33,9 @@
     padding-bottom: 0.75em;
 }
 
-.list > a:hover{
+.linkItem:hover{
     border-bottom: 3px solid var(--blue);
+    text-decoration: none;
 } 
 
 .menuIcon{
@@ -84,14 +85,20 @@
         background-color: var(--lightYellow);
         border: 2px solid var(--blue);
     }
-    .collapsedMenu > list{
-        display: block;
-    }
-    .collapsedMenu > .list > *{
+    .collapsedMenu .list > *{
         display: block;
         padding: 0.25em;
-        width: fit-content;
+        width: 100%;
         margin: 0 auto;
+        text-align: center;
+    }
+    .linkItem{
+        text-decoration: none;
+    }
+    .linkItem:hover{
+        background-color: var(--blue);
+        color: white;
+        border: 0;
     }
 
     .menuIcon{
@@ -100,6 +107,4 @@
     .hidden{
         display: none;
     }
-
-    
 }

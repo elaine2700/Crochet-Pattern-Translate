@@ -6,9 +6,10 @@ import {STITCHES_INDEX, HOME, PATTERNS_INDEX, CONTACT, CONTENTMANAGEMENT_STITCHE
 import DropdownLink from '../Dropdown/DropdownLink'
 import { userIsInRole } from '../../Pages/Admin/userRolesService';
 import { auth } from '../../config/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 
 const MenuLinks = ({onClick} = ()=>console.log('default')) => {
+
+  const [active, setActive] = useState('');
 
   let clickAction = ()=>{
     console.log('default')
@@ -47,10 +48,10 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
 
   return (
     <nav key={80} className={navbarStyles.list}>
-      <Link to={HOME} onClick={clickAction}>Home</Link>
-      <Link to={STITCHES_INDEX} onClick={clickAction}>Stitches</Link>
-      <Link to={PATTERNS_INDEX} onClick={clickAction}>Patterns</Link>
-      <Link to={CONTACT} onClick={clickAction}>Contribute</Link>
+      <Link className={navbarStyles.linkItem} to={HOME} onClick={clickAction}>Home</Link>
+      <Link className={navbarStyles.linkItem} to={STITCHES_INDEX} onClick={clickAction}>Stitches</Link>
+      <Link className={navbarStyles.linkItem} to={PATTERNS_INDEX} onClick={clickAction}>Patterns</Link>
+      <Link className={navbarStyles.linkItem} to={CONTACT} onClick={clickAction}>Contribute</Link>
       {
         hasAccess ? (
           <Dropdown title='Content'>
