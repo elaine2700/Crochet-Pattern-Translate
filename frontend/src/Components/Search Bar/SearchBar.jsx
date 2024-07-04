@@ -1,23 +1,32 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {HiSearch} from 'react-icons/hi'
 import {AiOutlineClose} from 'react-icons/ai'
 import searchbarStyles from './searchbar.module.css'
+import Button from '../Buttons/Button'
 
-const SearchBar = ({setFilterStitches, stitchesList}) => {
+const SearchBar = ({onResults, data, searchProperty}) => {
 
-  const [searchVal, setSearchVal] = useState('');
+  const [query, setQuery] = useState('');
 
-  const handleInput = (event) => {
-    setSearchVal(event.target.value);
-    
-    const filterStitches = stitchesList.filter((stitch)=>{
-      const currVal = stitch.toLowerCase();
-      const searchTerm = searchVal.toLowerCase();
-      return currVal.includes(searchTerm);
-    })
-
-    setFilterStitches(filterStitches);
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    search(value);
   }
+  const search = (query) => {
+    setQuery(query);
+    if (query === '') {
+      onResults(data);
+      return;
+    }
+    const filteredResults = data
+      .filter(item => item[searchProperty]?.toLowerCase().includes(query.toLowerCase()));
+
+    onResults(filteredResults);
+  }
+
+  useEffect(()=>{
+    search('');
+  },[])
 
   return (
     <div className={searchbarStyles.container}>
@@ -28,13 +37,14 @@ const SearchBar = ({setFilterStitches, stitchesList}) => {
         id='search-label'>Search</label>
         <input
           placeholder='Search'
-          value={searchVal}
+          value={query}
           type='text'
           name='stitch-search'
           id='stitch-search'
-          onChange={(e) => {return handleInput(e)}}/>
-        <AiOutlineClose/>
-        
+          onChange={handleSearch}/>
+        <Button content={<AiOutlineClose/>}
+        styleType='ghost' variant='secondary' use='icon' size='large'
+        onClick={()=>search('')}/>
       </div>
     </div>
   )

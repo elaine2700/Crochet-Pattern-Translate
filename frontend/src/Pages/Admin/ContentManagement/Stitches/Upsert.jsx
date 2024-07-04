@@ -108,7 +108,7 @@ const Upsert = () => {
       });
       console.log("Document updated with ID: ", docRef.id);
       navigate(CONTENTMANAGEMENT_STITCHES)
-      // TODO Create notification. Document updated successfully
+      // TODO Create notification Alerts. Document updated successfully
     }
     catch(error){
       console.error(error);

@@ -9,7 +9,6 @@ import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
 
 const Upsert = () => {
-  // TODO Test component
   const navigate = useNavigate();
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
   const {id} = useParams();

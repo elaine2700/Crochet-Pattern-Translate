@@ -138,7 +138,6 @@ const PatternDetail = () => {
                         })
                     }
                     {
-                        // TODO Update stitch name
                         stitches.map((item) => (
                             <li className='tag pattern-tag'>
                                 <p className='font-bold'>{item.abbreviation}</p>

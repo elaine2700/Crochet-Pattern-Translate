@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react'
 import GalleryCard from '../Components/Gallery Card/GalleryCard'
 import SearchBar from '../Components/Search Bar/SearchBar'
-import axios from 'axios'
 import {db} from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore'
 
-
 const StitchesGallery = () => {
-    // TODO replace with database objects.
-    const allStitches = ['Single Crochet', 'Double Crochet', 'Slip Stitch', 'Chain', 'Popcorn']
-
+    const [filteredStitches, setFilteredStitches] = useState([]);
     const [stitches, setStitches] = useState([]);
-
-    const stitchesCollection = collection(db, "stitches" );
+    const [loading, setLoading] = useState(true);
     
     const cardPath = (stitchId)=>{
         return `/stitch-details/${stitchId}`
@@ -20,40 +15,54 @@ const StitchesGallery = () => {
 
     useEffect(()=>{
         // Read the data.
+        setLoading(true);
         const getStitchesList = async () => {
             try{
+                const stitchesCollection = collection(db, 'stitches' );
                 const data = await getDocs(stitchesCollection);
                 const filteredData = data.docs.map((doc) => ({
                         ...doc.data(),
                         id: doc.id
                     }));
                 setStitches(filteredData);
+                console.log('Stitches:');
+                setLoading(false);
             }
             catch (error){
                 console.error(error)
-                // TODO Create Oops Page
-                // TODO redirect to Oops-Error Page
             }   
         }   
         // Set the Stitch List.
         getStitchesList();
+        
     }, [])
 
-    return (
-        <div>
-            <SearchBar stitchesList={allStitches} setFilterStitches={setStitches} />
-            <div className='gallery-container'>
-                {
-                    stitches.map((stitch, index) => {
-                        return (<GalleryCard key={index} 
-                            cardName={stitch.name} 
-                            linkTo={cardPath(stitch.id)} 
-                            imagePath={stitch.picture.url} />)
-                    })
-                }
+    if(loading){
+        return (
+            <div>Loading...</div>
+        )
+    }
+    else{
+        return (
+            <div>
+                <SearchBar 
+                data={stitches} 
+                onResults={setFilteredStitches}
+                searchProperty='name'/>
+                <div className='gallery-container'>
+                    {
+                        filteredStitches.map((stitch, index) => {
+                            return (<GalleryCard key={index} 
+                                cardName={stitch.name} 
+                                linkTo={cardPath(stitch.id)} 
+                                imagePath={stitch.picture.url} />)
+                        })
+                    }
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+    
 }
 
 export default StitchesGallery
