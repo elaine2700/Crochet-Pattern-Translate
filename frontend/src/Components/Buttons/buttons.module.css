@@ -80,4 +80,25 @@
     }
 
 /* Ghost */
-/*TODO Define Button Ghost styling*/
+.ghost{
+    border: 0;
+    background-color: transparent;
+}
+    .ghost.primary{
+        color: var(--yellow);
+    }
+    .ghost.primary:hover{
+        color: var(--darkYellow);
+    }
+    .ghost.secondary{
+        color: var(--blue);
+    }
+    .ghost.secondary:hover{
+        color: var(--lightBlue);
+    }
+    .ghost.destructive{
+        color: var(--red);
+    }
+    .ghost.destructive:hover{
+        color: var(--darkRed);
+    }

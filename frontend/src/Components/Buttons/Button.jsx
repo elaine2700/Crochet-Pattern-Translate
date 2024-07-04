@@ -7,8 +7,7 @@ const Button = ({
   size='medium',
   use='normal', 
   onClick = null}) => {
-
-  // TODO Accept submit to button Type - Button type : button, submit, reset
+    
   // StyleType: filled, outline, or ghost.
   // Variant: primary, secondary, or destructive
   // Size: small, medium, large
