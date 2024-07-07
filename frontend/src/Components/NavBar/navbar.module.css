@@ -10,14 +10,6 @@
     position: relative;
 }
 
-.container img{
-    height: 100%;
-}
-
-.logo h1{
-    font-size: 18px;
-}
-
 .container > *{
     display: flex;
     list-style: none;
@@ -71,6 +63,23 @@
 
 .hidden{
     display: none;
+}
+
+/*Logo*/
+.logo{
+    flex-direction: column;
+    gap: 0;
+    justify-content: end;
+}
+.logo img{
+    width: 2rem;
+    height: 2rem;
+    background-color: aqua;
+    margin: 0 auto;
+}
+
+.logo h1{
+    font-size: 18px;
 }
 
 @media screen and (max-width: 900px) {

@@ -1,10 +1,6 @@
-.container{
-    padding: 0.5rem;
-}
 .bar{
     color: var(--blue);
     border-radius: 1rem;
-    padding: 0.5em;
     padding-left: 1rem;
     display: flex;
     align-items: center;

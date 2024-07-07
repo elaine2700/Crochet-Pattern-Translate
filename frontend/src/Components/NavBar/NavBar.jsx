@@ -44,6 +44,7 @@ const NavBar = () => {
     return (
       <div className={navbarStyles.container}>
         <div className={navbarStyles.logo}>
+          <img src='' alt='Crochet Spacecraft Logo'/>
           <h1>Crochet Spacecraft</h1>
         </div>
         <MenuLinks/>
@@ -55,6 +56,7 @@ const NavBar = () => {
     return (
       <div className={navbarStyles.container}>
         <div className={navbarStyles.logo}>
+          {/* TODO Add logo */ }
           <h1>Crochet Spacecraft</h1>
         </div>
         {

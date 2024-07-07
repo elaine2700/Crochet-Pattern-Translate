@@ -8,9 +8,11 @@ const Contact = () => {
           <h2>Contact</h2>
         </header>
         <div className='contact-card-content'>
-          {/*TODO Add image here */}
-          <div>Image here</div>
-          <p className='contact-card-paragraph'>Contact us here</p>
+          <div className='contact-card-img mask contact'>
+            <div className='fill bg-blue'></div>
+          </div>
+          
+          <p className='contact-card-paragraph'>Send us and email to let us know about you.</p>
           <div className='contact-card-cta'>
             <a>contact@crochetspacecraft.com</a>
           </div>
@@ -22,11 +24,15 @@ const Contact = () => {
           <h2>Contribute</h2>
         </header>
         <div className='contact-card-content'>
-          {/*TODO Add image here */}
-          <div>Image here</div>
-          <p className='contact-card-paragraph'>Contribute. Send us a message here</p>
+          <div className='contact-card-img mask contribute'>
+            <div className='fill bg-blue'></div>
+          </div>
+          <p className='contact-card-paragraph'>
+            This community is possible thanks to kind volunteers like you. Help us make better for everyone
+            <br/> Fill this form to add more stitches and patterns to the catalog.
+            </p>
           <div className='contact-card-cta'>
-            <a>contribute@crochetspacecraft.com</a>
+            <button className='btn-primary'>Get Started</button>
           </div>
         </div>
         
@@ -36,9 +42,12 @@ const Contact = () => {
           <h2>Donate</h2>
         </header>
         <div className='contact-card-content'>
-          {/*TODO Add image here */}
-          <div>Image here</div>
-          <p className='contact-card-paragraph'>Donate to keep this database alive</p>
+          <div className='contact-card-img mask donate'>
+            <div className='fill bg-blue'></div>
+          </div>
+          <p className='contact-card-paragraph'>
+            Help us create new resources for you to use to expand your crochet skills.
+          </p>
           <div className='contact-card-cta'>
             <button className='btn-primary'>Donate</button>
           </div>
