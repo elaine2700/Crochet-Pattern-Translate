@@ -50,7 +50,7 @@ const Index = () => {
     } , []);
 
     return (
-    <div className='form-container'>
+    <div className='form-container section-container'>
         <header className='flex-container justify-space-between'>
         <h1>Patterns</h1>
         <Button

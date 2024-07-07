@@ -108,11 +108,9 @@ const Upsert = () => {
       });
       console.log("Document updated with ID: ", docRef.id);
       navigate(CONTENTMANAGEMENT_STITCHES)
-      // TODO Create notification Alerts. Document updated successfully
     }
     catch(error){
       console.error(error);
-      // TODO Navigate to Oops Page or Add Notification PopUp
     }
   }
 
@@ -151,11 +149,10 @@ const Upsert = () => {
     }
     catch(error){
       console.error(error);
-      // TODO Navigate to Oops Page or Add Notification PopUp
     }
   }
 
-  const handleSubmit = async (event, stitchData) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     console.log('Adding stitch or pattern..');
@@ -206,7 +203,7 @@ const Upsert = () => {
 
   return (
 
-    <div className='form-container'>
+    <div className='form-container section-container'>
       <h1 className='title'>{stitchId == '' ? 'Create' : 'Edit'} Stitch</h1>
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label htmlFor='stitch-name'>Stitch Name</label>

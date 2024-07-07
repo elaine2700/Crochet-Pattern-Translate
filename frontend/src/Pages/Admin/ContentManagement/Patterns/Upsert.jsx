@@ -132,7 +132,6 @@ const Upsert = () => {
     }
   };
 
-  // TODO only trim after a comma is typed
   const asignTextToArray = (text, arraySetter) => {
     console.log("input text");
     if(!text) return;
@@ -245,7 +244,7 @@ const Upsert = () => {
   }
 
   return (
-    <div className='form-container'>
+    <div className='form-container section-container'>
       <h1 className='title'>{id ? 'Edit' : 'Add New'} Pattern</h1>
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label htmlFor='pattern-name'>Name</label>

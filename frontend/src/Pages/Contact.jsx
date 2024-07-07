@@ -1,7 +1,12 @@
 import React from 'react'
 
 const Contact = () => {
+  
+  // TODO Set up Contribute Button
+  // TODO Set up Donate Button
+
   return (
+
     <div className='contact-section section-container'>
       <section className='contact-card'>
         <header>
@@ -11,7 +16,6 @@ const Contact = () => {
           <div className='contact-card-img mask contact'>
             <div className='fill bg-blue'></div>
           </div>
-          
           <p className='contact-card-paragraph'>Send us and email to let us know about you.</p>
           <div className='contact-card-cta'>
             <a>contact@crochetspacecraft.com</a>

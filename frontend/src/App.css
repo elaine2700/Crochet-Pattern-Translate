@@ -15,6 +15,7 @@
     --dmSerifDisplayFont: 'DM Serif Display', serif;
 }
 
+/* Reset */
 button{
     background: none;
     border: none;
@@ -26,6 +27,8 @@ html{
     font-family: var(--quicksandFont);
     background-color: var(--grey);
 }
+
+@import url(css/layout.css);
 
 h1, h2, h3, h4, h5, h6{
     font-family: var(--dmSerifDisplayFont);
@@ -50,13 +53,7 @@ li {
 .list-nodecoration li {
     margin: 0;
 }
-/* General */
-.section-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 100px);
-}
+
 .d-flex{
     display: flex;
 }
@@ -136,21 +133,6 @@ li {
     transition-delay: 1s;
 }
 
-/* Footer */
-
-footer{
-    background-color: var(--blue);
-    position: fixed;
-    bottom: 0;
-    min-height: 30px;
-    padding: 0.25em;
-    display: flex;
-    gap: 1em;
-    color: white;
-    font-weight: 700;
-    width: 100%;
-}
-
 /* Buttons */
 .btn-primary, .btn-secondary, .btn-secondary-outline{
     border-radius: calc(52px * 0.5);
@@ -200,8 +182,8 @@ footer{
 
 /* Contact Page */
 .contact-section{
-    min-height: calc(100vh - 100px);
     display: grid;
+    align-items: center;
     grid-template-columns: repeat(3, 1fr);
     padding: 3em;
     max-width: 1200px;
@@ -342,9 +324,9 @@ footer{
 .form-container{
     width: 80vw;
     max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 0.5em;
+    margin: 0 auto; 
     padding: 1em;
+    padding-top: 1.5rem;
 }
 
     .form-container header{

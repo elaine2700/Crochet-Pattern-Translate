@@ -47,7 +47,7 @@ const PatternsGallery = () => {
   }
   else{
     return (
-        <div>
+        <div className='section-container' >
             <SearchBar 
             data={patterns} 
             onResults={setFilteredPatterns} 

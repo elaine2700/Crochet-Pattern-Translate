@@ -49,7 +49,7 @@ const StitchDetail = () => {
 
     return (
 
-        <div className='detail-section'>
+        <div className='detail-section section-container'>
             <div
                 className='fit-picture'
                 style={{ backgroundImage: `url('${picture}')` }}>

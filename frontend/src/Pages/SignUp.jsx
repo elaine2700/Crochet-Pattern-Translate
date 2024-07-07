@@ -36,7 +36,7 @@ const SignUp = () => {
     
 
     return (
-        <div className='container'>
+        <div className='container section-container'>
             <h1 className='title'>Register</h1>
 
             <label htmlFor='username'>Username</label>

@@ -56,7 +56,7 @@ const NavBar = () => {
     return (
       <div className={navbarStyles.container}>
         <div className={navbarStyles.logo}>
-          {/* TODO Add logo */ }
+          {/* TODO Add logo here and add to Title (Browser tabs) */ }
           <h1>Crochet Spacecraft</h1>
         </div>
         {

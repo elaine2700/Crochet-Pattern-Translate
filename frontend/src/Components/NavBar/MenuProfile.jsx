@@ -36,7 +36,8 @@ const MenuButtons = () => {
     if (_user) {
         return (
             <Dropdown 
-            title={username}>
+            title={username}
+            align='right'>
                 <DropdownLink link='/'>Profile</DropdownLink>
                 <DropdownItem onClick={signOutUser}>Log Out</DropdownItem>
             </Dropdown>

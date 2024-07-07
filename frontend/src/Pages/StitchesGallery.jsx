@@ -44,7 +44,7 @@ const StitchesGallery = () => {
     }
     else{
         return (
-            <div>
+            <div className='section-container'>
                 <SearchBar 
                 data={stitches} 
                 onResults={setFilteredStitches}

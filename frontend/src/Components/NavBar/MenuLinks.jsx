@@ -7,29 +7,32 @@ import DropdownLink from '../Dropdown/DropdownLink'
 import { userIsInRole } from '../../Pages/Admin/userRolesService';
 import { auth } from '../../config/firebase';
 
-const MenuLinks = ({onClick} = ()=>console.log('default')) => {
+const MenuLinks = ({activeTab = ''}) => {
 
-  // TODO: Set a tab page as active.
+  // Set a tab page as active.
   const [active, setActive] = useState('');
 
-  let clickAction = ()=>{
-    console.log('default')
-  }
-  
-  if(onClick != null){
-    clickAction = onClick
+  const _HOME = 'HOME';
+  const _STITCHES = 'STITCHES';
+  const _PATTERNS = 'PATTERNS';
+  const _CONTRIBUTE = 'CONTRIBUTE';
+
+  const handleClickTab = (tabName) => {
+    setActive(tabName);
+    console.log(active);
   }
 
   const [hasAccess, setHasAccess] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
-  });
+  useEffect(() => {
+    setActive(activeTab);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setLoggedIn(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (loggedIn != undefined) {
@@ -49,10 +52,14 @@ const MenuLinks = ({onClick} = ()=>console.log('default')) => {
 
   return (
     <nav className={navbarStyles.list}>
-      <Link className={navbarStyles.linkItem} to={HOME} onClick={clickAction}>Home</Link>
-      <Link className={navbarStyles.linkItem} to={STITCHES_INDEX} onClick={clickAction}>Stitches</Link>
-      <Link className={navbarStyles.linkItem} to={PATTERNS_INDEX} onClick={clickAction}>Patterns</Link>
-      <Link className={navbarStyles.linkItem} to={CONTACT} onClick={clickAction}>Contribute</Link>
+      <Link className={`${navbarStyles.linkItem} ${active === _HOME? navbarStyles.active : ''}`} 
+      to={HOME} onClick={()=>handleClickTab(_HOME)}>Home</Link>
+      <Link className={`${navbarStyles.linkItem} ${active === _STITCHES? navbarStyles.active : ''}`}
+       to={STITCHES_INDEX} onClick={()=>handleClickTab(_STITCHES)}>Stitches</Link>
+      <Link className={`${navbarStyles.linkItem} ${active === _PATTERNS? navbarStyles.active : ''}`}
+      to={PATTERNS_INDEX} onClick={()=>handleClickTab(_PATTERNS)}>Patterns</Link>
+      <Link className={`${navbarStyles.linkItem} ${active === _CONTRIBUTE? navbarStyles.active : ''}`}
+      to={CONTACT} onClick={()=>handleClickTab(_CONTRIBUTE)}>Contribute</Link>
       {
         hasAccess ? (
           <Dropdown title='Content'>

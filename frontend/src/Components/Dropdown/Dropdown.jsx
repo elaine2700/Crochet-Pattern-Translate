@@ -2,10 +2,23 @@ import React, { useEffect, useState, useRef } from 'react'
 import dropdownStyles from './dropdown.module.css'
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
-const Dropdown = ({children, title = 'Title'}) => {
+const Dropdown = ({children, title = 'Title', align = 'left'}) => {
 
     const [isDown, setIsDown] = useState(false);
     const dropdownRef = useRef(null);
+    
+    const getAlignCssClass = (alignment) =>{
+        switch(alignment){
+            case 'left':
+                return dropdownStyles.alignLeft;
+            case 'right':
+                return dropdownStyles.alignRight;
+            case 'center':
+                return dropdownStyles.alignCenter;
+            default:
+                return dropdownStyles.alignLeft;
+        }
+    }
 
     const toggleList = () => {
       setIsDown(!isDown);  
@@ -20,6 +33,8 @@ const Dropdown = ({children, title = 'Title'}) => {
             setIsDown(false);
         }
     }
+
+    const alignCssClass = getAlignCssClass(align);
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -44,7 +59,7 @@ const Dropdown = ({children, title = 'Title'}) => {
                 {
                     isDown && (
                         <div className={dropdownStyles.dropdownMenuContainer}>
-                            <div className={`${dropdownStyles.dropdownMenu} ${dropdownStyles.alignRight}`}>
+                            <div className={`${dropdownStyles.dropdownMenu} ${alignCssClass}`}>
                                 <ul 
                                 onClick={handleItemClick}>
                                     {children}

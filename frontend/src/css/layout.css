@@ -1,0 +1,16 @@
+/* General */
+.section-container{
+    min-height: calc(100vh - 110px);
+}
+
+/* Footer */
+footer{
+    background-color: var(--blue);
+    height: 30px;
+    padding: 0.25em;
+    display: flex;
+    gap: 1em;
+    color: white;
+    font-weight: 700;
+    width: 100%;
+}

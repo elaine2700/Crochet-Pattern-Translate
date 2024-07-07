@@ -50,7 +50,6 @@ const Index = () => {
     }
     catch (error){
         console.error(error)
-        // TODO redirect to Oops-Error Page
         return []
     }   
 }  
@@ -64,7 +63,6 @@ const Index = () => {
             setStitches(stitchesList);
         } catch (error) {
             console.error(error);
-            // TODO redirect to Oops-Error Page
             setStitches([]); // You might want to set an empty array here if an error occurs
         }
     };
@@ -75,7 +73,7 @@ const Index = () => {
 
 
   return (
-    <div className='form-container'>
+    <div className='form-container section-container'>
       <header className='flex-container justify-space-between'>
         <h1>Stitches</h1>
         <Button
