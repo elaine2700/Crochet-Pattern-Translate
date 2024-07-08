@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getItemInCollection } from './Admin/ContentManagement/content_service';
 import { STITCHES_INDEX } from '../config/links_path';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import Loading from '../Components/Loading/Loading';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
@@ -44,7 +45,9 @@ const StitchDetail = () => {
     
 
     if (loading)
-        return (<div>Loading...</div>)
+        return (<div className='section-container'>
+            <Loading/>
+        </div>)
     else
 
     return (

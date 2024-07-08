@@ -3,6 +3,7 @@ import GalleryCard from '../Components/Gallery Card/GalleryCard'
 import SearchBar from '../Components/Search Bar/SearchBar'
 import {db} from '../config/firebase'
 import { getDocs, collection } from 'firebase/firestore'
+import Loading from '../Components/Loading/Loading'
 
 const StitchesGallery = () => {
     const [filteredStitches, setFilteredStitches] = useState([]);
@@ -39,7 +40,9 @@ const StitchesGallery = () => {
 
     if(loading){
         return (
-            <div>Loading...</div>
+            <div className='section-container'>
+                <Loading/>
+            </div>
         )
     }
     else{

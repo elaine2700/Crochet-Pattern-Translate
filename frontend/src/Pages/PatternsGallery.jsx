@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import SearchBar from '../Components/Search Bar/SearchBar'
 import GalleryCard from '../Components/Gallery Card/GalleryCard'
 import { getCollectionList } from './Admin/ContentManagement/content_service'
+import Loading from '../Components/Loading/Loading'
 
 const PatternsGallery = () => {
-  // Todo replace with database objects. 
   const [patterns, setPatterns] = useState([]);
   const [filteredPatterns, setFilteredPatterns] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +42,9 @@ const PatternsGallery = () => {
   }, [])
   if(loading){
     return(
-        <div>Loading...</div>
+        <div className='section-container'>
+          <Loading/>
+        </div>
     )
   }
   else{
