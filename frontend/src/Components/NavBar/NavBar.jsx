@@ -44,7 +44,7 @@ const NavBar = () => {
     return (
       <div className={navbarStyles.container}>
         <div className={navbarStyles.logo}>
-          <img src='' alt='Crochet Spacecraft Logo'/>
+          <img src='/images/logos/C_Spacecraft_Logo_Color.png' alt='Crochet Spacecraft Logo'/>
           <h1>Crochet Spacecraft</h1>
         </div>
         <MenuLinks/>
@@ -56,7 +56,7 @@ const NavBar = () => {
     return (
       <div className={navbarStyles.container}>
         <div className={navbarStyles.logo}>
-          {/* TODO Add logo here and add to Title (Browser tabs) */ }
+          <img src='/images/logos/C_Spacecraft_Logo_Color.png' alt='Crochet Spacecraft Logo'/>
           <h1>Crochet Spacecraft</h1>
         </div>
         {

@@ -161,7 +161,7 @@ li {
     }
 
     .btn-primary:hover::after{
-        content: ' --->';
+        content: ' -->';
     }
 
 .btn-secondary{
@@ -285,7 +285,7 @@ li {
     justify-content: space-between;
 }
 .justify-end{
-    justify-content: end;
+    justify-content: flex-end;
 }
 .align-items-center{
     align-items: center;

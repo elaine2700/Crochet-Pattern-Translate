@@ -1,6 +1,6 @@
 /* Detail Page */
 .detail-section{
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 110px);
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
