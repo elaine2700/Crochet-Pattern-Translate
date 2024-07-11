@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { imagesStitchesFolderRef } from '../../../../config/firebase'
 import { uploadImage, deleteImage } from '../content_service';
+import stitches_data from '../../../../data/stitches_data';
 
 import { collection, addDoc, getDoc, doc, updateDoc} from 'firebase/firestore'
 import { db, storage } from '../../../../config/firebase'
@@ -10,7 +11,6 @@ import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
 import { CONTENTMANAGEMENT_STITCHES } from '../../../../config/links_path';
 
-import { IoAdd } from 'react-icons/io5';
 import {IoMdClose} from 'react-icons/io';
 
 const Upsert = () => {
@@ -33,42 +33,17 @@ const Upsert = () => {
   const [previewPicture, setPreviewPicture] =useState(null);
 
   // Stitches Combination
-  const [combination, setCombination] = useState({
-    name: "",
-    abbreviation: "",
-    icon: "",
-    list: []
-  });
+  const [combinationIds, setCombinationIds] = useState([]);
+  const selectedStitchesCombination = stitches_data.stitches_icons.filter(option => combinationIds.includes(option.id));
 
-  const handleCombinationChange = (event) =>{
-    const {name, value} = event.target;
-    setCombination({
-      ...combination,
-      [name] : value
-    })
+  const handleSelectCombination = (event) =>{
+    const selectedIds = Array.from(event.target.selectedOptions, (option) => parseInt(option.value));
+    setCombinationIds(selectedIds);
   }
-  const addStitchToCombination = () =>{
-    if(combination.name && combination.abbreviation && combination.icon) {
-      const newStitch = {
-        name : combination.name,
-        abbreviation: combination.abbreviation,
-        icon: combination.icon
-      }
-      setCombination({
-        ...combination,
-        list: [...combination.list, newStitch],
-        name: '',
-        abbreviation: '',
-        icon: ''
-      });
-    }
-  }
+  
   const removeStitchFromCombination = (index) =>{
-    const updatedCombinationList = combination.list.filter((item, i) => i !== index);
-    setCombination({
-      ...combination,
-      list: updatedCombinationList
-    });
+    const updatedCombinationList = combinationIds.filter((item, i) => i !== index);
+    setCombinationIds(updatedCombinationList);
   }
   
   const editStitch = async() =>{
@@ -94,7 +69,7 @@ const Upsert = () => {
     try{
       const docRef = doc(db,'stitches', id);
       await updateDoc(docRef,{
-        combination: combination.list,
+        combination: selectedStitchesCombination,
         contributedBy: stitchContributedBy,
         description: stitchDescription,
         difficulty: stitchDifficulty,
@@ -128,7 +103,7 @@ const Upsert = () => {
 
     try{
       const docRef = await addDoc((stitchesCollection),{
-        combination: combination.list,
+        combination: selectedStitchesCombination,
         contributedBy: stitchContributedBy,
         description: stitchDescription,
         difficulty: stitchDifficulty,
@@ -172,7 +147,8 @@ const Upsert = () => {
         const docRef = doc(db,'stitches', id);
         const data = await getDoc(docRef);
         const stitchData = data.data();
-        
+        //Convert Stitch List to Id List
+        const stitchesCombinationIds = stitchData.combination.map((stitch)=>(stitch.id));
         setStitchId(id);
         setStitchName(stitchData.name);
         setDescription(stitchData.description);
@@ -180,13 +156,7 @@ const Upsert = () => {
         setContributedBy(stitchData.contributedBy);
         setDifficulty(stitchData.difficulty);
         setPicAuthor(stitchData.picture.author);
-        setCombination({
-          ...combination,
-          abbreviation: '',
-          name: '',
-          icon: '',
-          list: [...stitchData.combination]
-        })
+        setCombinationIds(stitchesCombinationIds)
         setTutorialLink(stitchData.tutorial);
         setCurrentPicUrl(stitchData.picture.url);
         setPictureUrl(stitchData.picture.url);
@@ -204,7 +174,7 @@ const Upsert = () => {
   return (
 
     <div className='form-container section-container'>
-      <h1 className='title'>{stitchId == '' ? 'Create' : 'Edit'} Stitch</h1>
+      <h1 className='title'>{stitchId === '' ? 'Create' : 'Edit'} Stitch</h1>
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label htmlFor='stitch-name'>Stitch Name</label>
         <input id='stitch-name' name='stitch-name' value={stitchName} onChange={e => setStitchName(e.target.value)} type='text' required></input>
@@ -212,16 +182,16 @@ const Upsert = () => {
         <div className='flex-container flex-small-gap'>
           <div>
             <h4>Picture</h4>
-            <img className='fit-picture' src={pictureUrl != '' ? pictureUrl : imageNotFoundPath} />
+            <img className='fit-picture' src={pictureUrl !== '' ? pictureUrl : imageNotFoundPath} alt='stitch'/>
           </div>
           {!previewPicture ? <div></div> :
             <div>
               <h4>New Picture</h4>
-              <img src={previewPicture} className='fit-picture'/>
+              <img src={previewPicture} className='fit-picture' alt='Preview of new stitch'/>
             </div> 
           }
         </div>
-        <label htmlFor='stitch-picture'>{stitchId == '' ? 'Choose a ' : 'Change '}Picture file</label>
+        <label htmlFor='stitch-picture'>{stitchId === '' ? 'Choose a ' : 'Change '}Picture file</label>
         <input id='stitch-picture' type='file' onChange={(e)=>{
             setStitchPicture(e.target.files[0])
             console.log(URL.createObjectURL(e.target.files[0]))
@@ -254,19 +224,20 @@ const Upsert = () => {
         <label htmlFor='stitch-contribution'>Contribution by</label>
         <input id='stitch-contribution' value={stitchContributedBy} type='text' onChange={e => setContributedBy(e.target.value)} required/>
 
-        <p className='label'>Stitches</p>
+        <label htmlFor='stitch-combination' className='label'>Stitches</label>
         <div className='flex-container flex-small-gap'>
-          <input name='name' value={combination.name} placeholder='Stitch name' onChange={handleCombinationChange}/>
-          <input name='abbreviation' value={combination.abbreviation} placeholder='Stitch abbreviation' onChange={handleCombinationChange} />
-          <input name='icon' value={combination.icon} placeholder='Stitch icon-url' onChange={handleCombinationChange}/>
-          <Button
-            content={<IoAdd/>}
-            styleType='outline' variant='secondary' use='icon'
-            onClick={addStitchToCombination}/>
+          <select value={combinationIds} id='stitch-combination' multiple onChange={handleSelectCombination}>
+            <option value='' disabled>--Select stitches--</option>
+            {
+              stitches_data.stitches_icons.map((stitch) => (
+                <option key={stitch.id} value={stitch.id}>{stitch.name}</option>
+              ))
+            }
+          </select>
         </div>
         <div className='tags'>
           {
-            combination.list.map((item, index) => (
+            selectedStitchesCombination.map((item, index) => (
               <div className='tag flex-container flex-small-gap' key={index}>
                 <p>{item.name}</p>
                 <p>{item.abbreviation}</p>
@@ -286,7 +257,7 @@ const Upsert = () => {
         <div className='buttons-line'>
           <input className={`${buttonStyles.btn} ${buttonStyles.filled} ${buttonStyles.secondary} ${buttonStyles.medium}`}
             type='submit'
-            value={stitchId == '' ? 'Create' : 'Save Changes'}/>
+            value={stitchId === '' ? 'Create' : 'Save Changes'}/>
           <Button
             content='Back'
             styleType='outline' variant='secondary'

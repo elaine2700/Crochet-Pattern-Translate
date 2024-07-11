@@ -28,7 +28,7 @@ html{
     background-color: var(--grey);
 }
 
-@import url(css/layout.css);
+@import url(layout.css);
 
 h1, h2, h3, h4, h5, h6{
     font-family: var(--dmSerifDisplayFont);
@@ -239,16 +239,16 @@ li {
         mask-repeat: no-repeat;
     }
         .contact-card-img.mask.contact{
-            -webkit-mask-image: url('./images/mail.png');
-            mask-image: url('./images/mail.png');
+            -webkit-mask-image: url('../images/mail.png');
+            mask-image: url('../images/mail.png');
         }
         .contact-card-img.mask.contribute{
-            -webkit-mask-image: url('./images/form.png');
-            mask-image: url('./images/form.png');
+            -webkit-mask-image: url('../images/form.png');
+            mask-image: url('../images/form.png');
         }
         .contact-card-img.mask.donate{
-            -webkit-mask-image: url('./images/donate.png');
-            mask-image: url('./images/donate.png');
+            -webkit-mask-image: url('../images/donate.png');
+            mask-image: url('../images/donate.png');
         }
 
         .fill{
@@ -377,8 +377,8 @@ label{
     display: block;
 }
 
-@import url(css/text.css);
-@import url(css/detail.css);
+@import url(text.css);
+@import url(detail.css);
 
 /* Media queries */
 @media screen and (max-width: 900px) {

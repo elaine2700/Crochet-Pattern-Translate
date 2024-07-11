@@ -4,6 +4,7 @@ import { getItemInCollection } from './Admin/ContentManagement/content_service';
 import { STITCHES_INDEX } from '../config/links_path';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import Loading from '../Components/Loading/Loading';
+import {imageBasePath} from '../data/stitches_data';
 
 const StitchDetail = () => {
     const navigate = useNavigate();
@@ -75,7 +76,7 @@ const StitchDetail = () => {
                             stitchCombination.map((symbol, index) => (
                                 <div className='flex-container flex-small-gap' key={index}>
                                     <div className='rounded-icon'>
-                                        <img src={symbol.icon} alt='stitch icon' />
+                                        <img className='fit-picture' src={`${imageBasePath}${symbol.icon}`} alt='stitch icon' />
                                     </div>
                                     <div>
                                         <p className='font-bold'>{symbol.abbreviation}</p>
