@@ -126,26 +126,27 @@ const PatternDetail = () => {
             <h2 className='subtitle'>Abbreviations</h2>
             <div className='area'>
                 <ul className='tags'>
-                    {
-                        abbreviations.map((item) =>{
-                            if(item){
-                                return (
-                                    <li className='tag'>
-                                        <p>{item}</p>
-                                    </li>
-                                    )
-                            }
-                        })
-                    }
-                    {
-                        stitches.map((item) => (
-                            <li className='tag pattern-tag'>
-                                <p className='font-bold'>{item.abbreviation}</p>
-                                <p>{item.name}</p>
-                            </li>
-                        ))
-                    }
-                    
+                {
+                    abbreviations.map((item) =>{
+                        if(item){
+                            return (
+                                <li className='tag'>
+                                    <p>
+                                        <span className='font-bold'>{item.abbreviation}</span> {item.description}
+                                    </p>
+                                </li>
+                                )
+                        }
+                    })
+                }
+                {
+                    stitches.map((item) => (
+                        <li className='tag pattern-tag'>
+                            <span className='font-bold'>{item.abbreviation}</span>
+                            <span>{item.name}</span>
+                        </li>
+                    ))
+                } 
                 </ul>
             </div>
 

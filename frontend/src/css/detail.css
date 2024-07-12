@@ -71,9 +71,10 @@
 }
 .pattern-tag :first-child{
     border-right: 2px solid var(--blue);
+    height: 100%;
 }
 .pattern-tag > *{
-    padding: 0.5em;
+    padding: 0.25em;
 }
 
 .pattern-materials-area{

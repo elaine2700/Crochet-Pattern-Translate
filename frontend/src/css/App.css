@@ -71,6 +71,10 @@ li {
     border: 2px solid var(--blue);
     padding: 0.25em;
     border-radius: 0.5em;
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 /* Gallery */

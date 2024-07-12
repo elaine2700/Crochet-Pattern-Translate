@@ -238,7 +238,7 @@ const Upsert = () => {
         <div className='tags'>
           {
             selectedStitchesCombination.map((item, index) => (
-              <div className='tag flex-container flex-small-gap' key={index}>
+              <div className='tag' key={index}>
                 <p>{item.name}</p>
                 <p>{item.abbreviation}</p>
                 <p>{item.icon}</p>

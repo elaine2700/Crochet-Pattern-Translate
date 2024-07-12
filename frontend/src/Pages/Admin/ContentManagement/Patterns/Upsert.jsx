@@ -7,6 +7,7 @@ import { createObjectInDatabase, getItemInCollection, uploadImage, deleteImage, 
 import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
 import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
+import {stiches_icons, stitches_icons} from '../../../../data/stitches_data'
 
 const Upsert = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Upsert = () => {
   const [others, setOthers]= useState([]);
   const [pattern, setPattern]= useState('');
   const [videoTutorial, setVideoTutorial] = useState('');
-  const [abbreviations, setAbbreviations] = useState([]);
+  const [selectedStitchesIds, setSelectedStitchesIds] = useState([]);
   // Picture Variables
   const [previewNewPicture, setPreviewNewPicture] =useState(null);
   const [currentPictureUrl, setCurrentPictureUrl] = useState('');
@@ -42,16 +43,16 @@ const Upsert = () => {
       [name] : value
     });
   };
-  // Stitches
-  const [stitches, setStitches] = useState({
-    name: '',
+  // Abbreviations
+  const [abbreviations, setAbbreviations] = useState({
     abbreviation: '',
+    description: '',
     list: []
   })
-  const handleStitchInputChange = (event) => {
+  const handleAbbreviationInputChange = (event) => {
     const {name, value} = event.target;
-    setStitches({
-      ...stitches,
+    setAbbreviations({
+      ...abbreviations,
       [name] : value
     })
   }
@@ -87,26 +88,36 @@ const Upsert = () => {
       colors: updatedColors
     });
   }
-  const addStitch = () => {
-    if(stitches.name && stitches.abbreviation){
+  const addAbbreviation = () => {
+    if(abbreviations.description && abbreviations.abbreviation){
       const newStitch = {
-        name: stitches.name,
-        abbreviation : stitches.abbreviation
+        description: abbreviations.description,
+        abbreviation : abbreviations.abbreviation
       }
-      setStitches({
-        ...stitches,
-        list: [...stitches.list, newStitch],
-        name: '',
+      setAbbreviations({
+        ...abbreviations,
+        list: [...abbreviations.list, newStitch],
+        description: '',
         abbreviation: ''
       });
     }
   }
-  const removeStitch = (index) => {
-    const updatedStitches = stitches.list.filter((item, i) => i !== index);
-    setStitches({
-      ...stitches,
+  const removeAbbreviation = (index) => {
+    const updatedStitches = abbreviations.list.filter((item, i) => i !== index);
+    setAbbreviations({
+      ...abbreviations,
       list: updatedStitches
     });
+  }
+
+  const selectedStitchesCombination = stitches_icons.filter(option => selectedStitchesIds.includes(option.id));
+  const handleStitchInputChange = (event) =>{
+    const selectedIds = Array.from(event.target.selectedOptions, (option) => parseInt(option.value));
+    setSelectedStitchesIds(selectedIds);
+  }
+  const removeStitchFromCombination = (index) => {
+    const updatedList = selectedStitchesIds.filter((item, i) => i !== index);
+    setSelectedStitchesIds(updatedList);
   }
   
   const patternObject = (pictureUrl) => {
@@ -127,8 +138,8 @@ const Upsert = () => {
         yarnColors : yarnColors.colors,
         others : others
       },
-      abbreviations: abbreviations,
-      stitches: stitches.list
+      abbreviations: abbreviations.list,
+      stitches: selectedStitchesCombination
     }
   };
 
@@ -153,6 +164,7 @@ const Upsert = () => {
       try{
         const patternItem = await getItemInCollection(id, 'patterns');
         if(patternItem){
+          const stitchesCombinationIds = patternItem.stitches.map((stitch) => (stitch.id))
           setPatternId(id);
           setPatternName(patternItem.name);
           setDescription(patternItem.description);
@@ -170,11 +182,11 @@ const Upsert = () => {
           setOthers(patternItem.materials.others);
           setPatternAuthor(patternItem.patternAuthor);
           setVideoTutorial(patternItem.video);
-          setAbbreviations(patternItem.abbreviations);
-          setStitches({
-            ...stitches,
-            list: [...patternItem.stitches],
-            name: '',
+          setSelectedStitchesIds(stitchesCombinationIds);
+          setAbbreviations({
+            ...abbreviations,
+            list: [...patternItem.abbreviations],
+            description: '',
             abbreviation: ''
           })
         }
@@ -320,30 +332,45 @@ const Upsert = () => {
         <label htmlFor='pattern-other'>Other Materials</label>
         <textarea id='pattern-other' rows='2' cols='50' value={others} onChange={e => asignTextToArray(e.target.value, setOthers)} ></textarea>
 
-        <label htmlFor='pattern-abbreviations'>Abbreviations</label>
-        <textarea id="pattern-abbreviations" rows='2' cols='50' value={abbreviations} onChange={e => asignTextToArray(e.target.value, setAbbreviations)}></textarea>
-
-        {/*
-          <label htmlFor='pattern-stitches'>Stitches in Pattern</label>
-        <textarea id="pattern-stitches" rows='2' cols='50' value={stitchesInPattern} onChange={e => asignTextToArray(e.target.value, setStitchesInPattern)}></textarea>
-      */}
-        <p className='label'>Stitches</p>
+        <label htmlFor='stitch-combination' className='label'>Stitches In the pattern</label>
+        <select value={selectedStitchesIds} id='stitch-combination' multiple onChange={handleStitchInputChange}>
+          <option value='0' disabled>---Select stitches---</option>
+          {
+            stitches_icons.map((stitch)=>(
+              <option value={stitch.id}>{stitch.name}</option>
+            ))
+          }
+        </select>
+        <div className='tags'>
+          {
+            selectedStitchesCombination.map((stitch, index) => (
+              <div key={index} className='tag'>
+                <span className='font-bold'>{stitch.abbreviation} </span>
+                <span>{stitch.name}</span>
+                <Button content={<IoMdClose/>}
+                styleType='outline' variant='destructive' use='icon' size='small'
+                onClick={() => removeStitchFromCombination(index)}/>
+              </div>
+            ))
+          }
+        </div>
+        <p className='label'>Abbreviations</p>
         <div className='flex-container flex-small-gap'>
-          <input placeholder='Enter stitch name' name='name' value={stitches.name} onChange={handleStitchInputChange}/>
-          <input placeholder='Enter stitch abbreviation' name='abbreviation' value={stitches.abbreviation} onChange={handleStitchInputChange}/>
+          <input placeholder='Enter abbreviation' name='abbreviation' value={abbreviations.abbreviation} onChange={handleAbbreviationInputChange}/>
+          <input placeholder='Enter description' name='description' value={abbreviations.description} onChange={handleAbbreviationInputChange}/>
           <Button content={<IoAdd/>}
-          styleType='outline' variant='secondary' use='icon'
-          onClick={addStitch} />
+          styleType='outline' variant='secondary' use='icon' size='small'
+          onClick={addAbbreviation} />
         </div>
         <div className='tags'>
           {
-            stitches.list.map((item, index) =>(
+            abbreviations.list.map((item, index) =>(
               <div className='tag flex-container flex-small-gap' key={index}>
-                <p>{item.name}</p>
-                <p>{item.abbreviation}</p>
+                <p className='font-bold'>{item.abbreviation}</p>
+                <p>{item.description}</p>
                 <Button type="button" content={<IoMdClose/>}
                   styleType='outline' variant='destructive' size='small' use='icon'
-                  onClick={()=> removeStitch(index)}/>
+                  onClick={()=> removeAbbreviation(index)}/>
               </div>
             ))
           }
