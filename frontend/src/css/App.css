@@ -28,21 +28,7 @@ html{
     background-color: var(--grey);
 }
 
-@import url(layout.css);
-
-h1, h2, h3, h4, h5, h6{
-    font-family: var(--dmSerifDisplayFont);
-}
-
-a{
-    color: black;
-    text-decoration: underline;
-}
-
-a:hover{
-    color: var(--blue)
-}
-
+@import url('layout.css');
 @import url('tags.css');
 
 /* Gallery */
