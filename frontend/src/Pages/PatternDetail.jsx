@@ -84,7 +84,7 @@ const PatternDetail = () => {
                 <div className='cell'>
                     <div className='tags'>
                         <div className='rounded-icon'>
-                            <img style={{width: '100%'}} src='/single.png' alt='hook icon'/>
+                            <img className='fit-picture' src='/images/crochet_hook.png' alt='hook icon'/>
                         </div>
                         <div>
                             <p>Hook</p>

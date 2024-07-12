@@ -1,0 +1,52 @@
+/* General */
+.fit-picture{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.flex-small-gap{
+    gap: 0.25em;
+}
+.fit{
+    width: 100%;
+}
+.flex-container{
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+.justify-center{
+    justify-content: center;
+}
+.justify-space-between{
+    justify-content: space-between;
+}
+.justify-end{
+    justify-content: flex-end;
+}
+.align-items-center{
+    align-items: center;
+}
+.margin-top-small{
+    margin-top: 0.25em;
+}
+.margin-top-medium{
+    margin-top: 0.75em;
+}
+
+/* Lists */
+li {
+    margin-left: 1em;
+}
+.list-nodecoration{
+    list-style: none;
+}
+.list-nodecoration li {
+    margin: 0;
+}
+
+.d-flex{
+    display: flex;
+}

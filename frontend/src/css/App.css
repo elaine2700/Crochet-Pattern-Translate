@@ -43,39 +43,7 @@ a:hover{
     color: var(--blue)
 }
 
-/* Lists */
-li {
-    margin-left: 1em;
-}
-.list-nodecoration{
-    list-style: none;
-}
-.list-nodecoration li {
-    margin: 0;
-}
-
-.d-flex{
-    display: flex;
-}
-
-.tags{
-    display: flex;
-    gap: 0.5em;
-    flex-wrap: wrap;
-}
-.tags li{
-    list-style: none;
-    margin: 0;
-}
-.tag{
-    border: 2px solid var(--blue);
-    padding: 0.25em;
-    border-radius: 0.5em;
-    display: flex;
-    gap: 0.25rem;
-    flex-wrap: nowrap;
-    align-items: center;
-}
+@import url('tags.css');
 
 /* Gallery */
 .gallery-container{
@@ -263,103 +231,10 @@ li {
             background-color: var(--blue);
         }
 
-/* General */
-.fit-picture{
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-}
-.flex-small-gap{
-    gap: 0.25em;
-}
-.fit{
-    width: 100%;
-}
-.flex-container{
-    display: flex;
-}
-.flex-column{
-    flex-direction: column;
-}
-.justify-center{
-    justify-content: center;
-}
-.justify-space-between{
-    justify-content: space-between;
-}
-.justify-end{
-    justify-content: flex-end;
-}
-.align-items-center{
-    align-items: center;
-}
-.margin-top-small{
-    margin-top: 0.25em;
-}
-.margin-top-medium{
-    margin-top: 0.75em;
-}
 
-/* Table */
-.table{
-    border-spacing: 0;
-    width: 100%;
-    text-align: left;
-}
-
-    .table thead{
-        background-color: var(--blue);
-    }
-
-    .table td{
-        border-bottom: solid 1px var(--blue);
-    }
-
-    .table th{
-        padding: 0.5em;
-    }
-
-    .table td{
-        padding: 0.5em;
-    }
-
-/* Form Container */
-.form-container{
-    width: 80vw;
-    max-width: 1200px;
-    margin: 0 auto; 
-    padding: 1em;
-    padding-top: 1.5rem;
-}
-
-    .form-container header{
-        padding-left: 0.5em;
-        padding-bottom: 0.5em;
-    }
-      
-    .form-container .title {
-        text-align: center;
-        padding: 0.5em;
-        background-color:var(--blue);
-        color: var(--lightYellow);
-        width: max-content;
-        margin: 0 auto;
-    }
-    
-    .form-container input, .form-container select, .form-container textarea{
-        width: 100%;
-        font-family: var(--quicksandFont) ;
-        font-size: 1em;
-        background-color: var(--lightYellow);
-        padding: 0.25rem;
-    }
-
-    .form-container label, .form-container .label{
-        font-size: 0.8em;
-        padding-top: 0.75em;
-        font-weight: 600;
-    }
+@import url('general.css');
+@import url('table.css');
+@import url('forms.css');
 
 .buttons-line{
     display: flex;

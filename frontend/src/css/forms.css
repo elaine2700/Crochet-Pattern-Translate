@@ -1,0 +1,36 @@
+/* Form Container */
+.form-container{
+    width: 80vw;
+    max-width: 1200px;
+    margin: 0 auto; 
+    padding: 1em;
+    padding-top: 1.5rem;
+}
+
+    .form-container header{
+        padding-left: 0.5em;
+        padding-bottom: 0.5em;
+    }
+      
+    .form-container .title {
+        text-align: center;
+        padding: 0.5em;
+        background-color:var(--blue);
+        color: var(--lightYellow);
+        width: max-content;
+        margin: 0 auto;
+    }
+    
+    .form-container input, .form-container select, .form-container textarea{
+        width: 100%;
+        font-family: var(--quicksandFont) ;
+        font-size: 1em;
+        background-color: var(--lightYellow);
+        padding: 0.25rem;
+    }
+
+    .form-container label, .form-container .label{
+        font-size: 0.8em;
+        padding-top: 0.75em;
+        font-weight: 600;
+    }
