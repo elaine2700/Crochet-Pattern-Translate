@@ -10,7 +10,6 @@ const StitchDetail = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
-
     const [videoTutorialPath, setVideoTutorialPath] = useState('https://www.youtube.com/@AmigurumiSpacecraft')
     const [stitchName, setStitchName] = useState("");
     const [description, setDescription] = useState("");
