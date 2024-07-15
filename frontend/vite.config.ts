@@ -14,15 +14,19 @@ export default defineConfig({
       include: [
         'src/**/*.svg',
       ],
-    }),
+    })
   ],
   server: {
     open: true, // automatically open the app in the browser
-    port: 3000,
+    port: 3000
   },
   build: {
     outDir: 'build',
+    rollupOptions: {
+      input: {
+        main: './index.html'
+      }
+    }
   },
-  
 });
 
