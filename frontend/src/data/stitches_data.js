@@ -144,7 +144,7 @@ export const stitches_icons = [
     backLoopOnly
 ]
 
-const stitches_data = {
+export const stitches_data = {
     stitches_icons,
     imageBasePath
 }

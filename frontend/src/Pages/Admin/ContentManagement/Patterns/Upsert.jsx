@@ -7,7 +7,7 @@ import { createObjectInDatabase, getItemInCollection, uploadImage, deleteImage, 
 import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
 import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
-import {stiches_icons, stitches_icons} from '../../../../data/stitches_data'
+import {stitches_icons} from '../../../../data/stitches_data'
 
 const Upsert = () => {
   const navigate = useNavigate();
