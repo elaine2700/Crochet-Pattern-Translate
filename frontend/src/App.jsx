@@ -9,6 +9,7 @@ import PatternsGallery from './Pages/PatternsGallery';
 import Contact from './Pages/Contact';
 import StitchDetail from './Pages/StitchDetail';
 import PatternDetail from './Pages/PatternDetail';
+import NotFound from './Pages/NotFound';
 import {default as StitchesUpsert} from './Pages/Admin/ContentManagement/Stitches/Upsert';
 import {default as StitchesIndex} from './Pages/Admin/ContentManagement/Stitches/Index';
 import AdminLogin from './Pages/Admin/AdminLogin';
@@ -59,8 +60,14 @@ function App() {
         <Route path={STITCHES_INDEX} element={<StitchesGallery/>}/>
         <Route path={PATTERNS_INDEX} element={<PatternsGallery/>}/>
         <Route path={CONTACT} element={<Contact/>}/>
-        <Route path='/stitch-details/:id' element={<StitchDetail/>}/>
-        <Route path='/pattern-details/:id' element={<PatternDetail/>}/>
+        <Route path='/stitch-details'>
+          <Route path=':id' element={<StitchDetail />} />
+          <Route path='' element={<StitchesGallery />} />
+        </Route>
+        <Route path='/pattern-details'>
+          <Route path=':id' element={<PatternDetail />} />
+          <Route path='' element={<PatternsGallery/>} />
+        </Route>
 
         {/*Content Management */}
         {/* Authorized only for admin*/} 
@@ -74,7 +81,7 @@ function App() {
         {/*Authenticate user */}
         <Route path={ADMIN_AREA} element={<AdminLogin/>}/>
 
-        <Route path='*' element={<div>Not Found</div>}/>
+        <Route path='*' element={<NotFound/>}/>
       </Routes>  
       <footer>
                 <p>Crochet Spacecraft</p>
