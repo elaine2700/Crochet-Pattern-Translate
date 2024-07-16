@@ -32,6 +32,10 @@ const StitchDetail = () => {
         const fetchStitch = async(stitchId) => {
             try{
                 const stitch = await getItemInCollection(stitchId, 'stitches');
+                if(!stitch){
+                    navigate(STITCHES_INDEX);
+                    return;
+                }    
                 setStitchFields(stitch);
                 setLoading(false);
             }

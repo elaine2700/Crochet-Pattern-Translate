@@ -55,39 +55,41 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Routes>
-        <Route path={HOME} element={<Home/>}/>
-        <Route path={STITCHES_INDEX} element={<StitchesGallery/>}/>
-        <Route path={PATTERNS_INDEX} element={<PatternsGallery/>}/>
-        <Route path={CONTACT} element={<Contact/>}/>
-        <Route path='/stitch-details'>
-          <Route path=':id' element={<StitchDetail />} />
-          <Route path='' element={<StitchesGallery />} />
-        </Route>
-        <Route path='/pattern-details'>
-          <Route path=':id' element={<PatternDetail />} />
-          <Route path='' element={<PatternsGallery/>} />
-        </Route>
+      <main>
+        <Routes>
+          <Route path={HOME} element={<Home/>}/>
+          <Route path={STITCHES_INDEX} element={<StitchesGallery/>}/>
+          <Route path={PATTERNS_INDEX} element={<PatternsGallery/>}/>
+          <Route path={CONTACT} element={<Contact/>}/>
+          <Route path='/stitch-details'>
+            <Route path=':id' element={<StitchDetail />} errorElement={<NotFound/>} />
+            <Route path='' element={<StitchesGallery />} />
+          </Route>
+          <Route path='/pattern-details'>
+            <Route path=':id' element={<PatternDetail />} errorElement={<NotFound/>}/>
+            <Route path='' element={<PatternsGallery/>} />
+          </Route>
 
-        {/*Content Management */}
-        {/* Authorized only for admin*/} 
-        <Route path={CONTENTMANAGEMENT_STITCHES} element={hasAccess? (<StitchesIndex/>) : (<Navigate to={HOME}/>)}/>
-        <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={hasAccess?(<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
-        <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/:id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
-        <Route path={CONTENTMANAGEMENT_PATTERNS} element={hasAccess ? (<PatternsIndex/>) : (<Navigate to={HOME} />)}/>
-        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME} />)}/>
-        <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME}/>)}/>
+          {/*Content Management */}
+          {/* Authorized only for admin*/} 
+          <Route path={CONTENTMANAGEMENT_STITCHES} element={hasAccess? (<StitchesIndex/>) : (<Navigate to={HOME}/>)}/>
+          <Route path={`${CONTENTMANAGEMENT_STITCHES}/create`} element={hasAccess?(<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
+          <Route path={`${CONTENTMANAGEMENT_STITCHES}/edit/:id`} element={hasAccess ? (<StitchesUpsert/>) : (<Navigate to={HOME}/>)}/>
+          <Route path={CONTENTMANAGEMENT_PATTERNS} element={hasAccess ? (<PatternsIndex/>) : (<Navigate to={HOME} />)}/>
+          <Route path={`${CONTENTMANAGEMENT_PATTERNS}/create`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME} />)}/>
+          <Route path={`${CONTENTMANAGEMENT_PATTERNS}/edit/:id`} element={hasAccess ? (<PatternsUpsert/>) : (<Navigate to={HOME}/>)}/>
 
-        {/*Authenticate user */}
-        <Route path={ADMIN_AREA} element={<AdminLogin/>}/>
+          {/*Authenticate user */}
+          <Route path={ADMIN_AREA} element={<AdminLogin/>}/>
 
-        <Route path='*' element={<NotFound/>}/>
-      </Routes>  
+          <Route path='*' element={<NotFound/>}/>
+        </Routes> 
+      </main>
       <footer>
-                <p>Crochet Spacecraft</p>
-                <p>Contact Us</p>
-                <p>Instagram</p>
-            </footer>   
+        <p>Crochet Spacecraft</p>
+        <p>Contact Us</p>
+        <p>Instagram</p>
+      </footer>   
     </BrowserRouter>
   );
 }

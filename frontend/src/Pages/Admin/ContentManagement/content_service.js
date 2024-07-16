@@ -105,6 +105,9 @@ export const getItemInCollection = async(itemId, collectionName) =>{
   try{
     const docRef = doc(db, collectionName, itemId);
     const data = await getDoc(docRef);
+    if(!data.exists()) {
+      return null;
+    }
     const stitchData = data.data();
     return stitchData;
   }

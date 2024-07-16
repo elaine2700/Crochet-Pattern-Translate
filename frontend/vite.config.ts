@@ -5,7 +5,7 @@ import commonjs from 'vite-plugin-commonjs';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     react(),
     vitetsConfigPaths(),

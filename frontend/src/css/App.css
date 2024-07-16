@@ -4,8 +4,8 @@
 @import url('general.css');
 @import url('table.css');
 @import url('forms.css');
-@import url(text.css);
-@import url(detail.css);
+@import url('text.css');
+@import url('detail.css');
 
 :root{
     --blue: #83A2FF;
@@ -34,7 +34,6 @@ html{
     font-family: var(--quicksandFont);
     background-color: var(--grey);
 }
-
 
 
 /* Gallery */
