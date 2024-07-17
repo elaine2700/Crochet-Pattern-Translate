@@ -56,7 +56,7 @@ const PatternDetail = () => {
         }  
         ).catch((error)=>{
             console.warn(error);
-            navigate('/patterns');
+            navigate(PATTERNS_INDEX);
         })
     },[])
 

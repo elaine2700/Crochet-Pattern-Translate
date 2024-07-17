@@ -1,4 +1,4 @@
-import { getDoc, doc, addDoc, collection, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getDoc, doc, addDoc, collection, getDocs, updateDoc, deleteDoc } from 'firebase/firestore/lite';
 import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
 import {v4} from 'uuid'
 import {db} from '../../../config/firebase'

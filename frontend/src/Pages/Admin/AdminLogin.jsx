@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth'
+import {useState} from 'react'
+import { signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 import { auth, googleProvider } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import { HOME } from '../../config/links_path';
@@ -14,7 +14,7 @@ const Login = () => {
     try{
       var result = await signInWithEmailAndPassword(auth, email, password)
       if(result){
-        navigate('/')
+        navigate(HOME)
       }
     }
     catch(err){

@@ -30,8 +30,8 @@ const Index = () => {
         console.log("Deleting pattern");
         try{
             await deleteItemInCollection(patternId, 'patterns');
-            console.log("Pattern deleted");
             alert("pattern deleted succesfully");
+            //TODO Delete Pattern Image
             // get Stitches to reload data
             const patterns = await getPatternList();
             setPatternList(patterns);

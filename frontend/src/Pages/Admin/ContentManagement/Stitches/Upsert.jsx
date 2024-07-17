@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { imagesStitchesFolderRef } from '../../../../config/firebase'
-import { uploadImage, deleteImage } from '../content_service';
+import { uploadImage, deleteImage, updateObjectInDatabase, createObjectInDatabase, getItemInCollection } from '../content_service';
 import stitches_data from '../../../../data/stitches_data';
-
-import { collection, addDoc, getDoc, doc, updateDoc} from 'firebase/firestore'
-import { db, storage } from '../../../../config/firebase'
+import { storage } from '../../../../config/firebase'
 
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
-import { CONTENTMANAGEMENT_STITCHES } from '../../../../config/links_path';
+import { CONTENTMANAGEMENT_STITCHES, STITCHES_INDEX } from '../../../../config/links_path';
 
 import {IoMdClose} from 'react-icons/io';
 
@@ -17,7 +15,6 @@ const Upsert = () => {
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
   const {id} = useParams();
   const navigate = useNavigate()
-  const stitchesCollection = collection(db, 'stitches');
 
   const [stitchId, setStitchId] = useState('');
   const [stitchName, setStitchName] = useState('')
@@ -47,9 +44,6 @@ const Upsert = () => {
   }
   
   const editStitch = async() =>{
-    console.log('Editing the stitch');
-    console.log(currentPicUrl);
-    console.log(pictureUrl);
     let updatedUrl = pictureUrl;
     if(stitchPicture != null){
       try {
@@ -65,10 +59,8 @@ const Upsert = () => {
       }
     }
 
-    console.log(updatedUrl);
     try{
-      const docRef = doc(db,'stitches', id);
-      await updateDoc(docRef,{
+      const stitchObject = {
         combination: selectedStitchesCombination,
         contributedBy: stitchContributedBy,
         description: stitchDescription,
@@ -80,8 +72,8 @@ const Upsert = () => {
         },
         tutorial: tutorialLink,
         type: stitchType
-      });
-      console.log("Document updated with ID: ", docRef.id);
+      }
+      await updateObjectInDatabase(id, stitchObject ,'stitches');
       navigate(CONTENTMANAGEMENT_STITCHES)
     }
     catch(error){
@@ -97,12 +89,11 @@ const Upsert = () => {
       url = picUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
-      // Handle error
       return;
     }
 
     try{
-      const docRef = await addDoc((stitchesCollection),{
+      const stitchObject = {
         combination: selectedStitchesCombination,
         contributedBy: stitchContributedBy,
         description: stitchDescription,
@@ -118,8 +109,8 @@ const Upsert = () => {
         },
         tutorial: tutorialLink,
         type: stitchType
-      });
-      console.log("Document written with ID: ", docRef.id);
+      }
+      await createObjectInDatabase(stitchObject, 'stitches');
       navigate(CONTENTMANAGEMENT_STITCHES)
     }
     catch(error){
@@ -143,10 +134,11 @@ const Upsert = () => {
 
   useEffect(()=>{
     const fetchDoc = async() =>{
-      try{      
-        const docRef = doc(db,'stitches', id);
-        const data = await getDoc(docRef);
-        const stitchData = data.data();
+      try{  
+        const stitchData = await getItemInCollection(id, 'stitches');    
+        if(!stitchData){
+          navigate(STITCHES_INDEX);
+        }
         //Convert Stitch List to Id List
         const stitchesCombinationIds = stitchData.combination.map((stitch)=>(stitch.id));
         setStitchId(id);
@@ -163,6 +155,7 @@ const Upsert = () => {
       }
       catch(err){
         console.error(err);
+        navigate(STITCHES_INDEX);
       }
     }
     if(id){

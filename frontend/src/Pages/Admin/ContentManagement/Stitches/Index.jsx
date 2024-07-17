@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react'
-import { doc, getDocs, collection, deleteDoc } from 'firebase/firestore';
-import { db, storage, storageStitchesFolderName } from '../../../../config/firebase';
+import { storage } from '../../../../config/firebase';
 import { useNavigate } from 'react-router-dom';
-import { deleteImage } from '../content_service';
+import { deleteImage, deleteItemInCollection, getCollectionList } from '../content_service';
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -13,8 +12,6 @@ const Index = () => {
 
   const [stitches, setStitches] = useState([]);
 
-  const stitchesCollection = collection(db, storageStitchesFolderName);
-
   const navigate = useNavigate();
   const goToCreateStitch = () => {
     navigate('/admin/content-management/stitches/create')
@@ -24,53 +21,36 @@ const Index = () => {
     navigate(`${CONTENTMANAGEMENT_STITCHES}/edit/${id}`)
   }
 
-  const deleteStitch = async(stitchId, stitchPictureUrl)=>{
-    console.log('Deleting Stitch');
+  const deleteStitch = async(stitchId, stitchPictureUrl) => {
     try{
-      const docRef = doc(db,'stitches', stitchId);
-      await deleteDoc(docRef);
-      const stitchesList = await getStitchesList();
+      await deleteItemInCollection(stitchId, 'stitches');
       await deleteImage(storage, stitchPictureUrl);
-      alert("Stitch Deleted successfully");
-      setStitches(stitchesList);
+      alert('stitch deleted Successfully');
+      // Reload data
+      const stitches = await getStitchesList();
+      setStitches(stitches);
     }
     catch(err){
-      console.error(err);
+      console.log(`Stitch was not deleted because: ${err}`);
     }
   }
 
   const getStitchesList = async () => {
     try{
-        const data = await getDocs(stitchesCollection);
-        const filteredData = data.docs.map((doc) => ({
-                ...doc.data(),
-                id: doc.id
-            }));
-        return filteredData;
+      return await getCollectionList('stitches');
     }
-    catch (error){
-        console.error(error)
+    catch{
         return []
-    }   
-}  
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            // Call the asynchronous function and wait for the result
-            const stitchesList = await getStitchesList();
-            // Once the result is obtained, set the state
-            setStitches(stitchesList);
-        } catch (error) {
-            console.error(error);
-            setStitches([]); // You might want to set an empty array here if an error occurs
-        }
-    };
-
-    // Call the async function
+      const list = await getStitchesList();
+      setStitches(list);
+    }
     fetchData();
   }, []);
-
 
   return (
     <div className='form-container section-container'>

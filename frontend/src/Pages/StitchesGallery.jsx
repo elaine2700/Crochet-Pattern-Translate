@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import GalleryCard from '../Components/Gallery Card/GalleryCard'
 import SearchBar from '../Components/Search Bar/SearchBar'
-import {db} from '../config/firebase'
-import { getDocs, collection } from 'firebase/firestore'
 import Loading from '../Components/Loading/Loading'
+import { getCollectionList } from './Admin/ContentManagement/content_service'
 
 const StitchesGallery = () => {
     const [filteredStitches, setFilteredStitches] = useState([]);
@@ -19,14 +18,8 @@ const StitchesGallery = () => {
         setLoading(true);
         const getStitchesList = async () => {
             try{
-                const stitchesCollection = collection(db, 'stitches' );
-                const data = await getDocs(stitchesCollection);
-                const filteredData = data.docs.map((doc) => ({
-                        ...doc.data(),
-                        id: doc.id
-                    }));
-                setStitches(filteredData);
-                console.log('Stitches:');
+                const stitchesList = await getCollectionList('stitches');
+                setStitches(stitchesList);
                 setLoading(false);
             }
             catch (error){

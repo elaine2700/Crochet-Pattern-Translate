@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Contact = () => {
   
   // TODO Set up Contribute Button

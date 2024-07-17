@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { getItemInCollection } from './Admin/ContentManagement/content_service';
 import { STITCHES_INDEX } from '../config/links_path';

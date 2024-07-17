@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import SearchBar from '../Components/Search Bar/SearchBar'
 import GalleryCard from '../Components/Gallery Card/GalleryCard'
 import { getCollectionList } from './Admin/ContentManagement/content_service'

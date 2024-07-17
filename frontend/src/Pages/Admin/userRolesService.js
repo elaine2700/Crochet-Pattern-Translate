@@ -1,5 +1,5 @@
-import {auth, db} from '../../config/firebase.js'
-import {doc, getDoc } from 'firebase/firestore';
+import {auth} from '../../config/firebase.js'
+import { getItemInCollection } from './ContentManagement/content_service.js';
 
 export const RoleAdmin = 'admin';
 
@@ -30,15 +30,11 @@ export const getCurrentUser = async () => {
 }
 
 const getUserRoles = async (userId) => {
-    
-    const userDoc = doc(db, 'users', userId);
-    try{
-        const user = await getDoc(userDoc);
-        return user.data().roles;
+    const user = await getItemInCollection(userId, 'users');
+    if(!user){
+        return;
     }
-    catch(err){
-        console.error(err);
-    }
+    return user.roles;
 }
 
 export const userIsInRole = async (rolesAllowed) => {
