@@ -1,6 +1,6 @@
+import LinkButton from "../Components/Buttons/LinkButton"
+
 const Contact = () => {
-  
-  // TODO Set up Contribute Button
   // TODO Set up Donate Button
 
   return (
@@ -34,7 +34,8 @@ const Contact = () => {
             <br/> Fill this form to add more stitches and patterns to the catalog.
             </p>
           <div className='contact-card-cta'>
-            <button className='btn-primary'>Get Started</button>
+            <LinkButton to='https://forms.gle/5Edsqx3jM2rj6MWr7'
+            content='Get started' target='_blank'/>
           </div>
         </div>
         

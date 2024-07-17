@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { imagesStitchesFolderRef } from '../../../../config/firebase'
+import { imagesStitchesFolderRef, storage } from '../../../../config/firebase'
 import { uploadImage, deleteImage, updateObjectInDatabase, createObjectInDatabase, getItemInCollection } from '../content_service';
 import stitches_data from '../../../../data/stitches_data';
-import { storage } from '../../../../config/firebase'
 
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'

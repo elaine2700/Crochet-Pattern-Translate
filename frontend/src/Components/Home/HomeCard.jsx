@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const HomeCard = ({settings}) => {
@@ -18,5 +17,3 @@ const HomeCard = ({settings}) => {
 }
 
 export default HomeCard
-//`url('logo192.png')`
-//`url(${settings.imgPath})`

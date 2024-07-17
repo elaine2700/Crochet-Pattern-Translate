@@ -34,8 +34,6 @@ function App() {
     });
   }
 
-  
-
   useEffect(() => {
     if (loggedIn != undefined) {
       // Check if user has access
