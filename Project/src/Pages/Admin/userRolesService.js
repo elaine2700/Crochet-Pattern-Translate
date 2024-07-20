@@ -32,7 +32,7 @@ export const getCurrentUser = async () => {
 const getUserRoles = async (userId) => {
     const user = await getItemInCollection(userId, 'users');
     if(!user){
-        return;
+        return null;
     }
     return user.roles;
 }

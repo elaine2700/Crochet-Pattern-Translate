@@ -58,9 +58,9 @@ class BaseButton extends Component{
     }
 
     getClassName() {
-        const { styleType, variant, size, use } = this.props;
+        const { styletype, variant, size, use } = this.props;
         const variantClass = this.getVariantClass(variant);
-        const typeClass = this.getTypeClass(styleType);
+        const typeClass = this.getTypeClass(styletype);
         const sizeClass = this.getSizeClass(size);
         const useClass = this.getUseClass(use);
         return `${buttonStyles.btn} ${typeClass} ${variantClass} ${sizeClass} ${useClass}`;

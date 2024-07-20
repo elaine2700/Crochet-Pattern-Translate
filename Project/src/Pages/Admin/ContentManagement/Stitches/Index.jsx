@@ -24,7 +24,9 @@ const Index = () => {
   const deleteStitch = async(stitchId, stitchPictureUrl) => {
     try{
       await deleteItemInCollection(stitchId, 'stitches');
-      await deleteImage(storage, stitchPictureUrl);
+      if(stitchPictureUrl){
+        await deleteImage(storage, stitchPictureUrl);
+      }
       alert('stitch deleted Successfully');
       // Reload data
       const stitches = await getStitchesList();
@@ -82,7 +84,7 @@ const Index = () => {
                     <td>
                       <div className='flex-container justify-end'>
                         <Button content={<FaEdit/>} onClick={()=>goToEditStitch(stitch.id)}/>
-                        <Button variant='destructive' type='filled' content={<FaTrash/>} onClick={()=>deleteStitch(stitch.id, stitch.picture.url)}/>
+                        <Button variant='destructive' styletype='filled' content={<FaTrash/>} onClick={()=>deleteStitch(stitch.id, stitch.picture.url ? stitch.picture.url : null)}/>
                       </div>
                     </td>
                   </tr>

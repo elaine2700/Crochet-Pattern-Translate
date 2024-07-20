@@ -4,8 +4,9 @@ import { FaCirclePlus } from "react-icons/fa6";
 import Button from "../../../../Components/Buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { CONTENTMANAGEMENT_PATTERNS } from "../../../../config/links_path";
-import { deleteItemInCollection, getCollectionList } from "../content_service";
+import { deleteImage, deleteItemInCollection, getCollectionList } from "../content_service";
 import { useEffect, useState } from "react";
+import { storage } from "../../../../config/firebase";
 const Index = () => {
     const [patternList, setPatternList] = useState([]);
     const navigate = useNavigate();
@@ -26,12 +27,14 @@ const Index = () => {
         }
     }
 
-    const deletePattern = async(patternId)=>{
+    const deletePattern = async(patternId, pictureUrl)=>{
         console.log("Deleting pattern");
         try{
             await deleteItemInCollection(patternId, 'patterns');
+            if(pictureUrl){
+                await deleteImage(storage, pictureUrl);
+            }
             alert("pattern deleted succesfully");
-            //TODO Delete Pattern Image
             // get Stitches to reload data
             const patterns = await getPatternList();
             setPatternList(patterns);
@@ -76,7 +79,7 @@ const Index = () => {
                         <td>
                             <div className='flex-container justify-end'>
                                 <Button content={<FaEdit/>} onClick={()=>goToEditPattern(pattern.id)}/>
-                                <Button variant="destructive" content={<FaTrash/>} onClick={()=>deletePattern(pattern.id)}/>
+                                <Button variant="destructive" content={<FaTrash/>} onClick={()=>deletePattern(pattern.id, pattern.picture.url ? pattern.picture.url : null)}/>
                             </div>
                         </td>
                     </tr>

@@ -278,8 +278,8 @@ const Upsert = () => {
         <input id='pattern-picture' type='file' onChange={(e)=>{
             setPatternPictureFile(e.target.files[0])
             setPreviewNewPicture(URL.createObjectURL(e.target.files[0]))
-          }}/>
-
+          }}
+        />
         <label htmlFor='pattern-description'>Description</label>
         <textarea id='pattern-description' placeholder='This pattern is ...' rows='3' cols='50' value={description} onChange={e => setDescription(e.target.value)}></textarea>
 
@@ -310,7 +310,7 @@ const Upsert = () => {
           <input name='nameInput' placeholder='Enter name of color' value={yarnColors.nameInput} onChange={handleYarnColorInputChange}/>
           <Button
               content={<IoAdd/>}
-              styleType='outline' variant='secondary' use='icon'
+              styletype='outline' variant='secondary' use='icon'
               onClick={addYarnColor}/>
         </div>
         
@@ -322,7 +322,7 @@ const Upsert = () => {
               <p>{colorItem.code}</p>
               <Button
                 content={<IoMdClose/>}
-                styleType='outline' variant='destructive' size='small' use='icon'
+                styletype='outline' variant='destructive' size='small' use='icon'
                 onClick={() => removeYarnColor(index)}/>
             </div>
           ))
@@ -337,7 +337,7 @@ const Upsert = () => {
           <option value='0' disabled>---Select stitches---</option>
           {
             stitches_icons.map((stitch)=>(
-              <option value={stitch.id}>{stitch.name}</option>
+              <option key={stitch.id} value={stitch.id}>{stitch.name}</option>
             ))
           }
         </select>
@@ -348,7 +348,7 @@ const Upsert = () => {
                 <span className='font-bold'>{stitch.abbreviation} </span>
                 <span>{stitch.name}</span>
                 <Button content={<IoMdClose/>}
-                styleType='outline' variant='destructive' use='icon' size='small'
+                styletype='outline' variant='destructive' use='icon' size='small'
                 onClick={() => removeStitchFromCombination(index)}/>
               </div>
             ))
@@ -359,7 +359,7 @@ const Upsert = () => {
           <input placeholder='Enter abbreviation' name='abbreviation' value={abbreviations.abbreviation} onChange={handleAbbreviationInputChange}/>
           <input placeholder='Enter description' name='description' value={abbreviations.description} onChange={handleAbbreviationInputChange}/>
           <Button content={<IoAdd/>}
-          styleType='outline' variant='secondary' use='icon' size='small'
+          styletype='outline' variant='secondary' use='icon' size='small'
           onClick={addAbbreviation} />
         </div>
         <div className='tags'>
@@ -369,7 +369,7 @@ const Upsert = () => {
                 <p className='font-bold'>{item.abbreviation}</p>
                 <p>{item.description}</p>
                 <Button type="button" content={<IoMdClose/>}
-                  styleType='outline' variant='destructive' size='small' use='icon'
+                  styletype='outline' variant='destructive' size='small' use='icon'
                   onClick={()=> removeAbbreviation(index)}/>
               </div>
             ))
@@ -390,7 +390,7 @@ const Upsert = () => {
 
           <Button type="button"
             content='Back'
-            styleType='outline' variant='secondary'
+            styletype='outline' variant='secondary'
             onClick={() => navigate(CONTENTMANAGEMENT_PATTERNS)}/>
         </div>
 

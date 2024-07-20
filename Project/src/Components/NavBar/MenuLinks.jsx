@@ -30,7 +30,6 @@ const MenuLinks = ({activeTab = ''}) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setLoggedIn(!!user);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -41,6 +40,7 @@ const MenuLinks = ({activeTab = ''}) => {
         try{
           const access = await userIsInRole(['admin']);
           setHasAccess(access);
+          console.log(`Has access: ${hasAccess}`)
         }catch(err){
           console.error(err);
           setHasAccess(false);
