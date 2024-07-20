@@ -43,7 +43,7 @@ const SearchBar = ({onResults, data, searchProperty}) => {
           id='stitch-search'
           onChange={handleSearch}/>
         <Button content={<AiOutlineClose/>}
-        styleType='ghost' variant='secondary' use='icon' size='large'
+        styletype='ghost' variant='secondary' use='icon' size='large'
         onClick={()=>search('')}/>
       </div>
     </div>

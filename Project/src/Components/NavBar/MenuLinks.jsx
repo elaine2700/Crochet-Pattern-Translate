@@ -19,7 +19,6 @@ const MenuLinks = ({activeTab = ''}) => {
 
   const handleClickTab = (tabName) => {
     setActive(tabName);
-    console.log(active);
   }
 
   const [hasAccess, setHasAccess] = useState(false);
@@ -40,7 +39,6 @@ const MenuLinks = ({activeTab = ''}) => {
         try{
           const access = await userIsInRole(['admin']);
           setHasAccess(access);
-          console.log(`Has access: ${hasAccess}`)
         }catch(err){
           console.error(err);
           setHasAccess(false);

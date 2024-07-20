@@ -13,7 +13,6 @@ const MenuButtons = () => {
     const signOutUser = async()=>{
         try{
             await signOut(auth);
-            console.log('sign out')
             window.location.reload();
         }
         catch (err){
@@ -26,9 +25,6 @@ const MenuButtons = () => {
             if(user){
                 setUser(true)
                 setUsername(user.email)
-            }
-            else{
-                console.log('Not signedIn user')
             }
         })
     },[])

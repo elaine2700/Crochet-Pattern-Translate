@@ -27,8 +27,6 @@ const PatternsGallery = () => {
     const fetchPatterns = async () =>{
         try{
             const data = await getPatternList();
-
-            console.log(data);
             if(data.length > 0){
                 setPatterns(data);
             }

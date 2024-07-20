@@ -81,7 +81,6 @@ export const deleteImage = (dbStorage, pictureUrl) =>{
 }
 
 export const getCollectionList = async(collectionName)=>{
-  console.log(`Fetching collection: ${collectionName}`)
   const dataCollection = collection(db, collectionName);
   try{
     const data = await getDocs(dataCollection);

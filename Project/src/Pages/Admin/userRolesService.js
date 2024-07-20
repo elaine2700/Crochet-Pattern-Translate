@@ -41,7 +41,6 @@ export const userIsInRole = async (rolesAllowed) => {
     const userId = getCurrentUserId();
     if(!userId)
         return false;
-    console.log(`User Id ${userId}`);
     try{
         const userRoles = await getUserRoles(userId); //expecting a map from firestore
 

@@ -236,7 +236,7 @@ const Upsert = () => {
                 <p>{item.icon}</p>
                 <Button
                   content={<IoMdClose/>}
-                  styleType='outline' variant='destructive' use='icon' size='small'
+                  styletype='outline' variant='destructive' use='icon' size='small'
                   onClick={() => removeStitchFromCombination(index)} />
               </div>
             ))
@@ -252,7 +252,7 @@ const Upsert = () => {
             value={stitchId === '' ? 'Create' : 'Save Changes'}/>
           <Button
             content='Back'
-            styleType='outline' variant='secondary'
+            styletype='outline' variant='secondary'
             onClick={() => navigate(CONTENTMANAGEMENT_STITCHES)}/>
         </div>
         
