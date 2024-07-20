@@ -12,6 +12,7 @@ jobs:
       - run: cd Project && npm i && npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entrypoint: ./Project
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CROCHETSPACECRAFT }}'
           projectId: crochetspacecraft
