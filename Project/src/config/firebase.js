@@ -14,7 +14,7 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.C_FIREBASE_MESSAGINGSENDERID,
   appId: import.meta.env.C_FIREBASE_APPID,
   measurementId: import.meta.env.C_FIREBASE_MEASUREMENTID,
-  storageBucket: import.meta.env.C_FIREBASE_STORAGEBUCKET
+  storageBucket: import.meta.env.C_FIREBASE_STORAGEBUCKET_2
 };
 
 // Initialize Firebase
