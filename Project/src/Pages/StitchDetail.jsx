@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getItemInCollection } from './Admin/ContentManagement/content_service';
 import { STITCHES_INDEX } from '../config/links_path';
@@ -17,6 +17,7 @@ const StitchDetail = () => {
     const [stitchCombination, setStitchCombination] = useState([]);
     const [contributedBy, setContributedBy] = useState("");
     const [picture, setPicture] = useState('');
+    const [diagram, setDiagram] = useState('');
 
     const setStitchFields = (stitch) => {
         setStitchName(stitch.name);
@@ -26,6 +27,7 @@ const StitchDetail = () => {
         setVideoTutorialPath(stitch.tutorial);
         setContributedBy(stitch.contributedBy);
         setPicture(stitch.picture.url);
+        setDiagram(stitch.diagram);
     }
 
     useEffect(()=>{
@@ -94,7 +96,7 @@ const StitchDetail = () => {
 
                 <h2 className='subtitle'>Diagram</h2>
                 <div className='area'>
-                    <img className='diagram' src='/moss.png'/>
+                    <img className='diagram' src={diagram} alt='stitch diagram'/>
                 </div>
 
                 <h2 className='subtitle'>Tutorial</h2>

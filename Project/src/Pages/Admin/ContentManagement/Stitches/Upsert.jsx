@@ -27,6 +27,10 @@ const Upsert = () => {
   const [currentPicUrl, setCurrentPicUrl] = useState('');
   const [pictureUrl, setPictureUrl] = useState('');
   const [previewPicture, setPreviewPicture] =useState(null);
+  const [diagramPreview, setDiagramPreview] =useState(null);
+  const [diagramUrl, setDiagramUrl] = useState('');
+  const [diagramFile, setDiagramFile] = useState(null);
+  const [currentDiagramUrl, setCurrentDiagramUrl] = useState('');
 
   // Stitches Combination
   const [combinationIds, setCombinationIds] = useState([]);
@@ -43,6 +47,7 @@ const Upsert = () => {
   }
   
   const editStitch = async() =>{
+    
     let updatedUrl = pictureUrl;
     if(stitchPicture != null){
       try {
@@ -57,6 +62,17 @@ const Upsert = () => {
         return;
       }
     }
+    let diagramUpdatedUrl = diagramUrl;
+    if(diagramFile != null) {
+      try{
+        const picUrl = await uploadImage(diagramFile, diagramFile.name, imagesStitchesFolderRef);
+        diagramUpdatedUrl = picUrl;
+        await deleteImage(storage, currentDiagramUrl);
+      }
+      catch(error){
+        console.error('Error uploading imag:', error);
+      }
+    }
 
     try{
       const stitchObject = {
@@ -69,6 +85,7 @@ const Upsert = () => {
           author: picAuthor,
           url: updatedUrl
         },
+        diagram: diagramUpdatedUrl,
         tutorial: tutorialLink,
         type: stitchType
       }
@@ -90,6 +107,14 @@ const Upsert = () => {
       console.error('Error uploading image:', error);
       return;
     }
+    let diagUrl = diagramUrl;
+    try{
+      const picUrl = await uploadImage(diagramFile, diagramFile.name, imagesStitchesFolderRef);
+      diagUrl = picUrl;
+    }
+    catch(error){
+      console.error('Error uploading image:', error);
+    }
 
     try{
       const stitchObject = {
@@ -106,6 +131,7 @@ const Upsert = () => {
           author: picAuthor,
           url: url
         },
+        diagram: diagUrl,
         tutorial: tutorialLink,
         type: stitchType
       }
@@ -151,6 +177,8 @@ const Upsert = () => {
         setTutorialLink(stitchData.tutorial);
         setCurrentPicUrl(stitchData.picture.url);
         setPictureUrl(stitchData.picture.url);
+        setDiagramUrl(stitchData.diagram);
+        setCurrentDiagramUrl(stitchData.diagram);
       }
       catch(err){
         console.error(err);
@@ -188,7 +216,27 @@ const Upsert = () => {
             setStitchPicture(e.target.files[0])
             console.log(URL.createObjectURL(e.target.files[0]))
             setPreviewPicture(URL.createObjectURL(e.target.files[0]))
-          }}/>
+        }}/>
+        <div className='flex-container flex-small-gap'>
+          <div>
+            <p className='label'>Diagram</p>
+            <img className='fit-picture' src={diagramUrl !== '' ? diagramUrl: imageNotFoundPath} alt='diagram' />
+          </div>
+          {
+            !diagramPreview ? 
+            <div></div> :
+            <div>
+              <p className='label'>New Diagram</p>
+              <img src={diagramPreview} className='fit-picture' alt='Preview of new diagram'/>
+            </div>
+          }
+        </div>
+        <label htmlFor='stitch-diagram'>Diagram file</label>
+        <input id='stitch-diagram' type='file' onChange={(e)=>{
+          setDiagramFile(e.target.files[0]);
+          setDiagramPreview(URL.createObjectURL(e.target.files[0]))
+        }}
+        />
 
         <label htmlFor='stitch-description'>Description</label>
         <textarea id='stitch-description' name='stitch-description' value={stitchDescription} rows='3' cols='50'
