@@ -10,7 +10,7 @@ jobs:
     environment: Production
     steps:
       - name: Print for debbugging
-        run: print env
+        run: printenv
         env:
           C_FIREBASE_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
           C_FIREBASE_AUTHDOMAIN: ${{secrets.FIREBASE_AUTHDOMAIN}}
