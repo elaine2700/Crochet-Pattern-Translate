@@ -1,7 +1,7 @@
+import BuyMeACoffeeButton from "../Components/Buttons/BuyMeACoffeeButton"
 import LinkButton from "../Components/Buttons/LinkButton"
 
 const Contact = () => {
-  // TODO Set up Donate Button
 
   return (
 
@@ -52,7 +52,7 @@ const Contact = () => {
             Help us create new resources for you to use to expand your crochet skills.
           </p>
           <div className='contact-card-cta'>
-            <button className='btn-primary'>Donate</button>
+            <BuyMeACoffeeButton/>
           </div>
           
         </div>
