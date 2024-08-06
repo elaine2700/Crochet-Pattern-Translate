@@ -210,8 +210,8 @@ html{
             mask-image: url('../images/form.png');
         }
         .contact-card-img.mask.donate{
-            -webkit-mask-image: url('../images/donate.png');
-            mask-image: url('../images/donate.png');
+            -webkit-mask-image: url('../images/yarn-ball.png');
+            mask-image: url('../images/yarn-ball.png');
         }
 
         .fill{

@@ -42,14 +42,14 @@ const Contact = () => {
       </section>
       <section className='contact-card'>
         <header>
-          <h2>Donate</h2>
+          <h2>Support</h2>
         </header>
         <div className='contact-card-content'>
           <div className='contact-card-img mask donate'>
             <div className='fill bg-blue'></div>
           </div>
           <p className='contact-card-paragraph'>
-            Help us create new resources for you to use to expand your crochet skills.
+            Thank you for contributing with some "yarn", it's a great way to help us to create new resources for you and expand everyone's crochet skills.
           </p>
           <div className='contact-card-cta'>
             <BuyMeACoffeeButton/>
