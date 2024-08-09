@@ -2,7 +2,7 @@ import BuyMeACoffeeButton from "../Components/Buttons/BuyMeACoffeeButton"
 import LinkButton from "../Components/Buttons/LinkButton"
 
 const Contact = () => {
-
+  // TODO Add mailto (and real email)
   return (
 
     <div className='contact-section section-container'>
@@ -30,12 +30,14 @@ const Contact = () => {
             <div className='fill bg-blue'></div>
           </div>
           <p className='contact-card-paragraph'>
-            This community is possible thanks to kind volunteers like you. Help us make better for everyone
+            This community is possible thanks to kind volunteers like you.
             <br/> Fill this form to add more stitches and patterns to the catalog.
             </p>
           <div className='contact-card-cta'>
             <LinkButton to='https://forms.gle/5Edsqx3jM2rj6MWr7'
-            content='Get started' target='_blank'/>
+            content='Add a pattern' target='_blank'/>
+            <LinkButton to='https://forms.gle/aAHJYdJ2imDgvb9z7'
+            content='Add a stitch' target='_black' />
           </div>
         </div>
         
