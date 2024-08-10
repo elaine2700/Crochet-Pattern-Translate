@@ -1,5 +1,7 @@
 :root{
     --font-size-base: 16px;
+    --quicksandFont: 'Quicksand', sans-serif;
+    --dmSerifDisplayFont: 'DM Serif Display', serif;
 }
 html{
     font-size: var(--font-size-base);

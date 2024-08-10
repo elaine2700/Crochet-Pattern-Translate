@@ -94,47 +94,48 @@ const PatternDetail = () => {
                 <p className='area'>{difficulty}</p>
 
                 <h2 className='subtitle'>Materials</h2>
-                <div className='area pattern-materials-area'>
-                    <div className='cell'>
-                        <div className='tags'>
-                            <div className='rounded-icon'>
-                                <img className='fit-picture' src='/images/crochet_hook.png' alt='hook icon'/>
+                <div className='area'>
+                    <div className='pattern-materials-area'>
+                        <div className='cell'>
+                            <div className='tags'>
+                                <div className='rounded-icon'>
+                                    <img className='fit-picture' src='/images/crochet_hook.png' alt='hook icon'/>
+                                </div>
+                                <div>
+                                    <p>Hook</p>
+                                    <p className='font-bold'>{hookSize} mm</p>
+                                </div>
                             </div>
+                        </div>
+                        <div className='cell'>
                             <div>
-                                <p>Hook</p>
-                                <p className='font-bold'>{hookSize} mm</p>
+                                <h3 className='font-bold'>Yarn Colors</h3>
+                                <ul className='list-nodecoration'>
+                                    {
+                                        colors.map((colorItem, index)=>(
+                                            <li key={index}><span style={{color: colorItem.code}}><FaSquare/></span> {colorItem.name}</li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div className='cell'>
+                            <div>
+                                <h3 className='font-bold'>Other</h3>
+                                <ul>
+                                    {
+                                        others.map((otherItem, index)=>{
+                                            if(otherItem){
+                                                return (
+                                                    <li key={index}>{otherItem}</li>
+                                                )
+                                            }
+                                        })
+                                    }
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div className='cell'>
-                        <div>
-                            <h3 className='font-bold'>Yarn Colors</h3>
-                            <ul className='list-nodecoration'>
-                                {
-                                    colors.map((colorItem, index)=>(
-                                        <li key={index}><span style={{color: colorItem.code}}><FaSquare/></span> {colorItem.name}</li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <div className='cell'>
-                        <div>
-                            <h3 className='font-bold'>Other</h3>
-                            <ul>
-                                {
-                                    others.map((otherItem, index)=>{
-                                        if(otherItem){
-                                            return (
-                                                <li key={index}>{otherItem}</li>
-                                            )
-                                        }
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    </div>     
-                    
                 </div>
 
                 <h2 className='subtitle'>Abbreviations</h2>

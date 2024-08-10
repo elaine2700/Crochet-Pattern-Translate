@@ -5,7 +5,7 @@ const Contact = () => {
   // TODO Add mailto (and real email)
   return (
 
-    <div className='contact-section section-container'>
+    <div className='section-container contact-section'>
       <section className='contact-card'>
         <header>
           <h2>Contact</h2>
