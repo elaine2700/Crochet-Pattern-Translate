@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,6 +8,7 @@ import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
 import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
 import {stitches_icons} from '../../../../data/stitches_data'
+import RichTextEditor from '../../../../Components/RichTextEditor/RichTextEditor'
 
 const Upsert = () => {
   const navigate = useNavigate();
@@ -119,6 +120,8 @@ const Upsert = () => {
     const updatedList = selectedStitchesIds.filter((item, i) => i !== index);
     setSelectedStitchesIds(updatedList);
   }
+
+  const quillRef = useRef();
   
   const patternObject = (pictureUrl) => {
     return {
@@ -377,8 +380,8 @@ const Upsert = () => {
         </div>
 
         <label htmlFor='pattern-lines'>Pattern</label>
-        <textarea id='pattern-lines' rows='5' cols='50' value={pattern} onChange={e => setPattern(e.target.value)}></textarea>
-
+        <RichTextEditor content={pattern} setContent={setPattern}/>
+        
         <label htmlFor='pattern-video'>Link to video</label>
         <input id='pattern-video' value={videoTutorial} onChange={e => setVideoTutorial(e.target.value)}></input>
 

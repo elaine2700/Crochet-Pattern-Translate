@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getItemInCollection } from './Admin/ContentManagement/content_service'
 import { PATTERNS_INDEX } from '../config/links_path'
 import Loading from '../Components/Loading/Loading'
+import DOMPurify from 'dompurify';
 
 const PatternDetail = () => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const PatternDetail = () => {
             setDescription(patternItem.description);
             setDifficulty(patternItem.difficulty);
             setCategory(patternItem.category);
-            setPattern(patternItem.pattern);
+            setPattern(DOMPurify.sanitize(patternItem.pattern));
             setHookSize(patternItem.materials.hook);
             setColors(patternItem.materials.yarnColors);
             setOthers(patternItem.materials.others);
@@ -166,7 +167,7 @@ const PatternDetail = () => {
                 </div>
 
                 <h2 className='subtitle'>Pattern</h2>
-                <p className='area'>{pattern}</p>
+                <div className='area' dangerouslySetInnerHTML={{ __html: pattern }}></div>
 
                 <h2 className='subtitle'>Tutorial</h2>
                 <div className='area'>
