@@ -9,11 +9,15 @@ import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
 import {stitches_icons} from '../../../../data/stitches_data'
 import RichTextEditor from '../../../../Components/RichTextEditor/RichTextEditor'
+import Loading from '../../../../Components/Loading/Loading'
 
 const Upsert = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
   const {id} = useParams();
+
+  const quillRef = useRef();
 
   const [patternId, setPatternId] = useState('');
   const [patternName, setPatternName] = useState('');
@@ -165,6 +169,7 @@ const Upsert = () => {
 
   // On Edition
   useEffect(()=>{
+    setLoading(true);
     const fetchDoc = async ()=>{
       try{
         const patternItem = await getItemInCollection(id, 'patterns');
@@ -186,7 +191,7 @@ const Upsert = () => {
           });
           setOthers(patternItem.materials.others);
           setPatternAuthor(patternItem.patternAuthor.name);
-          setAuthorLink(patternItem.patterntAuthor.link);
+          setAuthorLink(patternItem.patternAuthor.link);
           setVideoTutorial(patternItem.video);
           setSelectedStitchesIds(stitchesCombinationIds);
           setAbbreviations({
@@ -195,7 +200,9 @@ const Upsert = () => {
             description: '',
             abbreviation: ''
           })
+          console.log(patternItem);
         }
+        setLoading(false);
       }
       catch(err){
         console.error(err);
@@ -259,6 +266,14 @@ const Upsert = () => {
     catch(err){
       console.error(err);
     }
+  }
+
+  if(loading){
+    return (
+      <div className='section-container'>
+        <Loading/>
+      </div>
+    )
   }
 
   return (
@@ -386,7 +401,12 @@ const Upsert = () => {
         </div>
 
         <label htmlFor='pattern-lines'>Pattern</label>
-        <RichTextEditor content={pattern} setContent={setPattern}/>
+        <RichTextEditor
+        initialHtml={pattern}
+        ref={quillRef} 
+        readOnly={false} 
+        onTextChange={(html) => setPattern(html)}
+        />
         
         <label htmlFor='pattern-video'>Link to video</label>
         <input id='pattern-video' value={videoTutorial} onChange={e => setVideoTutorial(e.target.value)}></input>
