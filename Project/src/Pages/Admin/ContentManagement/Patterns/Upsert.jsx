@@ -169,7 +169,6 @@ const Upsert = () => {
 
   // On Edition
   useEffect(()=>{
-    setLoading(true);
     const fetchDoc = async ()=>{
       try{
         const patternItem = await getItemInCollection(id, 'patterns');
@@ -208,7 +207,8 @@ const Upsert = () => {
         console.error(err);
       }
     }
-    if(id){
+    if(id !== 0){
+      setLoading(true);
       fetchDoc();
     }
     addYarnColor("", "");
