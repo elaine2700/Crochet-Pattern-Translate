@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { FaSquare } from 'react-icons/fa'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getItemInCollection } from './Admin/ContentManagement/content_service'
 import { PATTERNS_INDEX } from '../config/links_path'
 import Loading from '../Components/Loading/Loading'
@@ -15,6 +15,7 @@ const PatternDetail = () => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [patternAuthor, setPatternAuthor] = useState('');
+    const [patternAuthorLink, setPatternAuthorLink] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [hookSize, setHookSize] = useState(0);
     const [colors, setColors] = useState([]);
@@ -41,7 +42,8 @@ const PatternDetail = () => {
             setHookSize(patternItem.materials.hook);
             setColors(patternItem.materials.yarnColors);
             setOthers(patternItem.materials.others);
-            setPatternAuthor(patternItem.patternAuthor);
+            setPatternAuthor(patternItem.patternAuthor.name);
+            setPatternAuthorLink(patternItem.patternAuthor.link);
             setVideoTutorial(patternItem.video);
             setPatternImg(patternItem.picture.url);
             setAbbreviations(patternItem.abbreviations);
@@ -82,7 +84,7 @@ const PatternDetail = () => {
                 
                 <h2 className='subtitle'>Author</h2>
                 <div className='area'>
-                    <a>{patternAuthor} <FaExternalLinkAlt/></a>
+                    <Link to={patternAuthorLink} target='_black'>{patternAuthor} <FaExternalLinkAlt/></Link>
                 </div>
 
                 <h2 className='subtitle'>Category</h2>
@@ -168,15 +170,22 @@ const PatternDetail = () => {
 
                 <h2 className='subtitle'>Pattern</h2>
                 <div className='area' dangerouslySetInnerHTML={{ __html: pattern }}></div>
-
-                <h2 className='subtitle'>Tutorial</h2>
-                <div className='area'>
-                    <a href={`https://${videoTutorial}`}
-                        target='_blank'
-                        rel="noopener noreferrer">
-                            Link <FaExternalLinkAlt/>
-                    </a> 
-                </div>
+                
+                {
+                    videoTutorial ? 
+                    <>
+                    <h2 className='subtitle'>Tutorial</h2>
+                    <div className='area'>
+                        <Link to={`https://${videoTutorial}`}
+                            target='_blank'
+                            rel="noopener noreferrer">
+                                Link <FaExternalLinkAlt/>
+                        </Link> 
+                    </div>
+                    </> :
+                    null
+                }
+                
             </section>
         </div>
     )

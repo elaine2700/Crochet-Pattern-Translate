@@ -20,6 +20,7 @@ const Upsert = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [patternAuthor, setPatternAuthor] = useState('');
+  const [authorLink, setAuthorLink] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [hookSize, setHookSize] = useState(0);
   const [others, setOthers]= useState([]);
@@ -120,14 +121,15 @@ const Upsert = () => {
     const updatedList = selectedStitchesIds.filter((item, i) => i !== index);
     setSelectedStitchesIds(updatedList);
   }
-
-  const quillRef = useRef();
   
   const patternObject = (pictureUrl) => {
     return {
       name: patternName,
       description: description,
-      patternAuthor: patternAuthor,
+      patternAuthor: {
+        name: patternAuthor,
+        link: authorLink
+      },
       difficulty: difficulty,
       category: category,
       pattern: pattern,
@@ -183,7 +185,8 @@ const Upsert = () => {
             codeInput: ''
           });
           setOthers(patternItem.materials.others);
-          setPatternAuthor(patternItem.patternAuthor);
+          setPatternAuthor(patternItem.patternAuthor.name);
+          setAuthorLink(patternItem.patterntAuthor.link);
           setVideoTutorial(patternItem.video);
           setSelectedStitchesIds(stitchesCombinationIds);
           setAbbreviations({
@@ -288,6 +291,9 @@ const Upsert = () => {
 
         <label htmlFor='pattern-author'>Author</label>
         <input id='pattern-author' placeholder='Write the author name ...' value={patternAuthor} onChange={e => setPatternAuthor(e.target.value)}></input>
+
+        <label htmlFor='pattern-author-link'>Author Web Link</label>
+        <input id='pattern-author-link' placeholder='Write the author web link ...' value={authorLink} onChange={e => setAuthorLink(e.target.value)}></input>
 
         <label htmlFor="category">Category</label>
         <select id='category' name='category' value={category} onChange={e => setCategory(e.target.value)}>
