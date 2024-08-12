@@ -1,5 +1,6 @@
 import BuyMeACoffeeButton from "../Components/Buttons/BuyMeACoffeeButton"
 import LinkButton from "../Components/Buttons/LinkButton"
+import { Link } from "react-router-dom"
 
 const Contact = () => {
   // TODO Add mailto (and real email)
@@ -14,9 +15,10 @@ const Contact = () => {
           <div className='contact-card-img mask contact'>
             <div className='fill bg-blue'></div>
           </div>
-          <p className='contact-card-paragraph'>Send us and email to let us know about you.</p>
+          <p className='contact-card-paragraph'>See more about Crochet Spacecraft on Instagram, and send us a message!</p>
           <div className='contact-card-cta'>
-            <a>contact@crochetspacecraft.com</a>
+            <LinkButton to='https://www.instagram.com/crochet_spacecraft/' 
+            content='Follow CrochetSpacraft' target='_blank'/>
           </div>
         </div>
         
