@@ -2,7 +2,7 @@ import HomeCard from '../Components/Home/HomeCard'
 
 const Home = () => {
     const stitchesCardSettings = {
-        imgPath: 'images/dog-bear.jpg',
+        imgPath: 'images/Moss_Stitch.jpg',
         buttonText: 'Stitches',
         linkTo: '/stitches'
     }
@@ -17,7 +17,7 @@ const Home = () => {
         <section className='home-section section-container'>
             <div>
                 <header>
-                    <h1 className='home-title'>A crochet database</h1>
+                    <h1 className='home-title'>A crochet library</h1>
                     <h2 className='home-subtitle'>Made by and for crochet lovers</h2>
                 </header>
 

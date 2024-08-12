@@ -4,8 +4,8 @@ const BuyMeACoffeeButton = () => {
     <LinkButton 
         to="https://www.buymeacoffee.com/crochetspacecraft"
         target="_blank"
-        content={<img className="fit" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" style={{height: '38px'}} alt="Buy Me A Coffee"/>}
-        size="small"
+        content={<p><span>🧶</span>Buy me yarn</p>}
+        size="medium"
     />
   )
 }

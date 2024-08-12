@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate, Link} from 'react-router-dom'
 
 import NavBar from './Components/NavBar/NavBar';
 import './css/App.css';
@@ -83,10 +83,11 @@ function App() {
           <Route path='*' element={<NotFound/>}/>
         </Routes> 
       </main>
-      <footer>
-        <p>Crochet Spacecraft</p>
-        <p>Contact Us</p>
-        <p>Instagram</p>
+      <footer className='footer'>
+        <div className='flex-container justify-space-between flex-grow-1'>
+          <p>Crochet Spacecraft <span className='font-small'>2024</span></p>
+          <Link to='https://www.instagram.com/crochet_spacecraft/' target='_blank'>Instagram</Link>
+        </div>
       </footer>   
     </BrowserRouter>
   );

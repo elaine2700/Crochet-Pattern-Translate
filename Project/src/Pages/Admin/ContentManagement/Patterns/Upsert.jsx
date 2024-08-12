@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,17 +8,23 @@ import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
 import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
 import {stitches_icons} from '../../../../data/stitches_data'
+import RichTextEditor from '../../../../Components/RichTextEditor/RichTextEditor'
+import Loading from '../../../../Components/Loading/Loading'
 
 const Upsert = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const imageNotFoundPath = 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
   const {id} = useParams();
+
+  const quillRef = useRef();
 
   const [patternId, setPatternId] = useState('');
   const [patternName, setPatternName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [patternAuthor, setPatternAuthor] = useState('');
+  const [authorLink, setAuthorLink] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [hookSize, setHookSize] = useState(0);
   const [others, setOthers]= useState([]);
@@ -124,7 +130,10 @@ const Upsert = () => {
     return {
       name: patternName,
       description: description,
-      patternAuthor: patternAuthor,
+      patternAuthor: {
+        name: patternAuthor,
+        link: authorLink
+      },
       difficulty: difficulty,
       category: category,
       pattern: pattern,
@@ -180,7 +189,8 @@ const Upsert = () => {
             codeInput: ''
           });
           setOthers(patternItem.materials.others);
-          setPatternAuthor(patternItem.patternAuthor);
+          setPatternAuthor(patternItem.patternAuthor.name);
+          setAuthorLink(patternItem.patternAuthor.link);
           setVideoTutorial(patternItem.video);
           setSelectedStitchesIds(stitchesCombinationIds);
           setAbbreviations({
@@ -189,13 +199,16 @@ const Upsert = () => {
             description: '',
             abbreviation: ''
           })
+          console.log(patternItem);
         }
+        setLoading(false);
       }
       catch(err){
         console.error(err);
       }
     }
-    if(id){
+    if(id !== 0){
+      setLoading(true);
       fetchDoc();
     }
     addYarnColor("", "");
@@ -255,6 +268,14 @@ const Upsert = () => {
     }
   }
 
+  if(loading){
+    return (
+      <div className='section-container'>
+        <Loading/>
+      </div>
+    )
+  }
+
   return (
     <div className='form-container section-container'>
       <h1 className='title'>{id ? 'Edit' : 'Add New'} Pattern</h1>
@@ -285,6 +306,9 @@ const Upsert = () => {
 
         <label htmlFor='pattern-author'>Author</label>
         <input id='pattern-author' placeholder='Write the author name ...' value={patternAuthor} onChange={e => setPatternAuthor(e.target.value)}></input>
+
+        <label htmlFor='pattern-author-link'>Author Web Link</label>
+        <input id='pattern-author-link' placeholder='Write the author web link ...' value={authorLink} onChange={e => setAuthorLink(e.target.value)}></input>
 
         <label htmlFor="category">Category</label>
         <select id='category' name='category' value={category} onChange={e => setCategory(e.target.value)}>
@@ -377,8 +401,13 @@ const Upsert = () => {
         </div>
 
         <label htmlFor='pattern-lines'>Pattern</label>
-        <textarea id='pattern-lines' rows='5' cols='50' value={pattern} onChange={e => setPattern(e.target.value)}></textarea>
-
+        <RichTextEditor
+        initialHtml={pattern}
+        ref={quillRef} 
+        readOnly={false} 
+        onTextChange={(html) => setPattern(html)}
+        />
+        
         <label htmlFor='pattern-video'>Link to video</label>
         <input id='pattern-video' value={videoTutorial} onChange={e => setVideoTutorial(e.target.value)}></input>
 

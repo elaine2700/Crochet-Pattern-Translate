@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { FaSquare } from 'react-icons/fa'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getItemInCollection } from './Admin/ContentManagement/content_service'
 import { PATTERNS_INDEX } from '../config/links_path'
 import Loading from '../Components/Loading/Loading'
+import DOMPurify from 'dompurify';
 
 const PatternDetail = () => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const PatternDetail = () => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [patternAuthor, setPatternAuthor] = useState('');
+    const [patternAuthorLink, setPatternAuthorLink] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [hookSize, setHookSize] = useState(0);
     const [colors, setColors] = useState([]);
@@ -36,11 +38,12 @@ const PatternDetail = () => {
             setDescription(patternItem.description);
             setDifficulty(patternItem.difficulty);
             setCategory(patternItem.category);
-            setPattern(patternItem.pattern);
+            setPattern(DOMPurify.sanitize(patternItem.pattern));
             setHookSize(patternItem.materials.hook);
             setColors(patternItem.materials.yarnColors);
             setOthers(patternItem.materials.others);
-            setPatternAuthor(patternItem.patternAuthor);
+            setPatternAuthor(patternItem.patternAuthor.name);
+            setPatternAuthorLink(patternItem.patternAuthor.link);
             setVideoTutorial(patternItem.video);
             setPatternImg(patternItem.picture.url);
             setAbbreviations(patternItem.abbreviations);
@@ -81,7 +84,7 @@ const PatternDetail = () => {
                 
                 <h2 className='subtitle'>Author</h2>
                 <div className='area'>
-                    <a>{patternAuthor} <FaExternalLinkAlt/></a>
+                    <Link to={patternAuthorLink} target='_black'>{patternAuthor} <FaExternalLinkAlt/></Link>
                 </div>
 
                 <h2 className='subtitle'>Category</h2>
@@ -94,47 +97,48 @@ const PatternDetail = () => {
                 <p className='area'>{difficulty}</p>
 
                 <h2 className='subtitle'>Materials</h2>
-                <div className='area pattern-materials-area'>
-                    <div className='cell'>
-                        <div className='tags'>
-                            <div className='rounded-icon'>
-                                <img className='fit-picture' src='/images/crochet_hook.png' alt='hook icon'/>
+                <div className='area'>
+                    <div className='pattern-materials-area'>
+                        <div className='cell'>
+                            <div className='tags'>
+                                <div className='rounded-icon'>
+                                    <img className='fit-picture' src='/images/crochet_hook.png' alt='hook icon'/>
+                                </div>
+                                <div>
+                                    <p>Hook</p>
+                                    <p className='font-bold'>{hookSize} mm</p>
+                                </div>
                             </div>
+                        </div>
+                        <div className='cell'>
                             <div>
-                                <p>Hook</p>
-                                <p className='font-bold'>{hookSize} mm</p>
+                                <h3 className='font-bold'>Yarn Colors</h3>
+                                <ul className='list-nodecoration'>
+                                    {
+                                        colors.map((colorItem, index)=>(
+                                            <li key={index}><span style={{color: colorItem.code}}><FaSquare/></span> {colorItem.name}</li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div className='cell'>
+                            <div>
+                                <h3 className='font-bold'>Other</h3>
+                                <ul>
+                                    {
+                                        others.map((otherItem, index)=>{
+                                            if(otherItem){
+                                                return (
+                                                    <li key={index}>{otherItem}</li>
+                                                )
+                                            }
+                                        })
+                                    }
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div className='cell'>
-                        <div>
-                            <h3 className='font-bold'>Yarn Colors</h3>
-                            <ul className='list-nodecoration'>
-                                {
-                                    colors.map((colorItem, index)=>(
-                                        <li key={index}><span style={{color: colorItem.code}}><FaSquare/></span> {colorItem.name}</li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <div className='cell'>
-                        <div>
-                            <h3 className='font-bold'>Other</h3>
-                            <ul>
-                                {
-                                    others.map((otherItem, index)=>{
-                                        if(otherItem){
-                                            return (
-                                                <li key={index}>{otherItem}</li>
-                                            )
-                                        }
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    </div>     
-                    
                 </div>
 
                 <h2 className='subtitle'>Abbreviations</h2>
@@ -165,16 +169,23 @@ const PatternDetail = () => {
                 </div>
 
                 <h2 className='subtitle'>Pattern</h2>
-                <p className='area'>{pattern}</p>
-
-                <h2 className='subtitle'>Tutorial</h2>
-                <div className='area'>
-                    <a href={`https://${videoTutorial}`}
-                        target='_blank'
-                        rel="noopener noreferrer">
-                            Link <FaExternalLinkAlt/>
-                    </a> 
-                </div>
+                <div className='area' dangerouslySetInnerHTML={{ __html: pattern }}></div>
+                
+                {
+                    videoTutorial ? 
+                    <>
+                    <h2 className='subtitle'>Tutorial</h2>
+                    <div className='area'>
+                        <Link to={`https://${videoTutorial}`}
+                            target='_blank'
+                            rel="noopener noreferrer">
+                                Link <FaExternalLinkAlt/>
+                        </Link> 
+                    </div>
+                    </> :
+                    null
+                }
+                
             </section>
         </div>
     )
