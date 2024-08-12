@@ -18,7 +18,7 @@ const Contact = () => {
           <p className='contact-card-paragraph'>See more about Crochet Spacecraft on Instagram, and send us a message!</p>
           <div className='contact-card-cta'>
             <LinkButton to='https://www.instagram.com/crochet_spacecraft/' 
-            content='Follow CrochetSpacraft' target='_blank'/>
+            content='Follow Crochet_Spacecraft' target='_blank'/>
           </div>
         </div>
         
