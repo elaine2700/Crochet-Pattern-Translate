@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { imagesStitchesFolderRef, storage } from '../../../../config/firebase'
-import { uploadImage, deleteImage, updateObjectInDatabase, createObjectInDatabase, getItemInCollection } from '../content_service';
+import { storage } from '../../../../config/firebase'
+import { uploadImage, deleteImage, updateObjectInDatabase, getItemInCollection, getNewRef, setDocumentInDatabase } from '../content_service';
 import stitches_data from '../../../../data/stitches_data';
 
 import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
@@ -51,7 +51,7 @@ const Upsert = () => {
     let updatedUrl = pictureUrl;
     if(stitchPicture != null){
       try {
-        const picUrl = await uploadImage(stitchPicture, stitchName, imagesStitchesFolderRef);
+        const picUrl = await uploadImage(stitchPicture, stitchName, `stitches/${id}`);
         updatedUrl = picUrl;
         // Delete old file
         await deleteImage(storage, currentPicUrl);
@@ -65,7 +65,7 @@ const Upsert = () => {
     let diagramUpdatedUrl = diagramUrl;
     if(diagramFile != null) {
       try{
-        const picUrl = await uploadImage(diagramFile, diagramFile.name, imagesStitchesFolderRef);
+        const picUrl = await uploadImage(diagramFile, diagramFile.name, `stitches/${id}`);
         diagramUpdatedUrl = picUrl;
         await deleteImage(storage, currentDiagramUrl);
       }
@@ -98,18 +98,20 @@ const Upsert = () => {
   }
 
   const createStitch = async()=>{
-    console.log('Creating the stitch')
+    const generatedRef = getNewRef('stitches');
+    // Main picture
     let url = pictureUrl;
     try {
-      const picUrl = await uploadImage(stitchPicture, stitchName, imagesStitchesFolderRef);
+      const picUrl = await uploadImage(stitchPicture, stitchName, `stitches/${generatedRef.id}`);
       url = picUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
       return;
     }
+    // Diagram Picture
     let diagUrl = diagramUrl;
     try{
-      const picUrl = await uploadImage(diagramFile, diagramFile.name, imagesStitchesFolderRef);
+      const picUrl = await uploadImage(diagramFile, diagramFile.name, `stitches/${generatedRef.id}`);
       diagUrl = picUrl;
     }
     catch(error){
@@ -135,7 +137,7 @@ const Upsert = () => {
         tutorial: tutorialLink,
         type: stitchType
       }
-      await createObjectInDatabase(stitchObject, 'stitches');
+      await setDocumentInDatabase(generatedRef, stitchObject);
       navigate(CONTENTMANAGEMENT_STITCHES)
     }
     catch(error){

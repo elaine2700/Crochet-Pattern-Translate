@@ -29,8 +29,7 @@ export const db = getFirestore(app,db_id);
 // Image Folder Ref
 export const storage = getStorage();
 export const imagesFolderRef = ref(storage, `${import.meta.env.C_STORAGE_FOLDER_BASE}/images`);
-export const imagesStitchesFolderRef = ref(imagesFolderRef, 'stitches');
-export const imagesPatternsFolderRef = ref(imagesFolderRef, 'patterns');
+
 // Storage References
 export const storageStitchesFolderName = 'stitches';
 

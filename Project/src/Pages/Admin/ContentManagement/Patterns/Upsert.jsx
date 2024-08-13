@@ -3,8 +3,8 @@ import buttonStyles from '../../../../Components/Buttons/buttons.module.css'
 import Button from '../../../../Components/Buttons/Button'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CONTENTMANAGEMENT_PATTERNS } from '../../../../config/links_path'
-import { createObjectInDatabase, getItemInCollection, uploadImage, deleteImage, updateObjectInDatabase } from '../content_service'
-import { imagesPatternsFolderRef, storage } from '../../../../config/firebase'
+import { getItemInCollection, uploadImage, deleteImage, updateObjectInDatabase, getNewRef, setDocumentInDatabase } from '../content_service'
+import { storage } from '../../../../config/firebase'
 import {IoMdClose} from 'react-icons/io';
 import {IoAdd} from 'react-icons/io5';
 import {stitches_icons} from '../../../../data/stitches_data'
@@ -216,11 +216,12 @@ const Upsert = () => {
 
   const createPattern = async () =>{
     console.log('Creating Pattern');
+    const generatedRef = getNewRef("patterns");
 
     // Upload Picture File
     let pictureUrl;
     if(patterPictureFile != null){
-      await uploadImage(patterPictureFile, patternName, imagesPatternsFolderRef)
+      await uploadImage(patterPictureFile, patternName, `patterns/${generatedRef.id}`)
       .then((imageUrl) =>{
         pictureUrl = imageUrl
       } )
@@ -231,10 +232,10 @@ const Upsert = () => {
       })
     }
 
-    // Upload Doc
+    // Set Doc
     const pattern = patternObject(pictureUrl);
     try{
-      await createObjectInDatabase(pattern, 'patterns');
+      await setDocumentInDatabase(generatedRef, pattern);
     }
     catch(error){
       console.log(error);
@@ -248,7 +249,7 @@ const Upsert = () => {
     let updatedUrl = currentPictureUrl;
     if(patterPictureFile != null){
       try {
-        const picUrl = await uploadImage(patterPictureFile, patternName, imagesPatternsFolderRef);
+        const picUrl = await uploadImage(patterPictureFile, patternName, `patterns/${id}`);
         updatedUrl = picUrl;
         // Delete old file
         await deleteImage(storage, currentPictureUrl);
