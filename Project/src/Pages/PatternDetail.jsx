@@ -73,9 +73,8 @@ const PatternDetail = () => {
     
     return (
         <div className='detail-section section-container'>
-            <div
-                className='fit-picture'
-                style={{ backgroundImage: `url('${patternImg}')` }}>
+            <div className='detail img-container'>
+                <img className='fit-picture' src={patternImg} alt={patternName} />
             </div>
             <section className='detail-content'>
                 <header className='header'>

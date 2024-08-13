@@ -57,11 +57,9 @@ const StitchDetail = () => {
     else
 
     return (
-
         <div className='detail-section section-container'>
-            <div
-                className='fit-picture'
-                style={{ backgroundImage: `url('${picture}')` }}>
+            <div className='detail img-container'>
+                <img className='fit-picture' src={picture} alt={`${stitchName} stitch`} />
             </div>
             <section className='detail-content'>
                 <header className='header'>
@@ -99,13 +97,20 @@ const StitchDetail = () => {
                     <img className='diagram' src={diagram} alt='stitch diagram'/>
                 </div>
 
-                <h2 className='subtitle'>Tutorial</h2>
-                <a className='area' href={`https://${videoTutorialPath}`}
-                    target='_blank'
-                    rel="noopener noreferrer">
-                        Link <FaExternalLinkAlt/>
-                </a>
-
+                {
+                    videoTutorialPath ?
+                    
+                    <>
+                    <h2 className='subtitle'>Tutorial</h2>
+                    <a className='area' href={`https://${videoTutorialPath}`}
+                        target='_blank'
+                        rel="noopener noreferrer">
+                            Link <FaExternalLinkAlt/>
+                    </a>
+                    </>
+                    : null
+                }
+                
                 <h2 className='subtitle'>Added by</h2>
                 <p className='area'>{contributedBy}</p>
                 
