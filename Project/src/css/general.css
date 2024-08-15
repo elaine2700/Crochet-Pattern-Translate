@@ -14,9 +14,19 @@ a:hover{
 /* General */
 .fit-picture{
     width: 100%;
+    height: auto;
+}
+.detail.img-container{
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.detail.img-container > .fit-picture{
+    width: auto;
     height: 100%;
-    background-size: cover;
-    background-position: center;
+    position: absolute;
 }
 .flex-small-gap{
     gap: 0.25em;
@@ -65,4 +75,15 @@ li {
 
 .d-flex{
     display: flex;
+}
+
+@media only screen and (max-width: 900px) {
+    .detail.img-container{
+        position: static;
+    }
+    .detail.img-container > .fit-picture{
+        width: 100%;
+        height: auto;
+        position: static;
+    }
 }

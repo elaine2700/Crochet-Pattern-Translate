@@ -1,16 +1,17 @@
-import { getDoc, doc, addDoc, collection, getDocs, updateDoc, deleteDoc } from 'firebase/firestore/lite';
+import { getDoc, doc, addDoc, collection, getDocs, updateDoc, deleteDoc, setDoc } from 'firebase/firestore/lite';
 import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from 'firebase/storage'
 import {v4} from 'uuid'
-import {db} from '../../../config/firebase'
+import {db, imagesFolderRef} from '../../../config/firebase'
 
-export const uploadImage = (pictureFile, itemName, imageFolderRef) => {
+export const uploadImage = (pictureFile, itemName, imagePath) => {
     console.log('Uploading Image');
     if (pictureFile == null)
         return Promise.resolve(null);
 
+    console.log("pattern ref");
     const imageName = `${itemName + '_' + v4()}`;
-    const imageRef = ref(imageFolderRef, imageName);
-
+    const imageRef = ref(imagesFolderRef, `${imagePath}/${imageName}`);
+    
     const uploadTask = uploadBytesResumable(imageRef, pictureFile)
 
     return new Promise((resolve, reject) => {
@@ -140,6 +141,16 @@ export const createObjectInDatabase = async (object, collectionName)=>{
   }
 }
 
+export const setDocumentInDatabase = async (dataRef, data) =>{
+  console.log("Setting document");
+  try{
+    await setDoc(dataRef, data);
+  }
+  catch(error){
+    console.error(error);
+  }
+}
+
 export const updateObjectInDatabase = async (objectId, object, collectionName) =>{
   console.log(`Editing ${objectId} in ${collectionName} collection`);
   try{
@@ -149,4 +160,8 @@ export const updateObjectInDatabase = async (objectId, object, collectionName) =
   catch(err){
     console.err(err);
   }
+}
+
+export const getNewRef = (collectionName)=>{
+  return doc(collection(db, collectionName))
 }

@@ -1,9 +1,7 @@
 import BuyMeACoffeeButton from "../Components/Buttons/BuyMeACoffeeButton"
 import LinkButton from "../Components/Buttons/LinkButton"
-import { Link } from "react-router-dom"
 
 const Contact = () => {
-  // TODO Add mailto (and real email)
   return (
 
     <div className='section-container contact-section'>
@@ -58,9 +56,7 @@ const Contact = () => {
           <div className='contact-card-cta'>
             <BuyMeACoffeeButton/>
           </div>
-          
         </div>
-        
       </section>
     </div>
   )

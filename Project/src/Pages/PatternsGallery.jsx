@@ -58,7 +58,8 @@ const PatternsGallery = () => {
                         return (<GalleryCard key={index}
                           cardName={pattern.name}
                           linkTo={cardPath(pattern.id)}
-                          imagePath={pattern.picture.url}/>)
+                          imagePath={pattern.picture.url}
+                          cardSubtitle={pattern.category ? pattern.category : 'Pattern'}/>)
                     })
                 }
             </div>

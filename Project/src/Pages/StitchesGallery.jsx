@@ -51,7 +51,8 @@ const StitchesGallery = () => {
                             return (<GalleryCard key={index} 
                                 cardName={stitch.name} 
                                 linkTo={cardPath(stitch.id)} 
-                                imagePath={stitch.picture.url} />)
+                                imagePath={stitch.picture.url}
+                                cardSubtitle={stitch.difficulty ? stitch.difficulty : 'Stitch'} />)
                         })
                     }
                 </div>
