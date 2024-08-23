@@ -16,7 +16,8 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting",
+    "start:prod": "SET NODE_ENV=production & vite --mode production.local"
   },
   "eslintConfig": {
     "extends": [
